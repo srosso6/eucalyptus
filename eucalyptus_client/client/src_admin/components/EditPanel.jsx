@@ -10,7 +10,15 @@ var EditPanel = React.createClass({
         }
     },
     componentDidMount: function() {
-        
+        var url = this.props.site + "/";
+        Koala.request("get", url + "pages/" + this.props.page)
+        .then(function(data) {
+            console.log('data', data);
+            Koala.request("get", url + "elements/" + data[0]._id)
+            .then(function(data) {
+                this.setState({elements: data});
+            }.bind(this))
+        }.bind(this))
     },
     render: function() {
         return (

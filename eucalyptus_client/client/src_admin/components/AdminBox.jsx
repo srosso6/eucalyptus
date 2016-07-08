@@ -9,7 +9,7 @@ var AdminBox = React.createClass({
         return {
             currentUser: null,
             error: null,
-            page: null
+            page: "home"
         };
     },
     render: function() {
@@ -19,8 +19,8 @@ var AdminBox = React.createClass({
         if (this.state.currentUser) {
             display = (
                 <div>
-                    <MenuBox setPage={this.setPage}/>
-                    <EditPanel page={this.state.page}/>
+                    <MenuBox setPage={this.setPage} />
+                    <EditPanel page={this.state.page} site={this.props.site} />
                 </div>
             );
         } else {
