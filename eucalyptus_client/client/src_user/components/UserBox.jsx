@@ -18,20 +18,26 @@ var UserBox = React.createClass({
             this.setState({info: data[0], page: data[0].index})
             Koala.request("get", url + "pages/" + data[0].index)
             .then(function(data) {
-                var elements_id = data[0].elements_id
-                for (var element_id of elements_id) {
-                    Koala.request("get", url + "elements/" + element_id)
-                    .then(function(data) {
-                        var elements = this.state.elements;
-                        console.log('before', elements);
-                        elements.push(Koala.generateHTML(data[0]));
-                        this.setState({elements: elements}, function() {
-                            console.log('after1',this.state.elements);
-                        }.bind(this));
-                        console.log('after2',this.state.elements);
 
-                    }.bind(this));
-                }
+
+                Koala.request("get", url + "elements/" + data[0]._id)
+                .then(function(data) {
+
+                    var sortedData = data.sort(function(a, b) {
+                        return a.order - b.order;
+                    });
+
+                    var elements = [];
+
+                    for (var element of sortedData) {
+                        elements.push(Koala.generateHTML(element));
+                    }
+                    this.setState({elements: elements});
+
+
+
+                }.bind(this));
+
 
             }.bind(this));
         }.bind(this));
@@ -41,12 +47,10 @@ var UserBox = React.createClass({
     },
 
     render: function() {
-        var elements = this.state.elements;
-        
         return (
-            <div>
+            <div >
                 <p>{this.props.sitename}</p>
-                {this.state.elements}
+                <div key="shitworks">{this.state.elements}</div>
             </div>
         );
     }

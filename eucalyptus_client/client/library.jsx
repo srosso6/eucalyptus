@@ -21,8 +21,7 @@ module.exports = {
     },
 
     generateHTML: function(data) {
-        var el = React.createElement(data.etype, null, data.content);
-        return el;
+        return React.createElement(data.etype, {key: data.order}, data.content);
     },
 
     getSiteName: function (url) {

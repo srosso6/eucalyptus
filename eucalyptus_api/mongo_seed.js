@@ -28,25 +28,30 @@ db.users.insert({
 db.pages.insert({
     name: "Home Page",
     slug: "home",
-    elements_id: [1,2,3],
     fonts_id: [1]
 });
 
-db.elements.insert({
-    etype: "h1",
-    content: "The Amazing Title",
-    medialibrary_id: null
-});
-db.elements.insert({
-    etype: "p",
-    content: "Fancy Text Stuff",
-    medialibrary_id: null
-});
-db.elements.insert({
-    etype: "b",
-    content: "Bold Fancy Text",
-    medialibrary_id: null
-});
+// db.elements.insert({
+//     etype: "h1",
+//     content: "The Amazing Title",
+//     medialibrary_id: null,
+//     page_id: "577fd3f9bd6a0a56b44ec6a0",
+//     order: 1
+// });
+// db.elements.insert({
+//     etype: "p",
+//     content: "Fancy Text Stuff",
+//     medialibrary_id: null,
+//     page_id: "577fd3f9bd6a0a56b44ec6a0",
+//     order: 2
+// });
+// db.elements.insert({
+//     etype: "b",
+//     content: "Bold Fancy Text",
+//     medialibrary_id: null,
+//     page_id: "577fd3f9bd6a0a56b44ec6a0",
+//     order: 3
+// });
 
 db.medialibrary.insert({
     mtype: "image",

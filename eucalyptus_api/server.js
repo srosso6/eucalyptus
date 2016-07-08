@@ -27,6 +27,8 @@ app.get('/:database/:collection/:id', function(req, res) {
             search_obj = {};
         } else if (req.params.collection === "pages") {
             search_obj = {slug: req.params.id};
+        } else if (req.params.collection === "elements") {
+            search_obj = {page_id: req.params.id};
         } else {
             search_obj = {"_id": ObjectId(req.params.id)};
         }
