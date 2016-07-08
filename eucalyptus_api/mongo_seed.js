@@ -21,6 +21,7 @@ db.colorschemes.insert({
 
 db.users.insert({
     name: "John Smith",
+    password: "password",
     access: 1
 });
 

@@ -19,24 +19,25 @@ app.get('/:database/:collection/:id', function(req, res) {
     console.log("collection:", req.params.collection);
     console.log("id:", req.params.id);
     MongoClient.connect(url + req.params.database, function(err, db) {
-        var collection = db.collection(req.params.collection);
-
-        var search_obj = null;
-
-        if (req.params.collection === "general") {
-            search_obj = {};
-        } else if (req.params.collection === "pages") {
-            search_obj = {slug: req.params.id};
-        } else if (req.params.collection === "elements") {
-            search_obj = {page_id: req.params.id};
-        } else {
-            search_obj = {"_id": ObjectId(req.params.id)};
-        }
-
-        collection.find(search_obj).toArray(function(err, docs) {
-            res.json(docs);
-            db.close();
-        });
+        console.log("err",err);
+        // var collection = db.collection(req.params.collection);
+        //
+        // var search_obj = null;
+        //
+        // if (req.params.collection === "general") {
+        //     search_obj = {};
+        // } else if (req.params.collection === "pages") {
+        //     search_obj = {$or: [{_id: ObjectId(req.params.id)}, {slug: req.params.id}]};
+        // } else if (req.params.collection === "elements") {
+        //     search_obj = {page_id: req.params.id};
+        // } else {
+        //     search_obj = {_id: ObjectId(req.params.id)};
+        // }
+        //
+        // collection.find(search_obj).toArray(function(err, docs) {
+        //     res.json(docs);
+        //     db.close();
+        // });
         // res.status(200).end();
     });
 });
