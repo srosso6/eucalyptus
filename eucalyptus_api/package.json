@@ -1,0 +1,19 @@
+{
+  "name": "ASODJASi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "concat-stream": "^1.5.1",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.18"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
