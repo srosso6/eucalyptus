@@ -8,6 +8,12 @@ var url = "mongodb://localhost:27017/";
 
 app.use(bodyParser.json());
 
+app.use(function(req,res,next) {
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 app.get('/:database/:collection/:id', function(req, res) {
     console.log("database:", req.params.database);
     console.log("collection:", req.params.collection);
@@ -15,12 +21,14 @@ app.get('/:database/:collection/:id', function(req, res) {
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
 
-        var search_obj = {_id: ObjectId(req.params.id)};
+        var search_obj = null;
 
         if (req.params.collection === "general") {
             search_obj = {};
         } else if (req.params.collection === "pages") {
             search_obj = {slug: req.params.id};
+        } else {
+            search_obj = {"_id": ObjectId(req.params.id)};
         }
 
         collection.find(search_obj).toArray(function(err, docs) {
