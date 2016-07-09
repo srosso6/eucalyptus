@@ -9,7 +9,7 @@ var MenuItem = React.createClass({
         }.bind(this);
 
         return (
-            <div onClick={clickFunction}>
+            <div onClick={clickFunction} className="menu-item">
                 <p>{this.props.pageName}</p>
             </div>
         );

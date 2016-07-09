@@ -16,18 +16,34 @@ module.exports = {
             if (reqtype !== "get" && reqtype !== "GET") {
                 request.setRequestHeader('Content-Type', 'application/json');
             }
+            if (data) {
+                data = JSON.stringify(data);
+                console.log('new data', data);
+            }
             request.send(data);
         });
     },
 
-    generateHTML: function(data) {
-        return React.createElement(data.etype, {key: data.order}, data.content);
+    generateHTML: function(data, onClickFunction) {
+        return React.createElement(data.etype, {key: data.order, onClick: onClickFunction}, data.content);
     },
 
     getSiteName: function (url) {
         let urlparts = url.split("/");
         let sitename = urlparts[3];
         return sitename;
+    },
+
+    generateElements: function(elementsCore) {
+        elementsCore = elementsCore.sort(function(a, b) {
+            return a.order - b.order;
+        });
+
+        var elements = elementsCore.map(function(element) {
+            return this.generateHTML(element);
+        }.bind(this));
+
+        return elements;
     }
 
 }

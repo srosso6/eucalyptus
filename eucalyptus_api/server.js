@@ -44,12 +44,20 @@ app.get('/:database/:collection/:id', function(req, res) {
     });
 });
 
-app.post('/savelog', function(req, res) {
-    var data = req.body.data;
-    var gameID = req.body.game;
-    MongoClient.connect(url, function(err, db) {
-        var collection = db.collection('game_logs');
-        collection.update({game: gameID}, {game: gameID, data: data}, {upsert: true});
+app.post('/:database/:collection', function(req, res) {
+    var data = req.body;
+    console.log("data posted:", data);
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        var collection = db.collection(req.params.collection);
+
+        if (req.params.collection === "elements") {
+            for (var element of data) {
+                collection.update({_id: ObjectId(element._id)}, element, {upsert: true});
+            }
+        } else {
+            collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
+        }
+
         db.close();
         res.status(200).end();
     });

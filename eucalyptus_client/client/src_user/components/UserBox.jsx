@@ -22,23 +22,17 @@ var UserBox = React.createClass({
 
                 Koala.request("get", url + "elements/" + data[0]._id)
                 .then(function(data) {
-
-                    var sortedData = data.sort(function(a, b) {
-                        return a.order - b.order;
-                    });
-
-                    var elements = [];
-
-                    for (var element of sortedData) {
-                        elements.push(Koala.generateHTML(element));
-                    }
-                    this.setState({elements: elements});
-
-
-
+                    // var sortedData = data.sort(function(a, b) {
+                    //     return a.order - b.order;
+                    // });
+                    //
+                    // var elements = [];
+                    //
+                    // for (var element of sortedData) {
+                    //     elements.push(Koala.generateHTML(element));
+                    // }
+                    this.setState({elements: Koala.generateElements(data)});
                 }.bind(this));
-
-
             }.bind(this));
         }.bind(this));
         // .catch(function(error) {

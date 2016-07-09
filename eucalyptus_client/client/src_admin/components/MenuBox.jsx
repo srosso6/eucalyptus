@@ -9,7 +9,7 @@ var MenuBox = React.createClass({
         }.bind(this);
 
         return (
-            <div>
+            <div className="menu-container">
                 <MenuItem page="home" pageName="Home" clickFunction={clickFunction} />
                 <MenuItem page="pages" pageName="Pages" clickFunction={clickFunction} />
                 <MenuItem page="logout" pageName="Logout" clickFunction={clickFunction} />
