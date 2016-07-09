@@ -7,7 +7,11 @@ module.exports = {
             var request = new XMLHttpRequest();
             request.onload = function() {
                 if (request.status === 200) {
+                  if(request.responseText === "") {
+                    resolve(request.responseText)
+                  } else {
                     resolve(JSON.parse(request.responseText));
+                  }
                 } else {
                     reject(request.status);
                 }
@@ -16,7 +20,7 @@ module.exports = {
             if (reqtype !== "get" && reqtype !== "GET") {
                 request.setRequestHeader('Content-Type', 'application/json');
             }
-            request.send(data);
+            request.send(JSON.stringify(data));
         });
     },
 

@@ -8,10 +8,10 @@ var url = "mongodb://localhost:27017/";
 
 app.use(bodyParser.json());
 
-app.use(function(req,res,next) {
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.get('/:database/:collection/:id', function(req, res) {
@@ -20,8 +20,6 @@ app.get('/:database/:collection/:id', function(req, res) {
     console.log("id:", req.params.id);
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
-
-        var search_obj = null;
 
         if (req.params.collection === "general") {
             search_obj = {};
@@ -37,20 +35,28 @@ app.get('/:database/:collection/:id', function(req, res) {
             res.json(docs);
             db.close();
         });
-        // res.status(200).end();
     });
 });
 
-app.post('/savelog', function(req, res) {
-    var data = req.body.data;
-    var gameID = req.body.game;
-    MongoClient.connect(url, function(err, db) {
-        var collection = db.collection('game_logs');
-        collection.update({game: gameID}, {game: gameID, data: data}, {upsert: true});
+app.post('/:database/:collection', function (req, res) {
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        var collection = db.collection(req.params.collection);
+        collection.insert(req.body);
         db.close();
         res.status(200).end();
-    });
+  });
 });
+
+// app.post('/savelog', function(req, res) {
+//     var data = req.body.data;
+//     var gameID = req.body.game;
+//     MongoClient.connect(url, function(err, db) {
+//         var collection = db.collection('game_logs');
+//         collection.update({game: gameID}, {game: gameID, data: data}, {upsert: true});
+//         db.close();
+//         res.status(200).end();
+//     });
+// });
 
 // app.post('/loadlog', function(req, res) {
 //     var gameID = req.body.game;
