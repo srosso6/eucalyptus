@@ -10,12 +10,11 @@ app.use("/static/user", express.static('./client/build/user'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/client/build/home/index.html'));
 });
-app.get('/:sitename/admin', function (req, res) {
-  res.sendFile(path.join(__dirname + '/client/build/admin/index.html'));
-});
-
 app.get('/:sitename', function (req, res) {
   res.sendFile(path.join(__dirname + '/client/build/user/index.html'));
+});
+app.get('/:sitename/admin', function (req, res) {
+  res.sendFile(path.join(__dirname + '/client/build/admin/index.html'));
 });
 
 
