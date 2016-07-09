@@ -49,14 +49,22 @@ app.post('/:database/:collection', function(req, res) {
     console.log("data posted:", data);
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
-
+        console.log(req.params.database,req.params.collection);
         if (req.params.collection === "elements") {
+            console.log('here', data.length);
             for (var element of data) {
-                collection.update({_id: ObjectId(element._id)}, element, {upsert: true});
+                if (element._id) {
+                    element._id = ObjectId(element._id);
+                }
+                console.log('element', element);
+                // collection.update({_id: element._id}, element, {upsert: true});
+                collection.insert(element);
             }
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
         }
+
+        console.log("   ");
 
         db.close();
         res.status(200).end();

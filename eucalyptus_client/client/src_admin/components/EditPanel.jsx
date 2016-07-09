@@ -51,10 +51,20 @@ var EditPanel = React.createClass({
             console.log(this.state.elements);
             console.log('----');
 
-            Koala.request("POST", "elements", this.state.elements)
-            .then(function (){
-                console.log("Saved");
-            });
+            // Koala.request("POST", "elements", this.state.elements)
+            // .then(function (){
+            //     console.log("Saved");
+            // });
+
+            var req = new XMLHttpRequest();
+            req.onload = function() {
+                if (req.status === 200) {
+                    console.log("Saved");
+                }
+            }
+            req.open("POST", "http://localhost:5000/"+this.props.site+"/elements");
+            req.setRequestHeader("Content-Type", "application/json");
+            req.send(JSON.stringify(this.state.elements));
 
         } else {
             console.log("No changes to save");
