@@ -1,33 +1,47 @@
 var React = require('react');
 var PreviewPanel = require('./PreviewPanel.jsx');
+var EditPageSelector = require('./EditPageSelector.jsx');
 var ElementsPanel = require('./ElementsPanel.jsx');
-var Koala = require('../../library.jsx');
+var NewPage = require('./NewPage.jsx');
+var Koala = require('../../../library.jsx');
 
-var EditPanel = React.createClass({
+var PageEditPanel = React.createClass({
     getInitialState: function() {
         return {
             elements: [],
             page_id: null,
-            changes: false
+            changes: false,
+            pages: null
         }
     },
     componentDidMount: function() {
-        this.resetPage();
+        this.loadPages();
     },
     resetPage: function() {
+        this.loadElements(this.state.page_id);
+    },
+    loadPages: function(page) {
         var url = this.props.site + "/";
-        Koala.request("get", url + "pages/" + this.props.page)
+        Koala.request("get", url + "pages")
         .then(function(page_data) {
             console.log('data', page_data);
-            Koala.request("get", url + "elements/" + page_data[0]._id)
-            .then(function(element_data) {
-                this.setState({elements: element_data, changes:false, page_id: page_data[0]._id});
+            this.setState({pages: page_data, page_id: page_data[0]._id}, function() {
+                this.loadElements(page_data[0]._id);
             }.bind(this))
+        }.bind(this))
+    },
+    loadElements: function(page_id) {
+        var url = this.props.site + "/";
+        Koala.request("get", url + "elements/" + page_id)
+        .then(function(element_data) {
+            this.setState({elements: element_data, changes:false, page_id: page_id});
         }.bind(this))
     },
     render: function() {
         return (
             <div>
+                <NewPage />
+                <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
                 <PreviewPanel elements={this.state.elements} />
                 <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
             </div>
@@ -69,8 +83,19 @@ var EditPanel = React.createClass({
         } else {
             console.log("No changes to save");
         }
+    },
+    setPage: function(page_id) {
+        this.setState({page_id: page_id});
     }
 
 });
 
-module.exports = EditPanel;
+module.exports = PageEditPanel;
+
+
+/*
+
+    - Create a page (name / slug / etc)
+    - Edit elements page
+
+*/

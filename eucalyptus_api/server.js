@@ -14,6 +14,16 @@ app.use(function(req,res,next) {
     next();
 });
 
+app.get('/:database/:collection', function(req, res) {
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        var collection = db.collection(req.params.collection);
+        collection.find({}).toArray(function(err, docs) {
+            res.json(docs);
+            db.close();
+        });
+    });
+});
+
 app.get('/:database/:collection/:id', function(req, res) {
     console.log("database:", req.params.database);
     console.log("collection:", req.params.collection);

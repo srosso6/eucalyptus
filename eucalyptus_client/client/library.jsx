@@ -2,12 +2,37 @@ var React = require('react');
 
 module.exports = {
 
+    // request: function(reqtype, url, data=null) {
+    //     return new Promise(function(resolve, reject) {
+    //         var request = new XMLHttpRequest();
+    //         request.onload = function() {
+    //             if (request.status === 200) {
+    //                 resolve(JSON.parse(request.responseText));
+    //             } else {
+    //                 reject(request.status);
+    //             }
+    //         }
+    //         request.open(reqtype, "http://localhost:5000/" + url);
+    //         if (reqtype !== "get" && reqtype !== "GET") {
+    //             request.setRequestHeader('Content-Type', 'application/json');
+    //         }
+    //         if (data) {
+    //             data = JSON.stringify(data);
+    //             console.log('new data', data);
+    //         }
+    //         request.send(data);
+    //     });
+    // },
     request: function(reqtype, url, data=null) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.onload = function() {
                 if (request.status === 200) {
+                  if(request.responseText === "") {
+                    resolve(request.responseText)
+                  } else {
                     resolve(JSON.parse(request.responseText));
+                  }
                 } else {
                     reject(request.status);
                 }
@@ -16,11 +41,7 @@ module.exports = {
             if (reqtype !== "get" && reqtype !== "GET") {
                 request.setRequestHeader('Content-Type', 'application/json');
             }
-            if (data) {
-                data = JSON.stringify(data);
-                console.log('new data', data);
-            }
-            request.send(data);
+            request.send(JSON.stringify(data));
         });
     },
 

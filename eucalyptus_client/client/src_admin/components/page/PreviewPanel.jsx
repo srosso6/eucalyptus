@@ -1,5 +1,5 @@
 var React = require('react');
-var Koala = require('../../library.jsx');
+var Koala = require('../../../library.jsx');
 
 var PreviewPanel = React.createClass({
 
