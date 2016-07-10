@@ -57,8 +57,8 @@ app.post('/:database/:collection', function(req, res) {
                     element._id = ObjectId(element._id);
                 }
                 console.log('element', element);
-                // collection.update({_id: element._id}, element, {upsert: true});
-                collection.insert(element);
+                collection.update({_id: element._id}, element, {upsert: true});  /// need this for edit elements!!!
+                // collection.insert(element);
             }
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});

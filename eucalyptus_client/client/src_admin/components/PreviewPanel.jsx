@@ -1,23 +1,22 @@
 var React = require('react');
+var Element = require("./Element.jsx")
 var Koala = require('../../library.jsx');
 
 var PreviewPanel = React.createClass({
 
     render: function() {
-        // var elements = this.props.elements.map(function(element, index) {
-        //     if (!element.order) {
-        //         element.order = index + 1;
-        //     }
-        //     return Koala.generateHTML(element);
-        // });
-        var elements = Koala.generateElements(this.props.elements);
+
+        const elements = this.props.elements.map(function (element) {
+          return <Element key={element._id} element={element} edited={this.props.edited}/>
+        }.bind(this));
+
         return (
-            <div>
+            <div className="test">
                 {elements}
             </div>
         );
     }
-
 });
+
 
 module.exports = PreviewPanel;

@@ -9,5 +9,4 @@ window.onload = function(){
         <AdminBox site={sitename} />,
         document.getElementById('app')
     );
-    console.log("helloworld -  i am admin");
 }
