@@ -1,5 +1,6 @@
 var React = require('react');
 var Koala = require('../../library.jsx');
+var _ = require('lodash');
 
 var ColorPickerBox = React.createClass({
 
@@ -44,7 +45,38 @@ var ColorPickerBox = React.createClass({
         this.handleReset()
     },
 
+    removeColor: function(e){
+        e.preventDefault();
+        var color = e.target.className;
+        var allcolors = this.state.colors;
+        var newcolors = _.pull(allcolors, color);
+        console.log(newcolors);
+        this.setState({colors: newcolors});
+    },
+
     render: function() {
+
+        var divStyle = {
+            background: '#ff0000',
+            fontcolor: 'grey'
+        }
+
+        // var palettedisplay = "All the pretty colours";
+        // if(this.state.colors > 0){
+            var palettedisplay = this.state.colors.map(function(color, index){
+                var divStyle = {
+                    background: color
+                }
+                return (
+                    <div key={index} className="color-div" style={divStyle}>
+                        {/*<b style={divStyle} >{color.toUpperCase()}</b>*/}
+                        <input type="button" key={index*0.013} className={color} onClick={this.removeColor} value="Remove Color" />
+                    </div>
+                );
+            }.bind(this));
+        // }
+
+
         return (
             <div>
                 <p>Color Selector</p>
@@ -54,7 +86,7 @@ var ColorPickerBox = React.createClass({
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
-                <p>{this.state.colors}</p>
+                {palettedisplay}
                 <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
                 <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
             </div>
