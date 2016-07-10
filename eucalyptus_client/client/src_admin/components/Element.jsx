@@ -10,6 +10,12 @@ var Element = React.createClass({
       }
   },
 
+  componentDidUpdate: function(prevProps, prevState) {
+      if(this.state.editing) {
+          this.refs.input.focus();
+      }
+  },
+
   editElement: function (event) {
       console.log("I have been double clicked");
       this.setState({editing: true});
@@ -33,7 +39,7 @@ var Element = React.createClass({
       var element = Koala.generateHTML(this.props.element, this.editElement);
 
       if(this.state.editing) {
-        element = <input defaultValue={this.state.content} type="text" onKeyUp={this.editContent} onBlur={this.editContent} />
+        element = <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent} onBlur={this.editContent} />
       }
 
       return (
