@@ -22,7 +22,7 @@ var AdminBox = React.createClass({
                 <div>
                     <MenuBox setPage={this.setPage} />
                     <EditPanel page={this.state.page} site={this.props.site} />
-                    <ColorPickerBox />
+                    <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
                 </div>
             );
         } else {

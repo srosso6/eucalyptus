@@ -33,6 +33,10 @@ app.get('/:database/:collection/:id', function(req, res) {
             }
         } else if (req.params.collection === "elements") {
             search_obj = {page_id: req.params.id};
+        } else if (req.params.collection === "colorschemes") {
+            // search_obj = {_id: ObjectId(req.params.id)};
+            // search_obj = {_id: *};
+            search_obj = {};
         } else {
             search_obj = {_id: ObjectId(req.params.id)};
         }

@@ -1,5 +1,6 @@
 var React = require('react');
 var Koala = require('../../library.jsx');
+var ColorsDisplay = require('./ColorsDisplay.jsx');
 var _ = require('lodash');
 
 var ColorPickerBox = React.createClass({
@@ -41,7 +42,7 @@ var ColorPickerBox = React.createClass({
         var name = this.state.palettename;
         var colors = this.state.colors;
         var data = ({name:name, colors:colors})
-        Koala.request("POST", "testsite/colorschemes", data);
+        Koala.request("POST", this.props.site+"/colorschemes", data);
         this.handleReset()
     },
 
@@ -49,9 +50,14 @@ var ColorPickerBox = React.createClass({
         e.preventDefault();
         var color = e.target.className;
         var allcolors = this.state.colors;
-        var newcolors = _.pull(allcolors, color);
-        console.log(newcolors);
-        this.setState({colors: newcolors});
+        // var newcolors = _.pull(allcolors, color);
+        var newcolors = null;
+        var index = allcolors.indexOf(color);
+        if (index > -1) {
+            allcolors.splice(index, 1);
+        }
+        console.log(allcolors);
+        this.setState({colors: allcolors});
     },
 
     render: function() {
@@ -76,7 +82,6 @@ var ColorPickerBox = React.createClass({
             }.bind(this));
         // }
 
-
         return (
             <div>
                 <p>Color Selector</p>
@@ -89,6 +94,7 @@ var ColorPickerBox = React.createClass({
                 {palettedisplay}
                 <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
                 <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
+                <ColorsDisplay site={this.props.site} user={this.props.user}/>
             </div>
         );
     }
