@@ -40,7 +40,7 @@ var PageEditPanel = React.createClass({
     render: function() {
         return (
             <div>
-                <NewPage />
+                <NewPage site={this.props.site}/>
                 <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
                 <PreviewPanel elements={this.state.elements} />
                 <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
@@ -62,30 +62,19 @@ var PageEditPanel = React.createClass({
     savePage: function() {
         if (this.state.changes) {
             console.log("SAVE PAGE");
-            console.log(this.state.elements);
-            console.log('----');
 
-            // Koala.request("POST", "elements", this.state.elements)
-            // .then(function (){
-            //     console.log("Saved");
-            // });
-
-            var req = new XMLHttpRequest();
-            req.onload = function() {
-                if (req.status === 200) {
-                    console.log("Saved");
-                }
-            }
-            req.open("POST", "http://localhost:5000/"+this.props.site+"/elements");
-            req.setRequestHeader("Content-Type", "application/json");
-            req.send(JSON.stringify(this.state.elements));
+            Koala.request("POST", this.props.site+"/elements", this.state.elements)
+            .then(function (){
+                console.log("Saved");
+            });
 
         } else {
             console.log("No changes to save");
         }
     },
     setPage: function(page_id) {
-        this.setState({page_id: page_id});
+        this.loadElements(page_id);
+        // this.setState({page_id: page_id});
     }
 
 });

@@ -8,7 +8,7 @@ var EditPageSelector = React.createClass({
     },
     componentWillReceiveProps: function(nextProps) {
         if (nextProps.pages) {
-            this.setState({selectedPage: nextProps.pages[0]._id});
+            // this.setState({selectedPage: nextProps.pages[0]._id});
         }
     },
     render: function() {
@@ -19,6 +19,8 @@ var EditPageSelector = React.createClass({
                 return <option key={page._id} value={page._id}>{page.name}</option>
             });
         }
+
+        console.log("page", this.state.selectedPage);
 
         return (
             <div>
@@ -31,7 +33,7 @@ var EditPageSelector = React.createClass({
     },
     selectPage: function(e) {
         e.preventDefault();
-        this.setState({selectPage: e.target.options[e.target.selectedIndex].value});
+        this.setState({selectedPage: e.target.options[e.target.selectedIndex].value});
     },
     setPage: function(e) {
         e.preventDefault();

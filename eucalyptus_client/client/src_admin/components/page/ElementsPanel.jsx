@@ -40,6 +40,7 @@ var ElementsPanel = React.createClass({
     addElement: function() {
         var element = { etype: this.state.type, content: this.state.content }
         this.props.addElement(element);
+        this.setState({type: "h1", content: null})
     }
 
 });

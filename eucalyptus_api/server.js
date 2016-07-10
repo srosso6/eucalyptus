@@ -57,26 +57,32 @@ app.get('/:database/:collection/:id', function(req, res) {
 app.post('/:database/:collection', function(req, res) {
     var data = req.body;
     console.log("data posted:", data);
+
+
+
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
-        console.log(req.params.database,req.params.collection);
         if (req.params.collection === "elements") {
-            console.log('here', data.length);
+            var numComplete = 0;
+            var checkIfCompleted = function(err, docs) {
+                numComplete++;
+                if (numComplete === data.length) {
+                    db.close();
+                }
+            }
+
             for (var element of data) {
                 if (element._id) {
                     element._id = ObjectId(element._id);
+                    collection.update({_id: element._id}, element, {w:1}, checkIfCompleted);
+                } else {
+                    collection.insert(element, {w:1}, checkIfCompleted);
                 }
-                console.log('element', element);
-                // collection.update({_id: element._id}, element, {upsert: true});
-                collection.insert(element);
             }
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
+            db.close();
         }
-
-        console.log("   ");
-
-        db.close();
         res.status(200).end();
     });
 });

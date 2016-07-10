@@ -28,7 +28,7 @@ var NewPage = React.createClass({
     createPage: function(e) {
         e.preventDefault();
 
-        Koala.request("post", "pages", this.state)
+        Koala.request("post", "testsite/pages", this.state)
         .then(function(data) {
             console.log("Page Added");
             // this.props.redoPagesList - setPage page_id
