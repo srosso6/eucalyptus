@@ -60,6 +60,9 @@ app.post('/:database/:collection', function(req, res) {
                 collection.update({_id: element._id}, element, {upsert: true});
                 // collection.insert(element);
             }
+        } else if(req.params.collection === "colorschemes") {
+            console.log("colorschemes", data);
+            // collection.insert(data);
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
         }
@@ -67,7 +70,7 @@ app.post('/:database/:collection', function(req, res) {
         console.log("   ");
 
         db.close();
-        res.status(200).end();
+        // res.status(200).end();
     });
 });
 

@@ -3,6 +3,7 @@ var LoginBox = require("./LoginBox.jsx");
 var MenuBox = require("./MenuBox.jsx");
 var EditPanel = require("./EditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
+var ColorPickerBox = require("./ColorPickerBox.jsx");
 
 var AdminBox = React.createClass({
     getInitialState: function() {
@@ -21,6 +22,7 @@ var AdminBox = React.createClass({
                 <div>
                     <MenuBox setPage={this.setPage} />
                     <EditPanel page={this.state.page} site={this.props.site} />
+                    <ColorPickerBox />
                 </div>
             );
         } else {
