@@ -38,9 +38,13 @@ app.get('/:database/:collection/:id', function(req, res) {
     });
 });
 
-app.post('/:database/:collection', function (req, res) {
+app.post('/:database/register', function (req, res) {
+
+    var bcrypt = require('bcrypt');
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+
     MongoClient.connect(url + req.params.database, function(err, db) {
-        var collection = db.collection(req.params.collection);
+        var collection = db.collection('users');
         collection.insert(req.body);
         db.close();
         res.status(200).end();
