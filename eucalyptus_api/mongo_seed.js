@@ -31,27 +31,27 @@ db.pages.insert({
     fonts_id: [1]
 });
 
-// db.elements.insert({
-//     etype: "h1",
-//     content: "The Amazing Title",
-//     medialibrary_id: null,
-//     page_id: "577fd3f9bd6a0a56b44ec6a0",
-//     order: 1
-// });
-// db.elements.insert({
-//     etype: "p",
-//     content: "Fancy Text Stuff",
-//     medialibrary_id: null,
-//     page_id: "577fd3f9bd6a0a56b44ec6a0",
-//     order: 2
-// });
-// db.elements.insert({
-//     etype: "b",
-//     content: "Bold Fancy Text",
-//     medialibrary_id: null,
-//     page_id: "577fd3f9bd6a0a56b44ec6a0",
-//     order: 3
-// });
+db.elements.insert({
+    etype: "h1",
+    content: "The Amazing Title",
+    medialibrary_id: null,
+    page_id: "577fd8f8f8b00909abeb40e0",
+    order: 1
+});
+db.elements.insert({
+    etype: "p",
+    content: "Fancy Text Stuff",
+    medialibrary_id: null,
+    page_id: "577fd8f8f8b00909abeb40e0",
+    order: 2
+});
+db.elements.insert({
+    etype: "b",
+    content: "Bold Fancy Text",
+    medialibrary_id: null,
+    page_id: "577fd8f8f8b00909abeb40e0",
+    order: 3
+});
 
 db.medialibrary.insert({
     mtype: "image",
