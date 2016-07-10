@@ -74,7 +74,6 @@ var PageEditPanel = React.createClass({
     },
     setPage: function(page_id) {
         this.loadElements(page_id);
-        // this.setState({page_id: page_id});
     }
 
 });

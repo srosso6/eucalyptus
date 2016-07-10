@@ -31,7 +31,15 @@ module.exports = {
     getSiteName: function (url) {
         let urlparts = url.split("/");
         let sitename = urlparts[3];
-        return sitename;
+        let test = sitename.split("#");
+        return test[0];
+    },
+
+    getPageName: function(url) {
+        let urlparts = url.split("#");
+        console.log("url", urlparts);
+        // let sitename = urlparts[1];
+        // return sitename;
     },
 
     generateElements: function(elementsCore) {
