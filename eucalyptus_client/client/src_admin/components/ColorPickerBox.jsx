@@ -33,14 +33,14 @@ var ColorPickerBox = React.createClass({
     },
 
     handleReset: function(){
-        this.setState({colors:[], palettename:"", changes: false});
+        this.setState({colors:[], palettename:"", changes: false, currentcolor:"#ff0000"});
     },
 
     handleSave: function(){
         var name = this.state.palettename;
         var colors = this.state.colors;
-        data = ({name:name, colors:colors})
-        Koala.request("POST", "colorschemes", data);
+        var data = ({name:name, colors:colors})
+        Koala.request("POST", "testsite/colorschemes", data);
         this.handleReset()
     },
 

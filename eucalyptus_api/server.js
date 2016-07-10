@@ -62,7 +62,7 @@ app.post('/:database/:collection', function(req, res) {
             }
         } else if(req.params.collection === "colorschemes") {
             console.log("colorschemes", data);
-            // collection.insert(data);
+            collection.insert(data);
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
         }
