@@ -54,6 +54,19 @@ module.exports = {
         }.bind(this));
 
         return elements;
+    },
+    setCookie: function(name, value, expDays) {
+        var expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + (expDays*24*60*60*1000));
+        document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString();
+    },
+    getCookie: function(name) {
+        var re = new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`);
+        var cookieValue = document.cookie.replace(re, "$1");
+        return cookieValue;
+    },
+    deleteCookie(name) {
+        document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 
 }

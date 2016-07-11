@@ -52,9 +52,6 @@ var AdminBox = React.createClass({
                         </div>
                     );
                     break;
-                case "logout":
-                    display = (<div>You wouldn't see this, it will destroy login session</div>);
-                    break;
                 default:
                     display = (
                         <div>
@@ -80,13 +77,21 @@ var AdminBox = React.createClass({
     },
     login: function(confirmed) {
         if (confirmed.user) {
+
+            Koala.setCookie('EucalyptusUser', confirmed.user, 30);
+
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});
         }
     },
     setPage: function(page) {
-        this.setState({page: page});
+        if (page === "logout") {
+            Koala.deleteCookie('EucalyptusUser');
+            this.setState({page: "home", currentUser: null});
+        } else {
+            this.setState({page: page});
+        }
     }
 
 });
