@@ -16,7 +16,7 @@ var EditPageSelector = React.createClass({
         var options = (<option value={null}>Loading...</option>);
         if (this.props.pages) {
             options = this.props.pages.map(function(page, index) {
-                return <option key={page._id} value={page._id}>{page.name}</option>
+                return <option key={page._id} value={page._id}>{page.name} - (/{page.slug})</option>
             });
         }
 

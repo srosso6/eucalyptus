@@ -25,7 +25,7 @@ module.exports = {
     },
 
     generateHTML: function(data, onClickFunction) {
-        return React.createElement(data.etype, {key: data.order, onClick: onClickFunction}, data.content);
+        return React.createElement(data.etype, {key: data._id, onClick: onClickFunction}, data.content);
     },
 
     getSiteName: function (url) {
