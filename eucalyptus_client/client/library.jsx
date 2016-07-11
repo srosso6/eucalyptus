@@ -16,7 +16,8 @@ module.exports = {
                     reject(request.status);
                 }
             }
-            request.open(reqtype, "http://localhost:5000/" + url);
+            var requrl = "http://localhost:5000/" + url;
+            request.open(reqtype, requrl);
             if (reqtype !== "get" && reqtype !== "GET") {
                 request.setRequestHeader('Content-Type', 'application/json');
             }

@@ -55,8 +55,8 @@ var LoginBox = React.createClass({
         if(this.state.founduser._id === this.props.admin_id) {
             this.props.login({user: this.state.founduser._id});
         } else {
-            console.log(this.state.founduser._id);
-            console.log(this.props.admin_id);
+            console.log('f_user',this.state.founduser._id);
+            console.log('a_user',this.props.admin_id);
             display = <h1>WRONG</h1>
         }
     },

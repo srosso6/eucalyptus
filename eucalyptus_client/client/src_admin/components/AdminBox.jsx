@@ -17,7 +17,7 @@ var AdminBox = React.createClass({
     componentDidMount: function() {
       var url = this.props.site + "/";
       // var elements = [];
-      Koala.request("get", url + "general/1")
+      Koala.request("get", url + "general")
       .then(function(data) {
           this.setState({admin_id: data[0].admin_id})
       }.bind(this));

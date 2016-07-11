@@ -3,18 +3,20 @@ var app = express();
 var path = require('path');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
+var bcrypt = require('bcrypt');
 var bodyParser = require('body-parser');
 var url = "mongodb://localhost:27017/";
 
 app.use(bodyParser.json());
 
-app.use(function(req,res,next) {
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.get('/:database/:collection', function(req, res) {
+    console.log('one');
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
         collection.find({}).toArray(function(err, docs) {
@@ -30,9 +32,6 @@ app.get('/:database/:collection/:id', function(req, res) {
     console.log("id:", req.params.id);
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
-
-        var search_obj = null;
-
         if (req.params.collection === "general") {
             search_obj = {};
         } else if (req.params.collection === "pages") {
@@ -53,21 +52,29 @@ app.get('/:database/:collection/:id', function(req, res) {
         });
     });
 });
-app.get('/:database/:collection', function(req, res) {
+
+
+app.post('/:database/register', function (req, res) {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+
     MongoClient.connect(url + req.params.database, function(err, db) {
-        var collection = db.collection(req.params.collection);
-        collection.find({}).toArray(function(err, docs) {
-            res.json(docs);
+        var collection = db.collection('users');
+        collection.insert(req.body, function(err, docs) {
+            console.log("error", err);
+            console.log("doc", docs);
+            var collection2 = db.collection('general');
+            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: docs.insertedIds[0], index: 'home'})
+            collection2 = db.collection('pages');
+            collection2.insert({name: "Home Page", slug: 'home'});
             db.close();
         });
-    });
+
+        res.status(200).end();
+  });
 });
 
 app.post('/:database/:collection', function(req, res) {
     var data = req.body;
-    console.log("data posted:", data);
-
-
 
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
@@ -90,11 +97,14 @@ app.post('/:database/:collection', function(req, res) {
             }
         } else if (req.params.collection === "users") {
 
-          collection.find({email: data.email, password: data.password}).toArray(function(err, docs) {
-            console.log("docs:",docs[0]);
-            res.json(docs[0]);
-            db.close();
-          })
+          collection.find({email: data.email}).toArray(function(err, docs) {
+              if (bcrypt.compareSync(data.password, docs[0].password)) {
+                  res.json(docs[0]);
+              } else {
+                  res.json({error: "Failed to login"});
+              }
+              db.close();
+          });
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
             db.close();
@@ -105,21 +115,9 @@ app.post('/:database/:collection', function(req, res) {
 });
 
 
-
-
-// app.post('/loadlog', function(req, res) {
-//     var gameID = req.body.game;
-//     MongoClient.connect(url, function(err, db) {
-//         var collection = db.collection('game_logs');
-//         collection.find({game: gameID}).toArray(function(err, docs) {
-//             res.json(docs);
-//             db.close();
-//         });
-//     });
-// });
-
 var server = app.listen(5000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log("Eucalyptus by Koala");
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("Eucalyptus by Koala");
+    console.log("API SERVER");
 });
