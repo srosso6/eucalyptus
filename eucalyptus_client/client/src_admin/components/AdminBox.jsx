@@ -86,9 +86,7 @@ var AdminBox = React.createClass({
     },
     login: function(confirmed) {
         if (confirmed.user) {
-
             Koala.setCookie('EucalyptusUser', confirmed.user, 30);
-
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});
