@@ -1,5 +1,5 @@
 var React = require('react');
-// var Koala = require('../../library.jsx');
+var Koala = require('../../library.jsx');
 var display = null
 
 var LoginBox = React.createClass({
@@ -10,11 +10,12 @@ var LoginBox = React.createClass({
             userpassword: null
         };
     },
-    // componentDidMount: function() {
-    //     if(this.state.userlogin) {
-    //         this.findUser({email: this.state.userlogin, password: this.state.userpassword})
-    //     }
-    // },
+    componentDidMount: function() {
+        var cookie = Koala.getCookie('EucalyptusUser');
+        if (cookie) {
+            this.props.login({user: cookie})
+        }
+    },
     userInput: function(e) {
         this.setState({userlogin: e.target.value })
     },
