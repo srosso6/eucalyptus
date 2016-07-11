@@ -70,14 +70,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     db.close();
                 }
             });
-
-            // res.json(docs);
-            // db.close();
         });
     });
 
-    // res.send("body { background: orange; }");
-    // res.status(200).end();
 });
 
 app.get('/:database/:collection', function(req, res) {
@@ -158,7 +153,8 @@ app.post('/:database/register', function (req, res) {
 
 app.post('/:database/:collection', function(req, res) {
     var data = req.body;
-
+    console.log("req", req.params.collection);
+    console.log("req", req.params.database);
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
         if (req.params.collection === "elements") {
@@ -171,6 +167,7 @@ app.post('/:database/:collection', function(req, res) {
             }
 
             for (var element of data) {
+                element.page_id = ObjectId(element.page_id);
                 if (element._id) {
                     element._id = ObjectId(element._id);
                     collection.update({_id: element._id}, element, {w:1}, checkIfCompleted);
@@ -199,7 +196,10 @@ app.post('/:database/:collection', function(req, res) {
             });
             res.status(200).end();
         } else {
-            collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
+            collection.update({_id: ObjectId(data._id)}, data, {upsert: true}, function(err, docs){
+                console.log("err", err);
+                console.log("docs", docs);
+            });
             db.close();
             res.status(200).end();
         }

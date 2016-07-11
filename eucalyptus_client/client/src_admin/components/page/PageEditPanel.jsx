@@ -42,7 +42,7 @@ var PageEditPanel = React.createClass({
     render: function() {
         return (
             <div>
-                <NewPage site={this.props.site}/>
+                <NewPage sitename={this.props.site}/>
                 <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
                 <PreviewPanel elements={this.state.elements} edited={this.editElement}/>
                 <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
