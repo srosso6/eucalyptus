@@ -86,7 +86,9 @@ var AdminBox = React.createClass({
         }
     },
     setPage: function(page) {
+        console.log('click', page);
         if (page === "logout") {
+            console.log('logout');
             Koala.deleteCookie('EucalyptusUser');
             this.setState({page: "home", currentUser: null});
         } else {
