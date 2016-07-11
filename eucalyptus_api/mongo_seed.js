@@ -21,7 +21,9 @@ db.colorschemes.insert({
 
 db.users.insert({
     name: "John Smith",
-    access: 1
+    password: "password",
+    access: 1,
+    email: "john.smith@gmail.com"
 });
 
 
@@ -52,6 +54,7 @@ db.elements.insert({
     page_id: "577fd955897d66e6450b96c8",
     order: 3
 });
+
 
 db.medialibrary.insert({
     mtype: "image",

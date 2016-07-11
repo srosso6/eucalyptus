@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.1",
     "concat-stream": "^1.5.1",
     "express": "^4.13.4",
