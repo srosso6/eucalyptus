@@ -1,12 +1,12 @@
 var React = require('react');
-var Koala = require('../../library.jsx');
+var Koala = require('../../../library.jsx');
 
 var ColorsDisplay = React.createClass({
     getInitialState: function() {
         return {
             allPalettes:[],
-            name: "",
-            colors:[]
+            // name: "",
+            // colors:[]
         };
     },
 
@@ -17,9 +17,9 @@ var ColorsDisplay = React.createClass({
     getAllPalettes: function(){
         Koala.request("GET", this.props.site+"/colorschemes")
         .then(function(data) {
-            console.log(data[0].colors);
-            this.setState({colors: data[0].colors});
-            this.setState({name: data[0].name});
+            console.log(data);
+            // this.setState({colors: data[0].colors});
+            // this.setState({name: data[0].name});
             this.setState({allPalettes: data});
         }.bind(this));
     },

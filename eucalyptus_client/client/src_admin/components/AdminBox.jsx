@@ -3,7 +3,7 @@ var LoginBox = require("./LoginBox.jsx");
 var MenuBox = require("./MenuBox.jsx");
 var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
-var ColorPickerBox = require("./ColorPickerBox.jsx");
+var ColorPickerBox = require("./colors/ColorPickerBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
