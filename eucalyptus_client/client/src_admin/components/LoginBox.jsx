@@ -10,15 +10,6 @@ var LoginBox = React.createClass({
             userpassword: null
         };
     },
-    componentDidMount: function() {
-        var cookie = Koala.getCookie('EucalyptusUser');
-        if (cookie) {
-            // this.props.login({user: cookie})
-            this.setState({
-                founduser: {_id: cookie}
-            }, this.checkIfAdmin);
-        }
-    },
     userInput: function(e) {
         this.setState({userlogin: e.target.value })
     },
@@ -28,7 +19,7 @@ var LoginBox = React.createClass({
     setFind: function(data) {
         this.setState({founduser: data}, function() {
             console.log("founduser:", this.state.founduser)
-            this.checkIfAdmin();
+            this.checkIfAdmin(this.state.founduser._id);
             // this.findUser({email: this.state.userlogin, password: this.state.userpassword})
 
         })
@@ -47,6 +38,8 @@ var LoginBox = React.createClass({
         request.open("POST", "http://localhost:5000/"+this.props.site+"/users");
         request.setRequestHeader("Content-Type", "application/json");
         request.send(JSON.stringify(user));
+
+        // SWITCH TO Koala.request!
     },
     login: function(e) {
         e.preventDefault();
@@ -55,30 +48,33 @@ var LoginBox = React.createClass({
 
         // return {error: "WHAT THE ERROR WAS"} in this.props.login()
     },
-    checkIfAdmin: function () {
-        if(this.state.founduser._id === this.props.admin_id) {
-            this.props.login({user: this.state.founduser._id});
+    checkIfAdmin: function (user_id) {
+        if(user_id === this.props.admin_id) {
+            console.log('am admin');
+            this.props.login({user: user_id});
         } else {
-            console.log('f_user',this.state.founduser._id);
+            console.log('not admin, f off');
+            console.log('f_user',user_id);
             console.log('a_user',this.props.admin_id);
             display = <h1>WRONG</h1>
         }
     },
     render: function() {
-
+        var cookie = Koala.getCookie('EucalyptusUser');
+        if (cookie) {
+            this.checkIfAdmin(cookie);
+        }
         return (
             <div>
-              <form>
-                <h1>Login:</h1>
-                <label>Username:</label>
-                <input type='text' value={this.state.userlogin} onChange={this.userInput}></input>
-                <label>Password:</label>
-                <input type='text' value={this.state.userpassword} onChange={this.passwordInput}></input>
-                <button onClick={this.login}>Login</button>
-              </form>
-
+                <form>
+                    <h1>Login:</h1>
+                    <label>Username:</label>
+                    <input type='text' value={this.state.userlogin} onChange={this.userInput}></input>
+                    <label>Password:</label>
+                    <input type='text' value={this.state.userpassword} onChange={this.passwordInput}></input>
+                    <button onClick={this.login}>Login</button>
+                </form>
             </div>
-
         );
     }
 
