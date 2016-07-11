@@ -23,7 +23,7 @@ app.get('/:database/currenttheme', function(req, res) {
 
     var readFile = function() {
         var responseText = null
-        fs.readFile(`./themes/${themeUrl}.txt`, 'utf8', function(err, data) {
+        fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
                 console.log('error', err);
                 res.send("");
@@ -192,7 +192,7 @@ app.post('/:database/register', function (req, res) {
 
                     });
                     var themesall = db.collection('themes');
-                    themesall.insert({name: "Default", url: "default"}, function(err, docs){
+                    themesall.insert([{name: "Default", url: "default"},{name: "Other Default", url: "default2"}], function(err, docs){
                         if (err) {
                             res.json("");
                         } else {
@@ -201,6 +201,7 @@ app.post('/:database/register', function (req, res) {
                         }
                     });
                 }
+
 
             });
         }
@@ -270,6 +271,19 @@ app.post('/:database/:collection', function(req, res) {
                     }
 
                 });
+            } else if (req.params.collection === "general") {
+                if (data.theme_id) {
+                    data.theme_id = ObjectId(data.theme_id);
+                    var col = db.collection("general");
+                    col.update({}, {$set:data}, function(err, docs) {
+                        if (err) {
+                            res.status(500).end();
+                        } else {
+                            res.status(200).end();
+                        }
+                        db.close();
+                    });
+                }
             } else {
                 collection.update({_id: ObjectId(data._id)}, data, {upsert: true}, function(err, docs){
                     if (err) {
