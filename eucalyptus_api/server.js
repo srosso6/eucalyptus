@@ -60,32 +60,38 @@ app.get('/:database/currenttheme', function(req, res) {
                 db.close();
             } else {
                 console.log('general', docs);
-                var collection2 = db.collection('themes');
-                collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
-                    if (err) {
-                        res.send("");
-                        db.close();
-                    } else {
-                        console.log('theme docs', docs);
-                        themeUrl = docs[0].url;
-                        if(finishedRequest()) {
+                if (docs.length > 0) {
+                    var collection2 = db.collection('themes');
+                    collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
+                        if (err) {
+                            res.send("");
                             db.close();
+                        } else {
+                            console.log('theme docs', docs);
+                            themeUrl = docs[0].url;
+                            if(finishedRequest()) {
+                                db.close();
+                            }
                         }
-                    }
-                });
-                var collection3 = db.collection('colorschemes');
-                collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
-                    if (err) {
-                        res.send("");
-                        db.close();
-                    } else {
-                        console.log('color docs', docs);
-                        colorScheme = docs[0];
-                        if(finishedRequest()) {
+                    });
+                    var collection3 = db.collection('colorschemes');
+                    collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
+                        if (err) {
+                            res.send("");
                             db.close();
+                        } else {
+                            console.log('color docs', docs);
+                            colorScheme = docs[0];
+                            if(finishedRequest()) {
+                                db.close();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    res.send("");
+                    db.close();
+                }
+
             }
         });
     });

@@ -85,6 +85,9 @@ var PageEditPanel = React.createClass({
             Koala.request("POST", this.props.site+"/elements", this.state.elements)
             .then(function (){
                 console.log("Saved");
+                this.setState({
+                    changes:false 
+                });
             });
 
         } else {
