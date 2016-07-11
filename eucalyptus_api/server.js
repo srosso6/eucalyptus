@@ -74,8 +74,6 @@ app.post('/:database/:collection', function(req, res) {
           collection.find({email: data.email, password: data.password}).toArray(function(err, docs) {
             console.log("docs:",docs[0]);
             res.json(docs[0]);
-        //   res.status(200).end()
-        //   db.close();
           })
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});

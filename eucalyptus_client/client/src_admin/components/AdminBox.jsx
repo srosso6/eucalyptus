@@ -49,7 +49,7 @@ var AdminBox = React.createClass({
         );
     },
     login: function(confirmed) {
-        if (confirmed) {
+        if (confirmed.user) {
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});
