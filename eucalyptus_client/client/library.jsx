@@ -38,8 +38,8 @@ module.exports = {
     getPageName: function(url) {
         let urlparts = url.split("#");
         console.log("url", urlparts);
-        // let sitename = urlparts[1];
-        // return sitename;
+        let pagename = urlparts[1];
+        return pagename;
     },
 
     generateElements: function(elementsCore) {

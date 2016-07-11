@@ -5,8 +5,9 @@ var Koala = require('../library.jsx');
 
 window.onload = function(){
     var sitename = Koala.getSiteName(window.location.href);
+    var pagename = Koala.getPageName(window.location.href);
     ReactDOM.render(
-        <UserBox sitename={sitename}/>,
+        <UserBox sitename={sitename} pagename={pagename}/>,
         document.getElementById('app')
     );
     console.log("helloworld - i am user");
