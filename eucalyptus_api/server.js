@@ -55,8 +55,7 @@ app.get('/:database/currenttheme', function(req, res) {
         collection.find({}).toArray(function(err, docs) {
             console.log('general', docs);
             var collection2 = db.collection('themes');
-            // remember to remove ObjId
-            collection2.find({_id: ObjectId(docs[0].theme_id)}).toArray(function(err, docs) {
+            collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
                 console.log('theme docs', docs);
                 themeUrl = docs[0].url;
                 if(finishedRequest()) {
@@ -105,7 +104,7 @@ app.get('/:database/:collection/:id', function(req, res) {
                 search_obj = {slug: req.params.id};
             }
         } else if (req.params.collection === "elements") {
-            search_obj = {page_id: req.params.id};
+            search_obj = {page_id: ObjectId(req.params.id)};
         } else {
             search_obj = {_id: ObjectId(req.params.id)};
         }
@@ -124,19 +123,33 @@ app.post('/:database/register', function (req, res) {
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection('users');
         collection.insert(req.body, function(err, userdocs) {
+            var colorscheme_id = null;
+            var theme_id = null;
 
-            var collection2 = db.collection('general');
-            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home'})
-            var collection3 = db.collection('pages');
-            collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
-                console.log("error", err);
-                console.log("doc", docs);
-                res.json(userdocs)
-                db.close();
-
+            var checkIfCompleted = function(){
+                if(colorscheme_id && theme_id){
+                    var collection2 = db.collection('general');
+                    collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home', colorscheme_id: colorscheme_id, theme_id: theme_id}, function(err, docs){
+                        var collection3 = db.collection('pages');
+                        collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
+                            var elements = db.collection('elements');
+                            elements.insert({etype: "h1", content: "Welcome to your site!", medialibrary_id: null, page_id: docs.insertedIds[0], order: 1})
+                            res.json(userdocs)
+                            db.close();
+                        });
+                    });
+                }
+            }
+            var colorschemesall = db.collection('colorschemes');
+            colorschemesall.insert({name: "Default", _background: "#365d9f", _headerBackground: "#682f3f", _headerText: "#3f36a4", _text: "#7e3347", _feature: "#7336a9"}, function(err, docs){
+                colorscheme_id = docs.insertedIds[0];
+                checkIfCompleted();
             });
-
-
+            var themesall = db.collection('themes');
+            themesall.insert({name: "Default", url: "default"}, function(err, docs){
+                theme_id = docs.insertedIds[0];
+                checkIfCompleted();
+            })
         });
 
         // res.status(200).end();
