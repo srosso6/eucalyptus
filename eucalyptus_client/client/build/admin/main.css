@@ -1,7 +1,12 @@
 body {
-  background-color: green;
+    background-color: green;
 }
 
 .test {
-  background-color: yellow;
+    background-color: yellow;
+}
+
+.color-div {
+    width: 100px;
+    height: 50px;
 }

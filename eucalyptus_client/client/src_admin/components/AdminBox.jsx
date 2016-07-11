@@ -3,6 +3,7 @@ var LoginBox = require("./LoginBox.jsx");
 var MenuBox = require("./MenuBox.jsx");
 var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
+var ColorPickerBox = require("./ColorPickerBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
@@ -15,12 +16,11 @@ var AdminBox = React.createClass({
         };
     },
     componentDidMount: function() {
-      var url = this.props.site + "/";
-      // var elements = [];
-      Koala.request("get", url + "general")
-      .then(function(data) {
-          this.setState({admin_id: data[0].admin_id})
-      }.bind(this));
+        var url = this.props.site + "/";
+        Koala.request("get", url + "general")
+        .then(function(data) {
+            this.setState({admin_id: data[0].admin_id})
+        }.bind(this));
     },
     render: function() {
 
@@ -44,8 +44,23 @@ var AdminBox = React.createClass({
                         </div>
                     );
                     break;
+                case "colors":
+                    display = (
+                        <div>
+                            <MenuBox setPage={this.setPage} />
+                            <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
+                        </div>
+                    );
+                    break;
                 case "logout":
                     display = (<div>You wouldn't see this, it will destroy login session</div>);
+                    break;
+                default:
+                    display = (
+                        <div>
+                            <MenuBox setPage={this.setPage} />
+                        </div>
+                    );
                     break;
             }
         } else {

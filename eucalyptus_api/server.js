@@ -32,9 +32,7 @@ app.get('/:database/:collection/:id', function(req, res) {
     console.log("id:", req.params.id);
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection(req.params.collection);
-        if (req.params.collection === "general") {
-            search_obj = {};
-        } else if (req.params.collection === "pages") {
+        if (req.params.collection === "pages") {
             if (parseInt(req.params.id) > 0) {
                 search_obj = {_id: ObjectId(req.params.id)};
             } else {
@@ -97,10 +95,7 @@ app.post('/:database/:collection', function(req, res) {
                 } else {
                     collection.insert(element, {w:1}, checkIfCompleted);
                 }
-
-                console.log('element', element);
-                collection.update({_id: element._id}, element, {upsert: true});  /// need this for edit elements!!!
-                // collection.insert(element);
+                collection.update({_id: element._id}, element, {upsert: true});
             }
         } else if (req.params.collection === "users") {
 
@@ -112,19 +107,25 @@ app.post('/:database/:collection', function(req, res) {
               }
               db.close();
           });
+        } else if(req.params.collection === "colorschemes") {
+            console.log("Saving colors");
+            collection.insert(data, function(err, doc) {
+                var col = db.collection("general");
+                col.update({}, {$set:{colorscheme_id: doc.insertedIds[0]}}, function(err, docs) {
+                    db.close();
+                });
+            });
+            res.status(200).end();
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
             db.close();
             res.status(200).end();
-
         }
     });
 });
-
 
 var server = app.listen(5000, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("Eucalyptus by Koala");
-    console.log("API SERVER");
 });
