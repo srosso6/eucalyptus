@@ -14,8 +14,36 @@ var ColorPickerBox = React.createClass({
             text: "#000000",
             feature: "#ffffff",
             palettename:"",
+            allPalettes:[],
+            currentPalette: null,
             changes: false
         };
+    },
+
+    componentDidMount: function() {
+        this.getAllPalettes();
+        this.currentPalette();
+    },
+
+    getAllPalettes: function(){
+        Koala.request("GET", this.props.site+"/colorschemes")
+        .then(function(data) {
+            // console.log(data);
+            this.setState({allPalettes: data});
+        }.bind(this));
+    },
+
+    currentPalette: function(){
+        Koala.request("GET", this.props.site+"/general")
+        .then(function(data) {
+            var colors_id = data[0].colorscheme_id
+            Koala.request("GET", this.props.site+"/colorschemes/"+colors_id)
+            .then(function(data) {
+                this.setState({currentPalette: data[0]}, function(){
+                    console.log(this.state.currentPalette);
+                }.bind(this));
+            }.bind(this));
+        }.bind(this));
     },
 
     handleColorChange: function(e){
@@ -48,8 +76,12 @@ var ColorPickerBox = React.createClass({
         var text = this.state.text;
         var feature = this.state.feature;
         var data = ({name:name, _background: background, _headerBackground: headerBackground, _headerText: headerText, _text: text, _feature: feature})
-        Koala.request("POST", this.props.site+"/colorschemes", data);
-        this.handleReset()
+        Koala.request("POST", this.props.site+"/colorschemes", data)
+        .then(function() {
+            console.log(data);
+            this.getAllPalettes();
+        }.bind(this));
+        this.handleReset();
     }
     },
 
@@ -107,7 +139,7 @@ var ColorPickerBox = React.createClass({
                 <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
                 <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
                 <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
-                <ColorsDisplay site={this.props.site} user={this.props.user}/>
+                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} current={this.state.currentPalette}/>
             </div>
         );
     }

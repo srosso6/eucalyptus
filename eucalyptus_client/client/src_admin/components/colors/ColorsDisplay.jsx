@@ -4,31 +4,30 @@ var Koala = require('../../../library.jsx');
 var ColorsDisplay = React.createClass({
     getInitialState: function() {
         return {
-            allPalettes:[],
-            currentTheme: null
+            currentPalette: null
         };
     },
 
     componentDidMount: function() {
-        this.getAllPalettes();
+        this.getCurrentPalette();
     },
 
-    getAllPalettes: function(){
-        Koala.request("GET", this.props.site+"/colorschemes")
-        .then(function(data) {
-            console.log(data);
-            this.setState({allPalettes: data});
-        }.bind(this));
+    setPalette: function(e){
+        // e.preventDefault();
+        console.log(e.target);
     },
 
-    getCurrentTheme: function(){
-
+    getCurrentPalette: function(){
+        this.setState({currentPalette: this.props.current}, function(){
+            console.log(this.state.currentPalette);
+        })
     },
 
     render: function() {
-        var boxesofcolor = this.state.allPalettes.map(function(palette){
+        var boxesofcolor = this.props.palettes.map(function(palette){
             var divStyle1 = {
-                background: palette._background
+                background: palette._background,
+                color: palette._background
             }
             var divStyle2 = {
                 background: palette._headerBackground
@@ -44,16 +43,17 @@ var ColorsDisplay = React.createClass({
             }
             var paletteName = palette.name
             return (
-                <div className={paletteName} onClick={this.setTheme}>
+                <div key={paletteName} className={paletteName}>
                     <h5>{paletteName}</h5>
-                    <div className="color-div" style={divStyle1}></div>
-                    <div className="color-div" style={divStyle2}></div>
-                    <div className="color-div" style={divStyle3}></div>
-                    <div className="color-div" style={divStyle4}></div>
-                    <div className="color-div" style={divStyle5}></div>
+                    <button onClick={this.deleteMe} className={paletteName}>Delete Me</button>
+                    <div className="color-div" style={divStyle1} onClick={this.setPalette}></div>
+                    <div className="color-div" style={divStyle2} onClick={this.setPalette}></div>
+                    <div className="color-div" style={divStyle3} onClick={this.setPalette}></div>
+                    <div className="color-div" style={divStyle4} onClick={this.setPalette}></div>
+                    <div className="color-div" style={divStyle5} onClick={this.setPalette}></div>
                 </div>
              )
-        });
+        }.bind(this));
 
         return (
             <div>
