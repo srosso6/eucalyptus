@@ -3,14 +3,24 @@ var LoginBox = require("./LoginBox.jsx");
 var MenuBox = require("./MenuBox.jsx");
 var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
+var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
     getInitialState: function() {
         return {
+            admin_id: null,
             currentUser: null,
             error: null,
             page: "home"
         };
+    },
+    componentDidMount: function() {
+      var url = this.props.site + "/";
+      // var elements = [];
+      Koala.request("get", url + "general/1")
+      .then(function(data) {
+          this.setState({admin_id: data[0].admin_id})
+      }.bind(this));
     },
     render: function() {
 
@@ -41,7 +51,7 @@ var AdminBox = React.createClass({
         } else {
             display = (
                 <div>
-                    <LoginBox login={this.login}/>
+                    <LoginBox login={this.login} admin_id={this.state.admin_id} site={this.props.site}/>
                     <ErrorBox errorMessage={this.state.error} />
                 </div>
             );

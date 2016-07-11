@@ -53,6 +53,15 @@ app.get('/:database/:collection/:id', function(req, res) {
         });
     });
 });
+app.get('/:database/:collection', function(req, res) {
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        var collection = db.collection(req.params.collection);
+        collection.find({}).toArray(function(err, docs) {
+            res.json(docs);
+            db.close();
+        });
+    });
+});
 
 app.post('/:database/:collection', function(req, res) {
     var data = req.body;
@@ -79,13 +88,24 @@ app.post('/:database/:collection', function(req, res) {
                     collection.insert(element, {w:1}, checkIfCompleted);
                 }
             }
+        } else if (req.params.collection === "users") {
+
+          collection.find({email: data.email, password: data.password}).toArray(function(err, docs) {
+            console.log("docs:",docs[0]);
+            res.json(docs[0]);
+            db.close();
+          })
         } else {
             collection.update({_id: ObjectId(data._id)}, data, {upsert: true});
             db.close();
+            res.status(200).end();
+
         }
-        res.status(200).end();
     });
 });
+
+
+
 
 // app.post('/loadlog', function(req, res) {
 //     var gameID = req.body.game;

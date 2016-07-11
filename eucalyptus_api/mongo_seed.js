@@ -32,6 +32,8 @@ db.pages.insert({
     fonts_id: [1]
 });
 
+
+
 // db.elements.insert({
 //     etype: "h1",
 //     content: "The Amazing Title",
