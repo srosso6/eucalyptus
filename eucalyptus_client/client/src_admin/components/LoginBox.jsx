@@ -13,7 +13,10 @@ var LoginBox = React.createClass({
     componentDidMount: function() {
         var cookie = Koala.getCookie('EucalyptusUser');
         if (cookie) {
-            this.props.login({user: cookie})
+            // this.props.login({user: cookie})
+            this.setState({
+                founduser: {_id: cookie}
+            }, this.checkIfAdmin);
         }
     },
     userInput: function(e) {

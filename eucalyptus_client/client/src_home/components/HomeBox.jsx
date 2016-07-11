@@ -8,11 +8,12 @@ const HomeBox = React.createClass({
     var url = sitename + "/register";
 
     Koala.request("POST", url, newUser)
-    .then(function () {
+    .then(function (data) {
+        Koala.setCookie('EucalyptusUser', data._id, 30);
         window.location.href = "http://localhost:3000/" + sitename + "/admin";
     })
     .catch(function(error) {
-        console.error("Cannot redirect");
+        console.error("Cannot redirect", error);
     });
   },
 
