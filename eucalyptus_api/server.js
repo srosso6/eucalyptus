@@ -57,20 +57,23 @@ app.post('/:database/register', function (req, res) {
 
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection('users');
-        collection.insert(req.body, function(err, docs) {
+        collection.insert(req.body, function(err, userdocs) {
 
             var collection2 = db.collection('general');
-            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: docs.insertedIds[0], index: 'home'})
+            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home'})
             var collection3 = db.collection('pages');
             collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
                 console.log("error", err);
                 console.log("doc", docs);
+                res.json(userdocs)
                 db.close();
+
             });
+
 
         });
 
-        res.status(200).end();
+        // res.status(200).end();
   });
 });
 
