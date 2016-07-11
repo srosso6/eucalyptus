@@ -15,6 +15,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/:database/currenttheme', function(req, res) {
+    console.log("currenttheme");
+    res.send("body { background: orange; }");
+});
+
 app.get('/:database/:collection', function(req, res) {
     console.log('one');
     MongoClient.connect(url + req.params.database, function(err, db) {

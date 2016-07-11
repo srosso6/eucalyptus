@@ -1,0 +1,16 @@
+body {
+    background-color: color1;
+}
+
+h1 {
+    background-color: color3
+    color: color2;
+}
+
+p {
+    color: color4;
+}
+
+b {
+    color: color5;
+}

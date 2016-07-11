@@ -54,6 +54,13 @@ module.exports = {
         }.bind(this));
 
         return elements;
+    },
+
+    loadCSS: function (sitename) {
+        this.request("get", sitename+"/currenttheme")
+        .then(function (data) {
+            return data;
+        });
     }
 
 }

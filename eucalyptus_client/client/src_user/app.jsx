@@ -11,4 +11,12 @@ window.onload = function(){
         document.getElementById('app')
     );
     console.log("helloworld - i am user");
+
+    var css = Koala.loadCSS(sitename);
+    var styleTag = document.createElement("style");
+    // styleTag.setAttribute('type', 'text/css');
+    // styleTag.setAttribute('rel', 'stylesheet');
+    // styleTag.setAttribute('href', `/${sitename}/currenttheme`);
+    styleTag.innerHTML = css;
+    document.getElementsByTagName('head')[0].appendChild(styleTag);
 }
