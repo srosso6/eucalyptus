@@ -4,7 +4,8 @@ var Koala = require('../../../library.jsx');
 var ColorsDisplay = React.createClass({
     getInitialState: function() {
         return {
-            allPalettes:[]
+            allPalettes:[],
+            currentTheme: null
         };
     },
 
@@ -18,6 +19,10 @@ var ColorsDisplay = React.createClass({
             console.log(data);
             this.setState({allPalettes: data});
         }.bind(this));
+    },
+
+    getCurrentTheme: function(){
+
     },
 
     render: function() {
@@ -39,7 +44,7 @@ var ColorsDisplay = React.createClass({
             }
             var paletteName = palette.name
             return (
-                <div>
+                <div className={paletteName} onClick={this.setTheme}>
                     <h5>{paletteName}</h5>
                     <div className="color-div" style={divStyle1}></div>
                     <div className="color-div" style={divStyle2}></div>
