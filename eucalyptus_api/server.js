@@ -141,7 +141,7 @@ app.post('/:database/register', function (req, res) {
                 checkIfCompleted();
             });
             var themesall = db.collection('themes');
-            themesall.insert({name: "Default", url: "default"}, function(err, docs){
+            themesall.insert([{name: "Default", url: "default"}, {name: "Other Default", url: "default2"}], function(err, docs){
                 theme_id = docs.insertedIds[0];
                 checkIfCompleted();
             })
