@@ -13,7 +13,7 @@ var UserBox = React.createClass({
     componentDidMount: function() {
         var url = this.props.sitename + "/";
         // var elements = [];
-        Koala.request("get", url + "general/1")
+        Koala.request("get", url + "general")
         .then(function(gen_data) {
 
             var page = gen_data[0].index;
