@@ -3,7 +3,7 @@ var LoginBox = require("./LoginBox.jsx");
 var MenuBox = require("./MenuBox.jsx");
 var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
-var ColorPickerBox = require("./ColorPickerBox.jsx");
+var ColorPickerBox = require("./colors/ColorPickerBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
@@ -52,9 +52,6 @@ var AdminBox = React.createClass({
                         </div>
                     );
                     break;
-                case "logout":
-                    display = (<div>You wouldn't see this, it will destroy login session</div>);
-                    break;
                 default:
                     display = (
                         <div>
@@ -80,13 +77,23 @@ var AdminBox = React.createClass({
     },
     login: function(confirmed) {
         if (confirmed.user) {
+
+            Koala.setCookie('EucalyptusUser', confirmed.user, 30);
+
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});
         }
     },
     setPage: function(page) {
-        this.setState({page: page});
+        console.log('click', page);
+        if (page === "logout") {
+            console.log('logout');
+            Koala.deleteCookie('EucalyptusUser');
+            this.setState({page: "home", currentUser: null});
+        } else {
+            this.setState({page: page});
+        }
     }
 
 });

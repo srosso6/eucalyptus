@@ -6,6 +6,7 @@ var ObjectId = require('mongodb').ObjectId;
 var bcrypt = require('bcrypt');
 var bodyParser = require('body-parser');
 var url = "mongodb://localhost:27017/";
+var fs = require('fs');
 
 app.use(bodyParser.json());
 
@@ -17,7 +18,67 @@ app.use(function(req, res, next) {
 
 app.get('/:database/currenttheme', function(req, res) {
     console.log("currenttheme");
-    res.send("body { background: orange; }");
+    var themeUrl = null;
+    var colorScheme = null;
+
+    var readFile = function() {
+        var responseText = null
+        fs.readFile(`./themes/${themeUrl}.txt`, 'utf8', function(err, data) {
+            if(err) {
+                console.log('error', err);
+            } else {
+                console.log(data);
+                responseText = data
+                for(var key of Object.keys(colorScheme)) {
+                    if(key !== '_id' && key !== 'name') {
+                        var rg = new RegExp(key, 'g');
+                        responseText = responseText.replace(rg, colorScheme[key]);
+                    }
+                }
+                res.header('Content-Type', 'text/css')
+                res.send(responseText);
+            }
+        })
+    }
+
+    var finishedRequest = function() {
+        console.log('taggy', themeUrl, colorScheme);
+        if(themeUrl && colorScheme) {
+            readFile();
+            return true;
+        }
+        return false;
+    }
+
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        var collection = db.collection('general');
+        collection.find({}).toArray(function(err, docs) {
+            console.log('general', docs);
+            var collection2 = db.collection('themes');
+            // remember to remove ObjId
+            collection2.find({_id: ObjectId(docs[0].theme_id)}).toArray(function(err, docs) {
+                console.log('theme docs', docs);
+                themeUrl = docs[0].url;
+                if(finishedRequest()) {
+                    db.close();
+                }
+            });
+            var collection3 = db.collection('colorschemes');
+            collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
+                console.log('color docs', docs);
+                colorScheme = docs[0];
+                if(finishedRequest()) {
+                    db.close();
+                }
+            });
+
+            // res.json(docs);
+            // db.close();
+        });
+    });
+
+    // res.send("body { background: orange; }");
+    // res.status(200).end();
 });
 
 app.get('/:database/:collection', function(req, res) {
@@ -62,20 +123,23 @@ app.post('/:database/register', function (req, res) {
 
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection('users');
-        collection.insert(req.body, function(err, docs) {
+        collection.insert(req.body, function(err, userdocs) {
 
             var collection2 = db.collection('general');
-            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: docs.insertedIds[0], index: 'home'})
+            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home'})
             var collection3 = db.collection('pages');
             collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
                 console.log("error", err);
                 console.log("doc", docs);
+                res.json(userdocs)
                 db.close();
+
             });
+
 
         });
 
-        res.status(200).end();
+        // res.status(200).end();
   });
 });
 

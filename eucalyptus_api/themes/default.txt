@@ -1,0 +1,16 @@
+body {
+    background-color: _background;
+}
+
+h1 {
+    background-color: _headerBackground;
+    color: _headerText;
+}
+
+p {
+    color: _text;
+}
+
+code {
+    color: _feature;
+}

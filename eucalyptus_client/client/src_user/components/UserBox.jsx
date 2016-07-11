@@ -49,7 +49,6 @@ var UserBox = React.createClass({
     render: function() {
         return (
             <div >
-                <p>{this.props.sitename}</p>
                 <div key="elements">{this.state.elements}</div>
             </div>
         );

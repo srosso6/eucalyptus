@@ -12,11 +12,28 @@ window.onload = function(){
     );
     console.log("helloworld - i am user");
 
-    var css = Koala.loadCSS(sitename);
+    // var css = Koala.loadCSS(sitename);
     var styleTag = document.createElement("style");
-    // styleTag.setAttribute('type', 'text/css');
-    // styleTag.setAttribute('rel', 'stylesheet');
-    // styleTag.setAttribute('href', `/${sitename}/currenttheme`);
-    styleTag.innerHTML = css;
-    document.getElementsByTagName('head')[0].appendChild(styleTag);
+    // var linkTag = document.createElement("link");
+    // linkTag.setAttribute('type', 'text/css');
+    // linkTag.setAttribute('rel', 'stylesheet');
+    // linkTag.setAttribute('href', `http://localhost:5000/${sitename}/currenttheme`);
+
+    // Koala.request("get", sitename+"/currenttheme")
+    // .then(function (data) {
+    //     styleTag.innerHTML = data;
+    //     document.getElementsByTagName('head')[0].appendChild(styleTag);
+    // });
+    var request = new XMLHttpRequest()
+    request.onload = function() {
+        if(request.status === 200) {
+            styleTag.innerHTML = request.responseText
+            document.getElementsByTagName('head')[0].appendChild(styleTag);
+        }
+    }
+    request.open('GET', 'http://localhost:5000/'+sitename+'/currenttheme')
+    request.send(null);
+
+    // document.getElementsByTagName('head')[0].appendChild(styleTag);
+    // document.getElementsByTagName('head')[0].appendChild(linkTag);
 }
