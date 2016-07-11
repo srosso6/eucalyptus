@@ -23,7 +23,7 @@ app.get('/:database/currenttheme', function(req, res) {
 
     var readFile = function() {
         var responseText = null
-        fs.readFile(`./themes/${themeUrl}.txt`, 'utf8', function(err, data) {
+        fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
                 console.log('error', err);
             } else {
