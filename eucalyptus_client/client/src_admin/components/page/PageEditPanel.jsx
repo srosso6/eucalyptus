@@ -17,6 +17,7 @@ var PageEditPanel = React.createClass({
     componentDidMount: function() {
         this.loadPages();
     },
+
     resetPage: function() {
         this.loadElements(this.state.page_id);
     },
@@ -37,16 +38,22 @@ var PageEditPanel = React.createClass({
             this.setState({elements: element_data, changes:false, page_id: page_id});
         }.bind(this))
     },
+
     render: function() {
         return (
             <div>
                 <NewPage site={this.props.site}/>
                 <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
-                <PreviewPanel elements={this.state.elements} />
+                <PreviewPanel elements={this.state.elements} edited={this.editElement}/>
                 <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
             </div>
         );
     },
+
+    editElement: function () {
+      this.setState({changes:true});
+    },
+
     addElement: function(element) {
         var elements = this.state.elements;
         element.page_id = this.state.page_id;
@@ -59,7 +66,9 @@ var PageEditPanel = React.createClass({
         elements.push(element);
         this.setState({elements: elements, changes:true});
     },
+
     savePage: function() {
+        console.log(this.state.elements);
         if (this.state.changes) {
             console.log("SAVE PAGE");
 

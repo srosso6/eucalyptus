@@ -60,13 +60,16 @@ app.post('/:database/register', function (req, res) {
     MongoClient.connect(url + req.params.database, function(err, db) {
         var collection = db.collection('users');
         collection.insert(req.body, function(err, docs) {
-            console.log("error", err);
-            console.log("doc", docs);
+
             var collection2 = db.collection('general');
             collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: docs.insertedIds[0], index: 'home'})
-            collection2 = db.collection('pages');
-            collection2.insert({name: "Home Page", slug: 'home'});
-            db.close();
+            var collection3 = db.collection('pages');
+            collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
+                console.log("error", err);
+                console.log("doc", docs);
+                db.close();
+            });
+
         });
 
         res.status(200).end();
@@ -94,6 +97,10 @@ app.post('/:database/:collection', function(req, res) {
                 } else {
                     collection.insert(element, {w:1}, checkIfCompleted);
                 }
+
+                console.log('element', element);
+                collection.update({_id: element._id}, element, {upsert: true});  /// need this for edit elements!!!
+                // collection.insert(element);
             }
         } else if (req.params.collection === "users") {
 

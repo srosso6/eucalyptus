@@ -25,8 +25,9 @@ module.exports = {
         });
     },
 
-    generateHTML: function(data, onClickFunction) {
-        return React.createElement(data.etype, {key: data._id, onClick: onClickFunction}, data.content);
+    generateHTML: function(data, onDoubleClickFunction) {
+        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction}, data.content);
+
     },
 
     getSiteName: function (url) {
