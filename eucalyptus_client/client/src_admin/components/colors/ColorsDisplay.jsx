@@ -39,20 +39,20 @@ var ColorsDisplay = React.createClass({
         //     // });
         // });
 
-        var boxesofcolor = this.state.colors.map(function(color, index){
-                                var divStyle = {
-                                    background: color
-                                }
-                                return (
-                                    <div className="color-div" style={divStyle} key={index}></div>
-                                    )
-                            }.bind(this))
+        // var boxesofcolor = this.state.colors.map(function(color, index){
+        //                         var divStyle = {
+        //                             background: color
+        //                         }
+        //                         return (
+        //                             <div className="color-div" style={divStyle} key={index}></div>
+        //                             )
+        //                     }.bind(this))
 
         return (
             <div>
                 <h3>Lots of pretty colors below!</h3>
                 <h4>{this.state.name}</h4>
-                {boxesofcolor}
+                {/*{boxesofcolor}*/}
             </div>
         );
     }
