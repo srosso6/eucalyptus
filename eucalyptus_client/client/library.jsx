@@ -7,27 +7,53 @@ module.exports = {
             var request = new XMLHttpRequest();
             request.onload = function() {
                 if (request.status === 200) {
-                    resolve(JSON.parse(request.responseText));
+                    if(request.responseText === "") {
+                        resolve(request.responseText)
+                    } else {
+                        resolve(JSON.parse(request.responseText));
+                    }
                 } else {
                     reject(request.status);
                 }
             }
-            request.open(reqtype, "http://localhost:5000/" + url);
+            var requrl = "http://localhost:5000/" + url;
+            request.open(reqtype, requrl);
             if (reqtype !== "get" && reqtype !== "GET") {
                 request.setRequestHeader('Content-Type', 'application/json');
             }
-            request.send(data);
+            request.send(JSON.stringify(data));
         });
     },
 
-    generateHTML: function(data) {
-        return React.createElement(data.etype, {key: data.order}, data.content);
+    generateHTML: function(data, onDoubleClickFunction) {
+        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction}, data.content);
+
     },
 
     getSiteName: function (url) {
         let urlparts = url.split("/");
         let sitename = urlparts[3];
-        return sitename;
+        let test = sitename.split("#");
+        return test[0];
+    },
+
+    getPageName: function(url) {
+        let urlparts = url.split("#");
+        console.log("url", urlparts);
+        let pagename = urlparts[1];
+        return pagename;
+    },
+
+    generateElements: function(elementsCore) {
+        elementsCore = elementsCore.sort(function(a, b) {
+            return a.order - b.order;
+        });
+
+        var elements = elementsCore.map(function(element) {
+            return this.generateHTML(element);
+        }.bind(this));
+
+        return elements;
     }
 
 }

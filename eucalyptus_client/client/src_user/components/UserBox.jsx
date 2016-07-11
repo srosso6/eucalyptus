@@ -13,32 +13,32 @@ var UserBox = React.createClass({
     componentDidMount: function() {
         var url = this.props.sitename + "/";
         // var elements = [];
-        Koala.request("get", url + "general/1")
-        .then(function(data) {
-            this.setState({info: data[0], page: data[0].index})
-            Koala.request("get", url + "pages/" + data[0].index)
-            .then(function(data) {
+        Koala.request("get", url + "general")
+        .then(function(gen_data) {
 
+            var page = gen_data[0].index;
+            if (this.props.pagename) {
+                page = this.props.pagename;
+            }
 
-                Koala.request("get", url + "elements/" + data[0]._id)
-                .then(function(data) {
+            this.setState({info: gen_data[0], page: page})
+            Koala.request("get", url + "pages/" + page)
+            .then(function(page_data) {
 
-                    var sortedData = data.sort(function(a, b) {
-                        return a.order - b.order;
-                    });
-
-                    var elements = [];
-
-                    for (var element of sortedData) {
-                        elements.push(Koala.generateHTML(element));
-                    }
-                    this.setState({elements: elements});
-
-
-
+                console.log('page', page_data);
+                Koala.request("get", url + "elements/" + page_data[0]._id)
+                .then(function(element_data) {
+                    // var sortedData = element_data.sort(function(a, b) {
+                    //     return a.order - b.order;
+                    // });
+                    //
+                    // var elements = [];
+                    //
+                    // for (var element of sortedData) {
+                    //     elements.push(Koala.generateHTML(element));
+                    // }
+                    this.setState({elements: Koala.generateElements(element_data)});
                 }.bind(this));
-
-
             }.bind(this));
         }.bind(this));
         // .catch(function(error) {
@@ -50,7 +50,7 @@ var UserBox = React.createClass({
         return (
             <div >
                 <p>{this.props.sitename}</p>
-                <div key="shitworks">{this.state.elements}</div>
+                <div key="elements">{this.state.elements}</div>
             </div>
         );
     }

@@ -21,7 +21,9 @@ db.colorschemes.insert({
 
 db.users.insert({
     name: "John Smith",
-    access: 1
+    password: "password",
+    access: 1,
+    email: "john.smith@gmail.com"
 });
 
 
