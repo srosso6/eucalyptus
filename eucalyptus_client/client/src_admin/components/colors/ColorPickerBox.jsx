@@ -15,14 +15,12 @@ var ColorPickerBox = React.createClass({
             feature: "#ffffff",
             palettename:"",
             allPalettes:[],
-            currentPalette: null,
             changes: false
         };
     },
 
     componentDidMount: function() {
         this.getAllPalettes();
-        this.currentPalette();
     },
 
     getAllPalettes: function(){
@@ -30,20 +28,6 @@ var ColorPickerBox = React.createClass({
         .then(function(data) {
             // console.log(data);
             this.setState({allPalettes: data});
-        }.bind(this));
-    },
-
-    currentPalette: function(){
-        Koala.request("GET", this.props.site+"/general")
-        .then(function(data) {
-            var colors_id = data[0].colorscheme_id
-            Koala.request("GET", this.props.site+"/colorschemes/"+colors_id)
-            .then(function(data) {
-                return data[0]
-                // this.setState({currentPalette: data[0]}, function(){
-                //     console.log(this.state.currentPalette);
-                // }.bind(this));
-            }.bind(this));
         }.bind(this));
     },
 
@@ -140,7 +124,7 @@ var ColorPickerBox = React.createClass({
                 <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
                 <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
                 <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
-                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} current={this.currentPalette}/>
+                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes}/>
             </div>
         );
     }

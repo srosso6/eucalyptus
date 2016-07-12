@@ -280,16 +280,18 @@ app.post('/:database/:collection', function(req, res) {
             } else if (req.params.collection === "general") {
                 if (data.theme_id) {
                     data.theme_id = ObjectId(data.theme_id);
-                    var col = db.collection("general");
-                    col.update({}, {$set:data}, function(err, docs) {
-                        if (err) {
-                            res.status(500).end();
-                        } else {
-                            res.status(200).end();
-                        }
-                        db.close();
-                    });
+                } else if(data.colorscheme_id) {
+                    data.colorscheme_id = ObjectId(data.colorscheme_id);
                 }
+                var col = db.collection("general");
+                col.update({}, {$set:data}, function(err, docs) {
+                    if (err) {
+                        res.status(500).end();
+                    } else {
+                        res.status(200).end();
+                    }
+                    db.close();
+                });
             } else {
                 collection.update({_id: ObjectId(data._id)}, data, {upsert: true}, function(err, docs){
                     if (err) {
