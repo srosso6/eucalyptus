@@ -28,6 +28,7 @@ app.get('/:database/currenttheme', function(req, res) {
 
     var readFile = function() {
         var responseText = null
+
         fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
                 console.log('error', err);
@@ -203,7 +204,7 @@ app.post('/:database/register', function (req, res) {
 
                     });
                     var themesall = db.collection('themes');
-                    themesall.insert([{name: "Default", url: "default"},{name: "Other Default", url: "default2"}], function(err, docs){
+                    themesall.insert([{name: "Round", url: "round"},{name: "Square", url: "square"}], function(err, docs){
                         if (err) {
                             res.json("");
                         } else {

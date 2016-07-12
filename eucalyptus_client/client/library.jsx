@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = {
 
-    request: function(reqtype, url, data=null) {
+    request: function(reqtype, url, data=null, isJSON=true) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.onload = function() {
@@ -10,7 +10,11 @@ module.exports = {
                     if(request.responseText === "") {
                         resolve(request.responseText)
                     } else {
-                        resolve(JSON.parse(request.responseText));
+                        if (isJSON) {
+                          resolve(JSON.parse(request.responseText));
+                        } else {
+                          resolve(request.responseText);
+                        }
                     }
                 } else {
                     reject(request.status);
@@ -73,9 +77,18 @@ module.exports = {
         var cookieValue = document.cookie.replace(re, "$1");
         return cookieValue;
     },
-    deleteCookie(name) {
+    deleteCookie: function(name) {
         document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    },
+    loadCSS: function(document, sitename) {
+      var styleTag = document.createElement("style");
 
+      this.request("get", sitename+'/currenttheme', null, false)
+      .then(function(data) {
+        styleTag.innerHTML = data;
+        var parent = document.getElementsByTagName('head')[0];
+        parent.insertBefore(styleTag, parent.firstChild);
+      });
     }
 
 }

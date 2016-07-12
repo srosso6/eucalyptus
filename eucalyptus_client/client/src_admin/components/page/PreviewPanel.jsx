@@ -11,7 +11,9 @@ var PreviewPanel = React.createClass({
 
         return (
             <div className="preview">
-                {elements}
+                <span className="user_body">
+                  {elements}                  
+                </span>
             </div>
         );
     }
