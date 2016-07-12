@@ -104,7 +104,7 @@ app.get('/:database/currenttheme', function(req, res) {
 });
 
 app.get('/:database/:collection', function(req, res) {
-    console.log('one');
+    // console.log('one');
     MongoClient.connect(url + req.params.database, function(err, db) {
         if (err) {
             res.json()

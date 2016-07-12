@@ -1,4 +1,5 @@
 const React = require('react');
+const Koala = require('../../library.jsx');
 
 const RegistrationForm = React.createClass({
 
@@ -6,8 +7,11 @@ const RegistrationForm = React.createClass({
     return {
       name: "",
       password: "",
+      confirmedPassword: null,
       email: "",
-      sitename: ""
+      sitename: "",
+      error: null,
+      validSitename: true
     }
   },
 
@@ -20,6 +24,10 @@ const RegistrationForm = React.createClass({
     let password = event.target.value.trim();
     this.setState({password: password});
   },
+  addConfirmedPassword: function(e) {
+      var password = e.target.value.trim();
+      this.setState({confirmedPassword: password})
+  },
 
   addEmail: function(event) {
     let email = event.target.value.trim();
@@ -30,35 +38,57 @@ const RegistrationForm = React.createClass({
     let sitename = event.target.value.trim().toLowerCase().replace(/ /g, "");
     this.setState({sitename: sitename}, function() {
         console.log("sitename", sitename);
-    });
+        this.confirmUnique();
+    }.bind(this));
   },
 
   handleReg: function (event) {
     event.preventDefault();
-    let sitename = this.state.sitename;
+    var sitename = this.state.sitename;
 
     console.log('sitename', sitename);
+    if(this.state.password === this.state.confirmedPassword) {
+        if (this.state.validSitename) {
+            let newUser = {
+              name: this.state.name,
+              access: 1,
+              password: this.state.password,
+              email: this.state.email
+            }
 
-    let newUser = {
-      name: this.state.name,
-      access: 1,
-      password: this.state.password,
-      email: this.state.email
+          // check if not completed ... then don't contact server
+            this.props.onRegistration(sitename, newUser);
+
+            this.setState({
+              name: "",
+              password: "",
+              email: "",
+              sitename: ""
+            });
+        } else {
+            this.setState({error: "The site name is already taken"})
+        }
+
+    } else {
+        this.setState({error: "Passwords do not match!"})
     }
-
-  // check if not completed ... then don't contact server
-    this.props.onRegistration(sitename, newUser);
-
-    this.setState({
-      name: "",
-      password: "",
-      email: "",
-      sitename: ""
-    });
+  },
+  confirmUnique: function () {
+      var url = this.state.sitename + '/general'
+      Koala.request('GET', url).then(function(data) {
+          var isValid = !(data.length > 0)
+          this.setState({validSitename: isValid});
+      }.bind(this))
   },
 
+
   render: function() {
+      var error = null
+      if(this.state.error) {
+          error = <p>{this.state.error}</p>
+      }
     return (
+
       <div>
         <form onSubmit={this.handleReg}>
 
@@ -67,6 +97,9 @@ const RegistrationForm = React.createClass({
 
           <label htmlFor="password">Password:</label>
           <input type="password" name="password" onChange={this.addPassword}/><br/>
+
+          <label htmlFor="password">Confirm password:</label>
+          <input type="password" name="password" onChange={this.addConfirmedPassword}/><br/>
 
           <label htmlFor="email">Email:</label>
           <input type="email" name="email" onChange={this.addEmail}/><br/>
@@ -77,6 +110,7 @@ const RegistrationForm = React.createClass({
           <button type="submit" className="sub-btn">Register</button>
 
         </form>
+        {error}
       </div>
     );
   }
