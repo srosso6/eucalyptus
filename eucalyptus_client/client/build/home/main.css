@@ -1,3 +1,43 @@
 body {
-  background-color: blue;
+  background-color: lightgreen;
+  text-align: center;
+}
+
+h1 {
+    background-image: url('./images/craplogo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    background-position: center;
+}
+
+
+.regForm {
+    background-color: green;
+    width: 500px;
+    /*height: 300px;*/
+    margin:auto;
+    border-radius: 40px;
+    padding-top:20px;
+    padding-bottom: 60px;
+
+}
+
+label {
+    display: block;
+}
+
+input {
+    width: 70%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+}
+
+button {
+
+    width: 50%;
+    border-radius: 5px;
+    color: darkgreen;
+    background-color: lightgreen;
 }
