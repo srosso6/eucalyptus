@@ -37,8 +37,7 @@ var PageEditPanel = React.createClass({
                 }
             }
             this.setState({pages: page_data, page_id: curPageId}, function() {
-
-                this.loadElements(page_data[0]._id);
+            this.loadElements(page_data[0]._id);
             }.bind(this))
         }.bind(this))
     },
@@ -66,12 +65,25 @@ var PageEditPanel = React.createClass({
         element.page_id = this.state.page_id;
         element.order = elements.length + 1;
         if (element.content) {
-            element.medialibrary_id = null;
+            element.url = null;
         } else {
             element.content = null;
         }
         elements.push(element);
         this.setState({elements: elements, changes:true});
+    },
+
+    deleteElement: function(index) {
+        var elements = this.state.elements;
+        var removedElement = elements.splice(index, 1);
+        console.log('rem', removedElement);
+        if (removedElement._id) {
+            console.log('el got id');
+            Koala.request("post", this.props.site+removedElement._id)
+            .then(function(data) {
+                this.setState({elements: elements});
+            });
+        }
     },
 
     savePage: function() {
@@ -82,7 +94,8 @@ var PageEditPanel = React.createClass({
                 this.setState({
                     changes:false
                 });
-            });
+                this.loadElements();
+            }).bind(this);
 
         } else {
             console.log("No changes to save");
@@ -106,7 +119,7 @@ var PageEditPanel = React.createClass({
                   />
                   <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
               </div>
-                <PreviewPanel elements={this.state.elements} edited={this.editElement}></PreviewPanel>
+                <PreviewPanel elements={this.state.elements} edited={this.editElement} deleteElement={this.deleteElement}></PreviewPanel>
                 <ElementsPanel addElement={this.addElement}/>
           </div>
         );

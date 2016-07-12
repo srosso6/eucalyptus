@@ -30,7 +30,15 @@ module.exports = {
     },
 
     generateHTML: function(data, onDoubleClickFunction) {
-        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`}, data.content);
+        var extrasObj = {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`};
+        var hrefObj = {};
+        if (data.etype === "img") {
+            hrefObj = {src: data.url};
+        } else if (data.etype === "a") {
+            hrefObj = {href: data.url};
+        }
+        extrasObj = Object.assign({}, extrasObj, hrefObj);
+        return React.createElement(data.etype, extrasObj, data.content);
 
     },
 

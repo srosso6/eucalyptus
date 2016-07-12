@@ -6,7 +6,8 @@ var Element = React.createClass({
   getInitialState: function() {
       return {
           editing: false,
-          content: this.props.element.content
+          content: this.props.element.content,
+          url: this.props.element.url
       }
   },
 
@@ -21,13 +22,42 @@ var Element = React.createClass({
   },
 
   editContent: function (event) {
+      var stateObj = {content: event.target.value};
 
-      if(event.type === "blur" || event.keyCode === 13) {
-        this.setState({editing: false, content: event.target.value,});
+      if(event.keyCode === 13) {
+        this.closeEdit();
+        stateObj = Object.assign({}, stateObj, {editing: false})
       }
+
+      this.setState(stateObj);
+
 
       this.props.element.content = event.target.value;
       this.props.edited();
+  },
+
+  editUrl: function(event) {
+
+      var stateObj = {url: event.target.value};
+
+      if(event.keyCode === 13) {
+        this.closeEdit();
+        stateObj = Object.assign({}, stateObj, {editing: false})
+      }
+
+      this.setState(stateObj);
+
+
+      this.props.element.url = event.target.value;
+      this.props.edited();
+  }
+
+  closeEdit: function(e) {
+    //   this.setState({editing: false})
+  },
+
+  deleteElement: function(e) {
+      console.log('id', e.target.dataset.cheese);
   },
 
   render: function() {
@@ -37,7 +67,23 @@ var Element = React.createClass({
       var element = Koala.generateHTML(this.props.element, this.editElement);
 
       if(this.state.editing) {
-        element = <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent} onBlur={this.editContent} />
+        if (this.state.element.etype === "img" || this.state.element.etype === "a") {
+            element = (
+                <span onBlur={this.closeEdit}>
+                    <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent}  />
+                    <input defaultValue={this.state.url} type="text" onKeyUp={this.editUrl}  />
+                    <button onClick={this.deleteElement} data-cheese={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
+                </span>
+            );
+        } else {
+            element = (
+                <span onBlur={this.closeEdit}>
+                    <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent}  />
+                    <button onClick={this.deleteElement} data-cheese={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
+                </span>
+            );
+        }
+
       }
 
       return (

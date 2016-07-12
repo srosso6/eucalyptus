@@ -216,7 +216,7 @@ app.post('/:database/register', function (req, res) {
                                             res.json("");
                                         } else {
                                             var elements = db.collection('elements');
-                                            elements.insert({etype: "h1", content: "Welcome to your site!", medialibrary_id: null, page_id: docs.insertedIds[0], order: 1})
+                                            elements.insert({etype: "h1", content: "Welcome to your site!", url: null, page_id: docs.insertedIds[0], order: 1})
                                             res.json(userdocs)
                                             db.close();
                                         }
