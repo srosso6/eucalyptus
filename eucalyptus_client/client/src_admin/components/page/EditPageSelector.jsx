@@ -22,7 +22,8 @@ var EditPageSelector = React.createClass({
         }
 
         return (
-            <div>
+            <div className="page-btns">
+                <label>Your pages:</label>
                 {pages}
             </div>
         );
