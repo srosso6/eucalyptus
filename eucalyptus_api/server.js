@@ -25,6 +25,7 @@ app.get('/:database/currenttheme', function(req, res) {
     console.log("currenttheme");
     var themeUrl = null;
     var colorScheme = null;
+    var font = null;
 
     var readFile = function() {
         var responseText = null
@@ -32,17 +33,24 @@ app.get('/:database/currenttheme', function(req, res) {
         fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
                 console.log('error', err);
+                console.log('6');
                 res.send("");
+
             } else {
                 console.log(data);
                 responseText = data
+                console.log('font:', font);
                 for(var key of Object.keys(colorScheme)) {
                     if(key !== '_id' && key !== 'name') {
                         var rg = new RegExp(key, 'g');
                         responseText = responseText.replace(rg, colorScheme[key]);
                     }
                 }
-                res.header('Content-Type', 'text/css')
+                console.log('fonty', font._font);
+
+                responseText = responseText.replace("_font", font._font);
+                responseText = responseText.replace(new RegExp("_font", 'g'), font._font.replace("+", " "));
+                console.log('joe', responseText);
                 res.send(responseText);
             }
         })
@@ -50,7 +58,8 @@ app.get('/:database/currenttheme', function(req, res) {
 
     var finishedRequest = function() {
         console.log('taggy', themeUrl, colorScheme);
-        if(themeUrl && colorScheme) {
+        if(themeUrl && colorScheme && font) {
+
             readFile();
             return true;
         }
@@ -62,7 +71,9 @@ app.get('/:database/currenttheme', function(req, res) {
         collection.find({}).toArray(function(err, docs) {
 
             if (err) {
+                console.log('5');
                 res.send("");
+
                 db.close();
             } else {
                 console.log('general', docs);
@@ -70,7 +81,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection2 = db.collection('themes');
                     collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
                         if (err) {
+                            console.log('4');
                             res.send("");
+
                             db.close();
                         } else {
                             console.log('theme docs', docs);
@@ -83,7 +96,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection3 = db.collection('colorschemes');
                     collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
                         if (err) {
+                            console.log('3');
                             res.send("");
+
                             db.close();
                         } else {
                             console.log('color docs', docs);
@@ -93,8 +108,25 @@ app.get('/:database/currenttheme', function(req, res) {
                             }
                         }
                     });
+                    var collection4 = db.collection('fonts');
+                    collection4.find({_id: docs[0].font_id}).toArray(function(err, docs) {
+                        if (err) {
+                            console.log('2');
+                            res.send("");
+
+                            db.close();
+                        } else {
+                            console.log('font docs', docs);
+                            font = docs[0];
+                            if(finishedRequest()) {
+                                db.close();
+                            }
+                        }
+                    });
                 } else {
+                    console.log('1');
                     res.send("");
+
                     db.close();
                 }
 
@@ -169,11 +201,12 @@ app.post('/:database/register', function (req, res) {
                 } else {
                     var colorscheme_id = null;
                     var theme_id = null;
+                    var font_id = null;
 
                     var checkIfCompleted = function(){
-                        if(colorscheme_id && theme_id){
+                        if(colorscheme_id && theme_id && font_id){
                             var collection2 = db.collection('general');
-                            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home', colorscheme_id: colorscheme_id, theme_id: theme_id}, function(err, docs){
+                            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home', colorscheme_id: colorscheme_id, theme_id: theme_id, font_id: font_id}, function(err, docs){
                                 if (err) {
                                     res.json("");
                                 } else {
@@ -212,7 +245,18 @@ app.post('/:database/register', function (req, res) {
                             checkIfCompleted();
                         }
                     });
+                    var fontsall = db.collection('fonts');
+                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'CBangers'}], function(err, docs) {
+                        if (err) {
+                            res.json("");
+                        } else {
+                            font_id = docs.insertedIds[0];
+                            checkIfCompleted();
+                        }
+                    });
+
                 }
+
 
 
             });
