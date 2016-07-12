@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #eee;
+  background-color: #fff;
 }
 
 .color-div {
@@ -39,6 +39,7 @@ body {
   width: 80%;
   border: 1px solid black;
   text-align: center;
+  background-color: #43CC6F;
 }
 
 .new-page {
