@@ -56,13 +56,17 @@ var ColorsDisplay = React.createClass({
         request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
         // request.setRequestHeader("Content-Type", "application/json");
         request.send(null);
+        this.props.getAll();
+        this.currentPalette();
     },
 
     render: function() {
         var boxesofcolor = this.props.palettes.map(function(palette){
             var chosen = null;
+            var buttonshow = null;
             if(palette._id === this.state.currentPalette._id) {
                 chosen = " This is your current Color Palette"
+                buttonshow = "disabled"
             }
             var divStyle1 = {
                 background: palette._background,
@@ -84,7 +88,7 @@ var ColorsDisplay = React.createClass({
             return (
                 <div key={paletteName} className={paletteName}>
                     <h5>{paletteName}{chosen}</h5>
-                    <button onClick={this.deleteMe} data-palette={palette._id}>Delete Me</button>
+                    <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
                     <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
                     <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
                     <div className="color-div" data-palette={palette._id} style={divStyle3} onClick={this.setPalette}></div>
