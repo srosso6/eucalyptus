@@ -8,10 +8,15 @@ var bodyParser = require('body-parser');
 var url = "mongodb://localhost:27017/";
 var fs = require('fs');
 
-app.use(bodyParser.json());
+// var cors = require('cors')
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
+// app.use(cors());
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
+  // res.setHeader("Access-Control-Allow-Origin", "GET, POST, OPTIONS, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -307,6 +312,28 @@ app.post('/:database/:collection', function(req, res) {
         }
 
     });
+});
+
+app.post('/:database/:collection/:id', function(req, res) {
+// app.post('/:database/:collection/delete', function(req, res) {
+    console.log("DELETE TIME");
+    // console.log("database:", req.params.database);
+    // console.log("collection:", req.params.collection);
+    // console.log("id:", req.params.id);
+    // var data = req.params.id;
+    // console.log("data", data);
+    // MongoClient.connect(url + req.params.database, function(err, db) {
+    //     if (err) {
+    //         db.close();
+    //         res.status(404).end()
+    //     } else {
+    //         var collection = db.collection(req.params.collection);
+    //         console.log(data);
+    //         collection.remove({_id: data});
+    //         db.close;
+    //         res.status(200).end();
+    //     }
+    // });
 });
 
 var server = app.listen(5000, function () {
