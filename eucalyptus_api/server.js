@@ -27,8 +27,9 @@ app.get('/:database/currenttheme', function(req, res) {
         fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
                 console.log('error', err);
-                res.send("");
                 console.log('6');
+                res.send("");
+
             } else {
                 console.log(data);
                 responseText = data
@@ -39,18 +40,20 @@ app.get('/:database/currenttheme', function(req, res) {
                         responseText = responseText.replace(rg, colorScheme[key]);
                     }
                 }
+                console.log('fonty', font._font);
+
                 responseText = responseText.replace("_font", font._font);
                 responseText = responseText.replace(new RegExp("_font", 'g'), font._font.replace("+", " "));
-
-                // res.header('Content-Type', 'text/css')
-                // res.send(responseText);
+                console.log('joe', responseText);
+                res.send(responseText);
             }
         })
     }
 
     var finishedRequest = function() {
         console.log('taggy', themeUrl, colorScheme);
-        if(themeUrl && colorScheme) {
+        if(themeUrl && colorScheme && font) {
+
             readFile();
             return true;
         }
@@ -62,8 +65,9 @@ app.get('/:database/currenttheme', function(req, res) {
         collection.find({}).toArray(function(err, docs) {
 
             if (err) {
-                res.send("");
                 console.log('5');
+                res.send("");
+
                 db.close();
             } else {
                 console.log('general', docs);
@@ -71,8 +75,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection2 = db.collection('themes');
                     collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
                         if (err) {
-                            res.send("");
                             console.log('4');
+                            res.send("");
+
                             db.close();
                         } else {
                             console.log('theme docs', docs);
@@ -85,8 +90,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection3 = db.collection('colorschemes');
                     collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
                         if (err) {
-                            res.send("");
                             console.log('3');
+                            res.send("");
+
                             db.close();
                         } else {
                             console.log('color docs', docs);
@@ -99,8 +105,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection4 = db.collection('fonts');
                     collection4.find({_id: docs[0].font_id}).toArray(function(err, docs) {
                         if (err) {
-                            res.send("");
                             console.log('2');
+                            res.send("");
+
                             db.close();
                         } else {
                             console.log('font docs', docs);
@@ -111,8 +118,9 @@ app.get('/:database/currenttheme', function(req, res) {
                         }
                     });
                 } else {
-                    res.send("");
                     console.log('1');
+                    res.send("");
+
                     db.close();
                 }
 
