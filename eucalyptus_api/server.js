@@ -246,7 +246,7 @@ app.post('/:database/:collection', function(req, res) {
                     } else {
                         collection.insert(element, {w:1}, checkIfCompleted);
                     }
-                    collection.update({_id: element._id}, element, {upsert: true});
+                    // collection.update({_id: element._id}, element, {upsert: true});
                 }
             } else if (req.params.collection === "users") {
 
