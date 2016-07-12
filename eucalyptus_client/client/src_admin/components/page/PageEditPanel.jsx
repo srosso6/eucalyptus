@@ -21,12 +21,22 @@ var PageEditPanel = React.createClass({
     resetPage: function() {
         this.loadElements(this.state.page_id);
     },
-    loadPages: function(page) {
+    loadPages: function(page_slug) {
+        console.log("LOADING PAGES");
         var url = this.props.site + "/";
         Koala.request("get", url + "pages")
         .then(function(page_data) {
             console.log('data', page_data);
-            this.setState({pages: page_data, page_id: page_data[0]._id}, function() {
+            var curPageId = page_data[0]._id;
+            if (page_slug) {
+                for (var pg_dta of page_data) {
+                    if (pg_dta.slug === page_slug) {
+                        curPageId = pg_dta._id
+                        console.log('setting curPageId');
+                    }
+                }
+            }
+            this.setState({pages: page_data, page_id: curPageId}, function() {
                 this.loadElements(page_data[0]._id);
             }.bind(this))
         }.bind(this))
@@ -42,7 +52,7 @@ var PageEditPanel = React.createClass({
     render: function() {
         return (
             <div>
-                <NewPage sitename={this.props.site}/>
+                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
                 <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
                 <PreviewPanel elements={this.state.elements} edited={this.editElement}/>
                 <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
@@ -75,6 +85,9 @@ var PageEditPanel = React.createClass({
             Koala.request("POST", this.props.site+"/elements", this.state.elements)
             .then(function (){
                 console.log("Saved");
+                this.setState({
+                    changes:false 
+                });
             });
 
         } else {

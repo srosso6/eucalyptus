@@ -4,6 +4,7 @@ var MenuBox = require("./MenuBox.jsx");
 var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
 var ColorPickerBox = require("./colors/ColorPickerBox.jsx");
+var ThemeBox = require("./themes/ThemeBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
@@ -52,6 +53,14 @@ var AdminBox = React.createClass({
                         </div>
                     );
                     break;
+                case "themes":
+                    display = (
+                        <div>
+                            <MenuBox setPage={this.setPage} />
+                            <ThemeBox site={this.props.site}/>
+                        </div>
+                    );
+                    break;
                 default:
                     display = (
                         <div>
@@ -77,9 +86,7 @@ var AdminBox = React.createClass({
     },
     login: function(confirmed) {
         if (confirmed.user) {
-
             Koala.setCookie('EucalyptusUser', confirmed.user, 30);
-
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});

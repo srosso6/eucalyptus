@@ -32,8 +32,8 @@ var NewPage = React.createClass({
         .then(function(data) {
             console.log("Page Added");
             // this.props.redoPagesList - setPage page_id
-        });
-
+            this.props.reloadPages(this.state.slug);
+        }.bind(this));
         this.setState({name: null, slug:null})
     }
 
