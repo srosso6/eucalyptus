@@ -34,6 +34,10 @@ body {
 
 input {
   height: 25px;
+  border: 0;
+  border-radius: 8px;
+  color: darkgreen;
+  background-color: rgb(190, 239, 190);
 }
 
 .page-container {
@@ -95,7 +99,8 @@ input {
   height: 15%;
   /*border: 1px solid *rgba(138, 114, 46, 0.4);*/
   position: relative;
-  background-color: rgb(190, 239, 190);
+  /*background-color: rgb(190, 239, 190);*/
+  background-color: rgba(138, 114, 46, 0.4);
   /*opacity: 0.5;*/
 }
 
@@ -124,6 +129,8 @@ input {
   position: relative;
   padding: 5% 5%;
   vertical-align: top;
+  /*background-color: rgb(190, 239, 190);*/
+  background-color: rgba(138, 114, 46, 0.4);
 }
 
 .colorpalettes {
