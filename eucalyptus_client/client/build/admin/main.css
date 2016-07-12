@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+div {
+    transition:all 0.5s ease;
+}
+
+/*rgba(138, 114, 46, 0.4)
+green
+lightgreen
+darkgreen*/
+
 /*#app {
   height: 500px;
 }*/
@@ -15,6 +24,7 @@
 body {
   background-color: #eee;
   font-weight: 700;
+  /*color: darkgreen;*/
 }
 
 .color-div {
@@ -147,41 +157,47 @@ input {
 
 .menu-btn {
   display: block;
-  color: #000;
+  /*color: #000;*/
   cursor: pointer;
   padding: 5% 15%;
   width: 100%;
   height: 20%;
   text-align: center;
   line-height: 3;
-  border: 1px solid #000;
+  border: 1px solid rgba(138, 114, 46, 0.4);
   font-size: 16px;
   font-weight: 700;
-  background-color: #eee;
+  /*background-color: #eee;*/
 }
 
 .elements-btn {
   display: block;
-  color: #000;
+  /*color: #000;*/
   cursor: pointer;
   padding: 6% 7%;
   height: 12.5%;
   width: 100%;
   text-align: center;
   line-height: 3;
-  border: 1px solid #000;
+  border: 1px solid rgba(138, 114, 46, 0.4);
   font-size: 16px;
   font-weight: 700;
-  background-color: #eee;
+  /*background-color: #eee;*/
 }
 
-.menu-btn:hover,
-.elements-btn:hover,
-.btn:hover,
+/*.btn:hover,
 .status-btn:hover,
-.page-btn:hover {
-  background-color: #222;
+.page-btn:hover,*/
+.menu-btn:hover,
+.elements-btn:hover {
+  /*background-color: green;*/
+  border: 0px solid rgba(138, 114, 46, 0.4);
+  color: darkgreen;
+  opacity:1;
+  transition:all 0.3s ease;
 }
+
+
 
 .btn {
   margin: 5px 0;
@@ -215,7 +231,7 @@ input {
     position: absolute;
     top: 15%;
     right:35%;
-    width: 30%;
+    width: 25%;
     height: 30%;
     background-color: #E5DEBE;
     border-radius: 0;
@@ -243,4 +259,14 @@ input {
 #save-btn,
 .btn {
   background-color: #4EE55F;
+}
+
+/*.btn,
+.status-btn,
+.page-btn,*/
+.menu-btn,
+.elements-btn {
+    color: *rgba(138, 114, 46, 0.4);
+    background-color: lightgreen;
+    opacity:0.5;
 }
