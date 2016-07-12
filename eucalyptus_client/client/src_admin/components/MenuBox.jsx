@@ -3,17 +3,20 @@ var MenuItem = require("./MenuItem.jsx");
 
 var MenuBox = React.createClass({
 
+    clickFunction: function (item) {
+        console.log("what am i", item);
+        this.props.setMenuItem(item);
+    },
+
     render: function() {
-        var clickFunction = function(page) {
-            this.props.setPage(page)
-        }.bind(this);
 
         return (
             <div className="menu-container">
-                <MenuItem page="home" pageName="Home" clickFunction={clickFunction} />
-                <MenuItem page="pages" pageName="Pages" clickFunction={clickFunction} />
-                <MenuItem page="colors" pageName="Colors" clickFunction={clickFunction} />
-                <MenuItem page="logout" pageName="Logout" clickFunction={clickFunction} />
+                <MenuItem item="pages" itemName="Pages" clickFunction={this.clickFunction} />
+                <MenuItem item="colors" itemName="Colours" clickFunction={this.clickFunction} />
+                <MenuItem item="fonts" itemName="Fonts" clickFunction={this.clickFunction} />
+                <MenuItem item="themes" itemName="Themes" clickFunction={this.clickFunction} />
+                <MenuItem item="logout" itemName="Logout" clickFunction={this.clickFunction} />
             </div>
         );
     }

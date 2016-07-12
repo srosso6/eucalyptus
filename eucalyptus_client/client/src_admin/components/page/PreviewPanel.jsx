@@ -8,9 +8,9 @@ var PreviewPanel = React.createClass({
         const elements = this.props.elements.map(function (element) {
           return <Element key={element._id} element={element} edited={this.props.edited}/>
         }.bind(this));
-        
+
         return (
-            <div className="test">
+            <div className="preview">
                 {elements}
             </div>
         );

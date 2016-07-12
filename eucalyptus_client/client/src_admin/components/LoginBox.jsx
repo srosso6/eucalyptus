@@ -71,7 +71,7 @@ var LoginBox = React.createClass({
                     <label>Username:</label>
                     <input type='text' value={this.state.userlogin} onChange={this.userInput}></input>
                     <label>Password:</label>
-                    <input type='text' value={this.state.userpassword} onChange={this.passwordInput}></input>
+                    <input type='password' value={this.state.userpassword} onChange={this.passwordInput}></input>
                     <button onClick={this.login}>Login</button>
                 </form>
             </div>
