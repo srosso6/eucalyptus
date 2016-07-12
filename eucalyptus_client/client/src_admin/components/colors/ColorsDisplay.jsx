@@ -19,6 +19,7 @@ var ColorsDisplay = React.createClass({
         Koala.request("POST", this.props.site+"/general", {colorscheme_id: paletteId})
         .then(function(){
             this.currentPalette();
+            Koala.loadCSS(this.props.site);
         }.bind(this));
     },
 
@@ -35,19 +36,6 @@ var ColorsDisplay = React.createClass({
         }.bind(this));
     },
 
-    // deleteMe: function(e){
-    //     var paletteId = e.target.dataset.palette
-    //     console.log(paletteId);
-    //     // Koala.request("POST", this.props.site+"/colorschemes/"+paletteId)
-    //     Koala.request("delete", this.props.site+"/colorschemes/"+paletteId)
-    //
-    //     // Koala.request("post", this.props.site+"/colorschemes/test")
-    //     .then(function(data){
-    //         console.log('data',data);
-    //         this.props.getAll();
-    //         this.currentPalette();
-    //     }.bind(this));
-    // },
 
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette

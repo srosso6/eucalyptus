@@ -332,6 +332,8 @@ app.post('/:database/:collection', function(req, res) {
                     data.theme_id = ObjectId(data.theme_id);
                 } else if(data.colorscheme_id) {
                     data.colorscheme_id = ObjectId(data.colorscheme_id);
+                } else if(data.font_id) {
+                    data.font_id = ObjectId(data.font_id);
                 }
                 var col = db.collection("general");
                 col.update({}, {$set:data}, function(err, docs) {
@@ -359,27 +361,6 @@ app.post('/:database/:collection', function(req, res) {
     });
 });
 
-// app.post('/:database/:collection/:id', function(req, res) {
-// // app.post('/:database/:collection/delete', function(req, res) {
-//     console.log("DELETE TIME");
-//     // console.log("database:", req.params.database);
-//     // console.log("collection:", req.params.collection);
-//     // console.log("id:", req.params.id);
-//     // var data = req.params.id;
-//     // console.log("data", data);
-//     // MongoClient.connect(url + req.params.database, function(err, db) {
-//     //     if (err) {
-//     //         db.close();
-//     //         res.status(404).end()
-//     //     } else {
-//     //         var collection = db.collection(req.params.collection);
-//     //         console.log(data);
-//     //         collection.remove({_id: data});
-//     //         db.close;
-//     //         res.status(200).end();
-//     //     }
-//     // });
-// });
 
 app.post('/:database/:collection/:id', function(req, res) {
     var paletteId = req.params.id;

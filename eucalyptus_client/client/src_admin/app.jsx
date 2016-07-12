@@ -10,5 +10,5 @@ window.onload = function(){
         document.getElementById('app')
     );
 
-    Koala.loadCSS(document, sitename);
+    Koala.loadCSS(sitename);
 }

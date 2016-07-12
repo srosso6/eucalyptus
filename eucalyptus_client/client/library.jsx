@@ -60,13 +60,6 @@ module.exports = {
         return elements;
     },
 
-    loadCSS: function (sitename) {
-        this.request("get", sitename+"/currenttheme")
-        .then(function (data) {
-            return data;
-        });
-    },
-
     setCookie: function(name, value, expDays) {
         var expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + (expDays*24*60*60*1000));
@@ -80,7 +73,7 @@ module.exports = {
     deleteCookie: function(name) {
         document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     },
-    loadCSS: function(document, sitename) {
+    loadCSS: function(sitename) {
       var styleTag = document.createElement("style");
 
       this.request("get", sitename+'/currenttheme', null, false)

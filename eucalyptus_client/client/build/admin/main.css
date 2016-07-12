@@ -87,6 +87,8 @@ input {
   position: relative;
 }
 
+
+
 .new-page {
   display: inline-block;
   /*border: 1px solid red;*/
@@ -194,7 +196,8 @@ input {
 
 .btn,
 .status-btn,
-.page-btn {
+.page-btn,
+#view-btn {
   display: inline-block;
   color: #000;
   cursor: pointer;
@@ -206,6 +209,16 @@ input {
   font-weight: 700;
   border-radius: 5%;
 
+}
+
+#view-btn {
+    position: absolute;
+    top: 15%;
+    right:35%;
+    width: 30%;
+    height: 30%;
+    background-color: #E5DEBE;
+    border-radius: 0;
 }
 
 /*.btn {
