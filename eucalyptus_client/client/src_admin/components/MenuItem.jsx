@@ -2,16 +2,19 @@ var React = require('react');
 
 var MenuItem = React.createClass({
 
+    clickFunction: function (e) {
+        e.preventDefault();
+        this.props.clickFunction(this.props.item);
+    },
+
     render: function() {
-        var clickFunction = function(e) {
-            e.preventDefault();
-            this.props.clickFunction(this.props.page)
-        }.bind(this);
 
         return (
-            <div onClick={clickFunction} className="menu-item">
-                <p>{this.props.pageName}</p>
-            </div>
+            <button
+              className="menu-btn"
+              type="button"
+              onClick={this.clickFunction}>{this.props.itemName}
+            </button>
         );
     }
 

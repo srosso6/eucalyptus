@@ -4,12 +4,14 @@ var koala = require('../../../library.jsx')
 
 
 var ThemeBox = React.createClass({
+  
     getInitialState: function() {
         return {
             themes: [],
             selectedTheme: null
         };
     },
+
     componentDidMount: function() {
         var url = this.props.site + '/'
         koala.request('GET', url +'general').then(function(genData) {
@@ -23,10 +25,12 @@ var ThemeBox = React.createClass({
 
 
     },
+
     handleSelectChange: function(e) {
         e.preventDefault()
         this.setState({selectedTheme: e.target.options[e.target.selectedIndex].value})
     },
+
     saveTheme: function(e) {
         var url = this.props.site + '/'
         e.preventDefault()
@@ -40,7 +44,7 @@ var ThemeBox = React.createClass({
             return (<option key={theme._id} value={theme._id}>{theme.name}</option>)
         })
         return (
-            <div>
+            <div className="themes-container">
                 <select value={this.state.selectedTheme} onChange={this.handleSelectChange}>{options}</select>
                 <button onClick={this.saveTheme}>Change Theme</button>
             </div>

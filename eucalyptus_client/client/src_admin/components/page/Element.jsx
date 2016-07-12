@@ -17,12 +17,10 @@ var Element = React.createClass({
   },
 
   editElement: function (event) {
-      console.log("I have been double clicked");
       this.setState({editing: true});
   },
 
   editContent: function (event) {
-    console.log(event.type);
 
       if(event.type === "blur" || event.keyCode === 13) {
         this.setState({editing: false, content: event.target.value,});

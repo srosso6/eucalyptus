@@ -2,10 +2,12 @@ var React = require('react');
 var PreviewPanel = require('./PreviewPanel.jsx');
 var EditPageSelector = require('./EditPageSelector.jsx');
 var ElementsPanel = require('./ElementsPanel.jsx');
+var PageStatus = require('./PageStatus.jsx');
 var NewPage = require('./NewPage.jsx');
 var Koala = require('../../../library.jsx');
 
 var PageEditPanel = React.createClass({
+
     getInitialState: function() {
         return {
             elements: [],
@@ -14,13 +16,11 @@ var PageEditPanel = React.createClass({
             pages: null
         }
     },
+
     componentDidMount: function() {
         this.loadPages();
     },
 
-    resetPage: function() {
-        this.loadElements(this.state.page_id);
-    },
     loadPages: function(page_slug) {
         console.log("LOADING PAGES");
         var url = this.props.site + "/";
@@ -37,10 +37,16 @@ var PageEditPanel = React.createClass({
                 }
             }
             this.setState({pages: page_data, page_id: curPageId}, function() {
+
                 this.loadElements(page_data[0]._id);
             }.bind(this))
         }.bind(this))
     },
+
+    setPage: function(page_id) {
+        this.loadElements(page_id);
+    },
+
     loadElements: function(page_id) {
         var url = this.props.site + "/";
         Koala.request("get", url + "elements/" + page_id)
@@ -49,16 +55,6 @@ var PageEditPanel = React.createClass({
         }.bind(this))
     },
 
-    render: function() {
-        return (
-            <div>
-                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
-                <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
-                <PreviewPanel elements={this.state.elements} edited={this.editElement}/>
-                <ElementsPanel addElement={this.addElement} savePage={this.savePage} resetPage={this.resetPage} changes={this.state.changes}/>
-            </div>
-        );
-    },
 
     editElement: function () {
       this.setState({changes:true});
@@ -66,6 +62,7 @@ var PageEditPanel = React.createClass({
 
     addElement: function(element) {
         var elements = this.state.elements;
+        element.content = `${element.etype} - click me to edit`;
         element.page_id = this.state.page_id;
         element.order = elements.length + 1;
         if (element.content) {
@@ -78,15 +75,12 @@ var PageEditPanel = React.createClass({
     },
 
     savePage: function() {
-        console.log(this.state.elements);
         if (this.state.changes) {
-            console.log("SAVE PAGE");
-
             Koala.request("POST", this.props.site+"/elements", this.state.elements)
             .then(function (){
                 console.log("Saved");
                 this.setState({
-                    changes:false 
+                    changes:false
                 });
             });
 
@@ -94,18 +88,28 @@ var PageEditPanel = React.createClass({
             console.log("No changes to save");
         }
     },
-    setPage: function(page_id) {
-        this.loadElements(page_id);
-    }
 
+    resetPage: function() {
+        this.loadElements(this.state.page_id);
+    },
+
+    render: function() {
+        return (
+          <div className="container">
+            <div className="pages">
+                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+                  <PageStatus
+                    changes={this.state.changes}
+                    resetPage={this.resetPage}
+                    savePage={this.savePage}
+                  />
+                <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
+            </div>
+                <PreviewPanel elements={this.state.elements} edited={this.editElement}></PreviewPanel>
+                <ElementsPanel addElement={this.addElement}/>
+          </div>
+        );
+    }
 });
 
 module.exports = PageEditPanel;
-
-
-/*
-
-    - Create a page (name / slug / etc)
-    - Edit elements page
-
-*/

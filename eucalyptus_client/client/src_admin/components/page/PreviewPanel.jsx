@@ -10,7 +10,7 @@ var PreviewPanel = React.createClass({
         }.bind(this));
 
         return (
-            <div className="test">
+            <div className="preview">
                 {elements}
             </div>
         );
