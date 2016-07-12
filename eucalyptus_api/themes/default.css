@@ -1,3 +1,7 @@
+
+@import 'https://fonts.googleapis.com/css?family=_font';
+
+
 body {
     background-color: _background;
     text-align: center;
@@ -12,7 +16,7 @@ h1 {
     font-size: 4em;
     margin: auto;
     font-style: oblique;
-    font-family: fantasy;
+    font-family: '_font';
     text-shadow: 2px 2px 10px black,-2px -2px 10px black;
     border-style: ridge;
     border-width: 5px;
@@ -37,7 +41,7 @@ p {
     border-style: groove;
     border-width: 2px;
     /*opacity: 0.6;*/
-    font-family: fantasy;
+    font-family: '_font';
 }
 
 b {
@@ -48,7 +52,7 @@ b {
 
 h2 {
     color: _headerText;
-    font-family: fantasy;
+    font-family: '_font';
     padding: 12px;
     background-color: _headerBackground;
     border-style: ridge;
