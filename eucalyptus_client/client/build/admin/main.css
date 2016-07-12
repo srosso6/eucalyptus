@@ -32,6 +32,14 @@ body {
   height: 50px;
 }
 
+.colorinputbox {
+    margin-top: 10px;
+}
+
+.colorinput {
+    margin-right: 5px;
+}
+
 input {
   height: 25px;
   border: 0;
@@ -39,6 +47,7 @@ input {
   color: darkgreen;
   background-color: rgb(190, 239, 190);
   margin-top: 1px;
+  box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }
 
 .page-container {
@@ -237,7 +246,7 @@ input {
   /*border: 1px solid #000;*/
   font-size: 14px;
   font-weight: 700;
-  border-radius: 5%;
+  border-radius: 10px;
 
 }
 
@@ -249,7 +258,7 @@ input {
     height: 30%;
     background-color: lightgreen;
     color: darkgreen;
-    border-radius: 5%;
+    border-radius: 10px;
     border: 0;
     box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }
@@ -263,7 +272,7 @@ input {
   margin: 0 0.5%;
   background-color: lightgreen;
   color: darkgreen;
-  border-radius: 5%;
+  border-radius: 10px;
   border: 0;
   box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }

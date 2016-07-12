@@ -122,9 +122,11 @@ var ColorPickerBox = React.createClass({
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle5} />
-                <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
-                <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
-                <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
+                <div className="colorinputbox">
+                    <input type="text" className="colorinput" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
+                    <input type="button" className="colorinput" onClick={this.handleReset} value="Reset Color Palette"/>
+                    <input type="button" className="colorinput" onClick={this.handleSave} value="Add Color Palette"/>
+                </div>
                 <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} getAll={this.getAllPalettes}/>
             </div>
         );
