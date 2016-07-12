@@ -6,20 +6,46 @@ body {
 h1 {
     background-image: url('./images/craplogo.png');
     background-repeat: no-repeat;
-    background-size: contain;
-    height: 100px;
+    background-size: 25%;
+    height: 150px;
     background-position: center;
+    background-color: green;
+    margin-top: 0;
+    margin-bottom: 30px;
 }
 
+.homeSpiel {
+    /*background-color: green;*/
+    background-color: rgba(138, 114, 46, 0.4);
+    width: 500px;
+    height: 100%;
+    margin:auto 50px;
+    border-radius: 40px;
+    padding-top:20px;
+    padding-left: 20px;
+    padding-bottom: 60px;
+    display: inline-block;
+    vertical-align: top;
+    box-shadow: 2px 2px 10px black;
+}
+
+.boxes {
+    height: 400px;
+    margin-top: 80px;
+}
 
 .regForm {
-    background-color: green;
+    /*background-color: green;*/
+    background-color: rgba(138, 114, 46, 0.4);
     width: 500px;
-    /*height: 300px;*/
-    margin:auto;
+    height: 100%;
+    margin:auto 50px;
+    padding-left: 20px;
     border-radius: 40px;
     padding-top:20px;
     padding-bottom: 60px;
+    display: inline-block;
+    box-shadow: 2px 2px 10px black;
 
 }
 

@@ -20,10 +20,13 @@ const HomeBox = React.createClass({
     return (
         <div>
             <h1></h1>
-              <div className='regForm'>
-                <h2>Register your new site:</h2>
-                <RegistrationForm onRegistration={this.registerUser}/>
-              </div>
+            <div className ='boxes'>
+                <p className='homeSpiel'>Welcome to Eucalyptus, a CMS built with React!</p>
+                  <div className='regForm'>
+                    <h2>Register your new site:</h2>
+                    <RegistrationForm onRegistration={this.registerUser}/>
+                  </div>
+            </div>
         </div>
     );
   }
