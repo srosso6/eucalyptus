@@ -1,13 +1,17 @@
 
+
 @import 'https://fonts.googleapis.com/css?family=_font';
 
 
-body {
+.user_body {
+
     background-color: _background;
     text-align: center;
+    height: 100%;
+    width: 100%;
 }
 
-h1 {
+.user_h1 {
     background-color: _headerBackground;
     color: _headerText;
     padding: 25px;
@@ -23,7 +27,7 @@ h1 {
     border-color: _headerText;
 }
 
-p {
+.user_p {
     color: _feature;
     display: inline-block;
     /*background-color: rgba(84, 84, 84, 0.3);;*/
@@ -44,13 +48,13 @@ p {
     font-family: '_font';
 }
 
-b {
+.user_b {
     color: _feature;
     display: block;
     /*font-family: fantasy;*/
 }
 
-h2 {
+.user_h2 {
     color: _headerText;
     font-family: '_font';
     padding: 12px;
@@ -61,7 +65,7 @@ h2 {
     text-shadow: 1px 1px 5px black,-1px -1px 5px black;
 }
 
-code {
+.user_code {
     display: block;
     color: _feature;
 }

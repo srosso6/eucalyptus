@@ -4,26 +4,73 @@ var Koala = require('../../../library.jsx');
 var ColorsDisplay = React.createClass({
     getInitialState: function() {
         return {
-            allPalettes:[]
+            currentPalette: null
         };
     },
 
     componentDidMount: function() {
-        this.getAllPalettes();
+        this.currentPalette();
     },
 
-    getAllPalettes: function(){
-        Koala.request("GET", this.props.site+"/colorschemes")
-        .then(function(data) {
-            console.log(data);
-            this.setState({allPalettes: data});
+    setPalette: function(e){
+        // console.log(e.target.getAttribute('data-palette'));
+        // console.log(e.target.dataset.palette);
+        var paletteId = e.target.dataset.palette
+        Koala.request("POST", this.props.site+"/general", {colorscheme_id: paletteId})
+        .then(function(){
+            this.currentPalette();
         }.bind(this));
     },
 
+    currentPalette: function(){
+        Koala.request("GET", this.props.site+"/general")
+        .then(function(data) {
+            var colors_id = data[0].colorscheme_id
+            Koala.request("GET", this.props.site+"/colorschemes/"+colors_id)
+            .then(function(data) {
+                this.setState({currentPalette: data[0]}, function(){
+                    console.log("state id", this.state.currentPalette._id);
+                }.bind(this));
+            }.bind(this));
+        }.bind(this));
+    },
+
+    // deleteMe: function(e){
+    //     var paletteId = e.target.dataset.palette
+    //     console.log(paletteId);
+    //     // Koala.request("POST", this.props.site+"/colorschemes/"+paletteId)
+    //     Koala.request("delete", this.props.site+"/colorschemes/"+paletteId)
+    //
+    //     // Koala.request("post", this.props.site+"/colorschemes/test")
+    //     .then(function(data){
+    //         console.log('data',data);
+    //         this.props.getAll();
+    //         this.currentPalette();
+    //     }.bind(this));
+    // },
+
+    deleteMe: function(e){
+        var paletteId = e.target.dataset.palette
+        console.log("palette to delete", paletteId);
+        var request = new XMLHttpRequest();
+        request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
+        // request.setRequestHeader("Content-Type", "application/json");
+        request.send(null);
+        this.props.getAll();
+        this.currentPalette();
+    },
+
     render: function() {
-        var boxesofcolor = this.state.allPalettes.map(function(palette){
+        var boxesofcolor = this.props.palettes.map(function(palette){
+            var chosen = null;
+            var buttonshow = null;
+            if(palette._id === this.state.currentPalette._id) {
+                chosen = " This is your current Color Palette"
+                buttonshow = "disabled"
+            }
             var divStyle1 = {
-                background: palette._background
+                background: palette._background,
+                color: palette._background
             }
             var divStyle2 = {
                 background: palette._headerBackground
@@ -39,16 +86,17 @@ var ColorsDisplay = React.createClass({
             }
             var paletteName = palette.name
             return (
-                <div>
-                    <h5>{paletteName}</h5>
-                    <div className="color-div" style={divStyle1}></div>
-                    <div className="color-div" style={divStyle2}></div>
-                    <div className="color-div" style={divStyle3}></div>
-                    <div className="color-div" style={divStyle4}></div>
-                    <div className="color-div" style={divStyle5}></div>
+                <div key={paletteName} className={paletteName}>
+                    <h5>{paletteName}{chosen}</h5>
+                    <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
+                    <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
+                    <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
+                    <div className="color-div" data-palette={palette._id} style={divStyle3} onClick={this.setPalette}></div>
+                    <div className="color-div" data-palette={palette._id} style={divStyle4} onClick={this.setPalette}></div>
+                    <div className="color-div" data-palette={palette._id} style={divStyle5} onClick={this.setPalette}></div>
                 </div>
              )
-        });
+        }.bind(this));
 
         return (
             <div className="colorpalettes">

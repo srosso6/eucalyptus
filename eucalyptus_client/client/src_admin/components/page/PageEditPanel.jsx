@@ -96,15 +96,16 @@ var PageEditPanel = React.createClass({
     render: function() {
         return (
           <div className="container">
-            <div className="pages">
-                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+              <div className="pages">
+                  <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+                  <a href={"/"+this.props.site}><button>View your page</button></a>
                   <PageStatus
-                    changes={this.state.changes}
-                    resetPage={this.resetPage}
-                    savePage={this.savePage}
+                      changes={this.state.changes}
+                      resetPage={this.resetPage}
+                      savePage={this.savePage}
                   />
-                <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
-            </div>
+                  <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
+              </div>
                 <PreviewPanel elements={this.state.elements} edited={this.editElement}></PreviewPanel>
                 <ElementsPanel addElement={this.addElement}/>
           </div>
