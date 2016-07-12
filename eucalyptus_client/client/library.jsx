@@ -26,7 +26,7 @@ module.exports = {
     },
 
     generateHTML: function(data, onDoubleClickFunction) {
-        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction}, data.content);
+        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`}, data.content);
 
     },
 

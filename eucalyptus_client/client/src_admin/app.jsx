@@ -6,7 +6,7 @@ var Koala = require('../library.jsx');
 window.onload = function(){
     var sitename = Koala.getSiteName(window.location.href);
     ReactDOM.render(
-        <AdminBox site={sitename} />,
+        <AdminBox site={sitename}/>,
         document.getElementById('app')
     );
 }

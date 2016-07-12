@@ -21,11 +21,23 @@ var PageEditPanel = React.createClass({
         this.loadPages();
     },
 
-    loadPages: function(page) {
+    loadPages: function(page_slug) {
+        console.log("LOADING PAGES");
         var url = this.props.site + "/";
         Koala.request("get", url + "pages")
         .then(function(page_data) {
-            this.setState({pages: page_data, page_id: page_data[0]._id}, function() {
+            console.log('data', page_data);
+            var curPageId = page_data[0]._id;
+            if (page_slug) {
+                for (var pg_dta of page_data) {
+                    if (pg_dta.slug === page_slug) {
+                        curPageId = pg_dta._id
+                        console.log('setting curPageId');
+                    }
+                }
+            }
+            this.setState({pages: page_data, page_id: curPageId}, function() {
+
                 this.loadElements(page_data[0]._id);
             }.bind(this))
         }.bind(this))
@@ -42,6 +54,7 @@ var PageEditPanel = React.createClass({
             this.setState({elements: element_data, changes:false, page_id: page_id});
         }.bind(this))
     },
+
 
     editElement: function () {
       this.setState({changes:true});
@@ -66,6 +79,9 @@ var PageEditPanel = React.createClass({
             Koala.request("POST", this.props.site+"/elements", this.state.elements)
             .then(function (){
                 console.log("Saved");
+                this.setState({
+                    changes:false
+                });
             });
 
         } else {
@@ -81,7 +97,7 @@ var PageEditPanel = React.createClass({
         return (
           <div className="container">
             <div className="pages">
-                <NewPage sitename={this.props.site}/>
+                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
                   <PageStatus
                     changes={this.state.changes}
                     resetPage={this.resetPage}
@@ -94,7 +110,6 @@ var PageEditPanel = React.createClass({
           </div>
         );
     }
-
 });
 
 module.exports = PageEditPanel;

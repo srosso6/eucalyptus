@@ -26,8 +26,8 @@ var NewPage = React.createClass({
         Koala.request("post", this.props.sitename+"/pages", this.state)
         .then(function(data) {
             // this.props.redoPagesList - setPage page_id
-        });
-
+            this.props.reloadPages(this.state.slug);
+        }.bind(this));
         this.setState({name: null, slug:null})
     },
 

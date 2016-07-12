@@ -51,7 +51,7 @@ var ColorsDisplay = React.createClass({
         });
 
         return (
-            <div>
+            <div className="colorpalettes">
                 <h3>Lots of pretty colors below!</h3>
                 {boxesofcolor}
             </div>

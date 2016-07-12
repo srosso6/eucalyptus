@@ -72,7 +72,7 @@ var ColorPickerBox = React.createClass({
         }
 
         return (
-            <div>
+            <div className="colours-container">
                 <p>Color Selector</p>
                 <form onSubmit={this.handleColorAdd} className="background">
                     Choose your Page Background Color:

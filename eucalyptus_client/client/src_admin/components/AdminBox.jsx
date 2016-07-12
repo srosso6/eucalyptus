@@ -5,6 +5,7 @@ var PageEditPanel = require("./page/PageEditPanel.jsx");
 var ElementsPanel = require("./page/ElementsPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
 var ColorPickerBox = require("./colors/ColorPickerBox.jsx");
+var ThemeBox = require("./themes/ThemeBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
@@ -36,6 +37,17 @@ var AdminBox = React.createClass({
         }
     },
 
+    setPage: function(page) {
+        console.log('click', page);
+        if (page === "logout") {
+            console.log('logout');
+            Koala.deleteCookie('EucalyptusUser');
+            this.setState({page: "home", currentUser: null});
+        } else {
+            this.setState({page: page});
+        }
+    },
+
     setMenuItem: function(item) {
         if (item === "logout") {
             Koala.deleteCookie('EucalyptusUser');
@@ -53,7 +65,7 @@ var AdminBox = React.createClass({
             switch (this.state.menuItem) {
                 case "pages":
                     display = (
-                        <div>
+                        <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
                             <PageEditPanel site={this.props.site} />
                         </div>
@@ -61,7 +73,7 @@ var AdminBox = React.createClass({
                     break;
                 case "colors":
                     display = (
-                        <div className="container">
+                        <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
                             <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
                         </div>
@@ -69,21 +81,22 @@ var AdminBox = React.createClass({
                     break;
                 case "fonts":
                     display = (
-                        <div className="container">
+                        <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
                         </div>
                     );
                     break;
                 case "themes":
                     display = (
-                        <div className="container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
+                        <div className="page-container">
+                            <MenuBox setPage={this.setPage} setMenuItem={this.setMenuItem}/>
+                            <ThemeBox site={this.props.site}/>
                         </div>
                     );
                     break;
                 default:
                     display = (
-                        <div className="container">
+                        <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
                         </div>
                     );
@@ -99,11 +112,12 @@ var AdminBox = React.createClass({
         }
 
         return (
-            <div>
+            <div className="overall-container">
                 {display}
             </div>
         );
-    },
+    }
+
 });
 
 module.exports = AdminBox;
