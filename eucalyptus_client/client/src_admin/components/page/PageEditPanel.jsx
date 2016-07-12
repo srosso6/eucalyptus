@@ -19,6 +19,7 @@ var PageEditPanel = React.createClass({
 
     componentDidMount: function() {
         this.loadPages();
+        console.log("site", this.props.site);
     },
 
     loadPages: function(page_slug) {
@@ -93,11 +94,17 @@ var PageEditPanel = React.createClass({
         this.loadElements(this.state.page_id);
     },
 
+    // changePage: function(e){
+    //     console.log("site", this.props.site);
+    // },
+
     render: function() {
+
         return (
           <div className="container">
-            <div className="pages">
-                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+              <div className="pages">
+                  <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+                  <a href={"/"+this.props.site} onClick={this.changePage}>View your Site</a>
                   <PageStatus
                     changes={this.state.changes}
                     resetPage={this.resetPage}

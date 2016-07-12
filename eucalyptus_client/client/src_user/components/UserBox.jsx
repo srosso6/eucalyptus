@@ -84,6 +84,7 @@ var UserBox = React.createClass({
 
         return (
             <div >
+                <a href={"/"+this.props.sitename+"/admin"} onClick={this.changePage}>Edit your page</a>
                 <div className="navbar">
                     {pages}
                 </div>
