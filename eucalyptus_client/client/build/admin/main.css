@@ -35,9 +35,10 @@ body {
 input {
   height: 25px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   color: darkgreen;
   background-color: rgb(190, 239, 190);
+  margin-top: 1px;
 }
 
 .page-container {
