@@ -314,27 +314,46 @@ app.post('/:database/:collection', function(req, res) {
     });
 });
 
+// app.post('/:database/:collection/:id', function(req, res) {
+// // app.post('/:database/:collection/delete', function(req, res) {
+//     console.log("DELETE TIME");
+//     // console.log("database:", req.params.database);
+//     // console.log("collection:", req.params.collection);
+//     // console.log("id:", req.params.id);
+//     // var data = req.params.id;
+//     // console.log("data", data);
+//     // MongoClient.connect(url + req.params.database, function(err, db) {
+//     //     if (err) {
+//     //         db.close();
+//     //         res.status(404).end()
+//     //     } else {
+//     //         var collection = db.collection(req.params.collection);
+//     //         console.log(data);
+//     //         collection.remove({_id: data});
+//     //         db.close;
+//     //         res.status(200).end();
+//     //     }
+//     // });
+// });
+
 app.post('/:database/:collection/:id', function(req, res) {
-// app.post('/:database/:collection/delete', function(req, res) {
-    console.log("DELETE TIME");
-    // console.log("database:", req.params.database);
-    // console.log("collection:", req.params.collection);
-    // console.log("id:", req.params.id);
-    // var data = req.params.id;
-    // console.log("data", data);
-    // MongoClient.connect(url + req.params.database, function(err, db) {
-    //     if (err) {
-    //         db.close();
-    //         res.status(404).end()
-    //     } else {
-    //         var collection = db.collection(req.params.collection);
-    //         console.log(data);
-    //         collection.remove({_id: data});
-    //         db.close;
-    //         res.status(200).end();
-    //     }
-    // });
-});
+    var paletteId = req.params.id;
+    MongoClient.connect(url + req.params.database, function(err, db) {
+        console.log("url", url + req.params.database);
+        if (err) {
+            db.close();
+            res.status(404).end()
+        } else {
+            var collection = db.collection(req.params.collection);
+            console.log("Collection", collection);
+            console.log("palette to delete", paletteId);
+            collection.remove({_id: ObjectId(paletteId)});
+            db.close;
+            res.status(200).end();
+        }
+    });
+
+})
 
 var server = app.listen(5000, function () {
     var host = server.address().address;

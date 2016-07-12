@@ -35,18 +35,27 @@ var ColorsDisplay = React.createClass({
         }.bind(this));
     },
 
+    // deleteMe: function(e){
+    //     var paletteId = e.target.dataset.palette
+    //     console.log(paletteId);
+    //     // Koala.request("POST", this.props.site+"/colorschemes/"+paletteId)
+    //     Koala.request("delete", this.props.site+"/colorschemes/"+paletteId)
+    //
+    //     // Koala.request("post", this.props.site+"/colorschemes/test")
+    //     .then(function(data){
+    //         console.log('data',data);
+    //         this.props.getAll();
+    //         this.currentPalette();
+    //     }.bind(this));
+    // },
+
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette
-        console.log(paletteId);
-        // Koala.request("POST", this.props.site+"/colorschemes/"+paletteId)
-        Koala.request("delete", this.props.site+"/colorschemes/"+paletteId)
-
-        // Koala.request("post", this.props.site+"/colorschemes/test")
-        .then(function(data){
-            console.log('data',data);
-            this.props.getAll();
-            this.currentPalette();
-        }.bind(this));
+        console.log("palette to delete", paletteId);
+        var request = new XMLHttpRequest();
+        request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
+        // request.setRequestHeader("Content-Type", "application/json");
+        request.send(null);
     },
 
     render: function() {
@@ -75,8 +84,7 @@ var ColorsDisplay = React.createClass({
             return (
                 <div key={paletteName} className={paletteName}>
                     <h5>{paletteName}{chosen}</h5>
-                    {/*<button onClick={this.deleteMe} data-palette={palette._id}>Delete Me</button>*/}
-                    {/*<button onClick={function() {this.setPalette(palette._id)}.bind(this)} className={paletteName}>Pick Me</button>*/}
+                    <button onClick={this.deleteMe} data-palette={palette._id}>Delete Me</button>
                     <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
                     <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
                     <div className="color-div" data-palette={palette._id} style={divStyle3} onClick={this.setPalette}></div>

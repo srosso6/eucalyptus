@@ -51,9 +51,6 @@ var UserBox = React.createClass({
             }.bind(this));
 
         }.bind(this));
-        // .catch(function(error) {
-        //     console.error(error);
-        // });
     },
 
     changePage: function(e){
