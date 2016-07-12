@@ -99,7 +99,7 @@ app.get('/:database/currenttheme', function(req, res) {
 });
 
 app.get('/:database/:collection', function(req, res) {
-    console.log('one');
+    // console.log('one');
     MongoClient.connect(url + req.params.database, function(err, db) {
         if (err) {
             res.json()
@@ -241,7 +241,7 @@ app.post('/:database/:collection', function(req, res) {
                     } else {
                         collection.insert(element, {w:1}, checkIfCompleted);
                     }
-                    collection.update({_id: element._id}, element, {upsert: true});
+                    // collection.update({_id: element._id}, element, {upsert: true});
                 }
             } else if (req.params.collection === "users") {
 

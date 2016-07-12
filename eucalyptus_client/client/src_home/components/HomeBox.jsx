@@ -16,12 +16,15 @@ const HomeBox = React.createClass({
         console.error("Cannot redirect", error);
     });
   },
-
   render: function() {
     return (
-      <div>
-        <RegistrationForm onRegistration={this.registerUser}/>
-      </div>
+        <div>
+            <h1></h1>
+              <div className='regForm'>
+                <h2>Register your new site:</h2>
+                <RegistrationForm onRegistration={this.registerUser}/>
+              </div>
+        </div>
     );
   }
 
