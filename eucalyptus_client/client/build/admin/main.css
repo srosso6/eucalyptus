@@ -6,8 +6,15 @@
   height: 500px;
 }*/
 
+/*.overall-container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}*/
+
 body {
-  background-color: #fff;
+  background-color: #eee;
+  font-weight: 700;
 }
 
 .color-div {
@@ -15,11 +22,9 @@ body {
   height: 50px;
 }
 
-/*.overall-container {
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-}*/
+input {
+  height: 25px;
+}
 
 .page-container {
   height: 700px;
@@ -38,6 +43,7 @@ body {
   vertical-align: top;
   display: inline-block;
   position: relative;
+  /*border: 1px solid blue;*/
 }
 
 /*.preview-container {
@@ -51,6 +57,16 @@ body {
   width: 80%;
   height: 85%;
   text-align: center;
+  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.user_body {
+  margin-top: 0;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #555;
 }
 
 .elements {
@@ -67,16 +83,24 @@ body {
   vertical-align: top;
   width: 80%;
   height: 15%;
-  text-align: center;
-  background-color: #43CC6F;
+  border: 1px solid #555;
+  position: relative;
 }
 
 .new-page {
   display: inline-block;
+  /*border: 1px solid red;*/
+  padding: 1% 1%;
+  margin-left: 2%;
 }
 
 .page-status {
   display: inline-block;
+  position: absolute;
+  top: 8%;
+  right: 1%;
+  /*padding: 1% 1%;*/
+  width: 30%;
 }
 
 .colours-container {
@@ -102,11 +126,25 @@ body {
   vertical-align: top;
 }
 
+.page-btns {
+  /*border: 1px solid orange;*/
+  display: inline-block;
+  width: 500px;
+  height: 40%;
+  position: absolute;
+  bottom: 3%;
+  right: 1%;
+  overflow-x: scroll;
+}
+
+#slug {
+  margin-left: 8.5px;
+}
+
 /* BUTTONS */
 
 .menu-btn {
   display: block;
-  background-color: #fff;
   color: #000;
   cursor: pointer;
   padding: 5% 15%;
@@ -115,14 +153,13 @@ body {
   text-align: center;
   line-height: 3;
   border: 1px solid #000;
-  /*font-family: 'Alegreya Sans', sans-serif;*/
   font-size: 16px;
   font-weight: 700;
+  background-color: #eee;
 }
 
 .elements-btn {
   display: block;
-  background-color: #fff;
   color: #000;
   cursor: pointer;
   padding: 6% 7%;
@@ -131,9 +168,9 @@ body {
   text-align: center;
   line-height: 3;
   border: 1px solid #000;
-  /*font-family: 'Alegreya Sans', sans-serif;*/
   font-size: 16px;
   font-weight: 700;
+  background-color: #eee;
 }
 
 .menu-btn:hover,
@@ -152,22 +189,45 @@ body {
 
 .page-btn {
   margin-bottom: 5px;
+  display: inline-block;
 }
 
 .btn,
 .status-btn,
 .page-btn {
   display: inline-block;
-  background-color: #fff;
   color: #000;
   cursor: pointer;
   padding: 5px 5px;
-  /*width: 100%;*/
   text-align: center;
-  line-height: 1.5;
+  line-height: 1;
   border: 1px solid #000;
-  /*font-family: 'Alegreya Sans', sans-serif;*/
   font-size: 14px;
   font-weight: 700;
   border-radius: 5%;
+
+}
+
+/*.btn {
+  margin: 0 auto;
+}*/
+
+.page-btn {
+  display: inline-block;
+  margin: 0 0.5%;
+  background-color: #E5DEBE;
+}
+
+.status-btn {
+  width: 40%;
+  margin: 0 5%;
+}
+
+#reset-btn {
+  background-color: #E54A43;
+}
+
+#save-btn,
+.btn {
+  background-color: #4EE55F;
 }
