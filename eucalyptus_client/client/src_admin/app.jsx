@@ -9,4 +9,6 @@ window.onload = function(){
         <AdminBox site={sitename}/>,
         document.getElementById('app')
     );
+
+    Koala.loadCSS(document, sitename);
 }

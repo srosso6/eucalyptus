@@ -34,9 +34,15 @@ var NewPage = React.createClass({
     render: function() {
         return (
             <div className="new-page">
-                <input type="text" placeholder="Page Name" value={this.state.name} onChange={this.setName} />
-                <input type="text" placeholder="Page Slug" value={this.state.slug} onChange={this.setSlug}/>
-                <button className="btn" onClick={this.createPage}>Add New Page</button>
+                <div className="new-page-item">
+                  <label htmlFor="page-name">Page Name:</label>
+                  <input type="text" name="page-name" placeholder="Page Name" value={this.state.name} onChange={this.setName} />
+                </div>
+                <div className="new-page-item">
+                  <label htmlFor="page-slug">Page Slug:</label>
+                  <input type="text" name="page-slug" id="slug" placeholder="Page Slug" value={this.state.slug} onChange={this.setSlug}/>
+                </div>
+                  <button className="btn" onClick={this.createPage}>Add New Page</button>
             </div>
         );
     }
