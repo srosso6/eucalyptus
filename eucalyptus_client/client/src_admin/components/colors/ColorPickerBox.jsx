@@ -39,9 +39,10 @@ var ColorPickerBox = React.createClass({
             var colors_id = data[0].colorscheme_id
             Koala.request("GET", this.props.site+"/colorschemes/"+colors_id)
             .then(function(data) {
-                this.setState({currentPalette: data[0]}, function(){
-                    console.log(this.state.currentPalette);
-                }.bind(this));
+                return data[0]
+                // this.setState({currentPalette: data[0]}, function(){
+                //     console.log(this.state.currentPalette);
+                // }.bind(this));
             }.bind(this));
         }.bind(this));
     },
@@ -139,7 +140,7 @@ var ColorPickerBox = React.createClass({
                 <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
                 <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
                 <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
-                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} current={this.state.currentPalette}/>
+                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} current={this.currentPalette}/>
             </div>
         );
     }
