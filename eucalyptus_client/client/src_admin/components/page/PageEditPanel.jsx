@@ -102,6 +102,14 @@ var PageEditPanel = React.createClass({
         }
     },
 
+    deletePage: function(page_id) {
+        Koala.request("POST", this.props.site+"/pages/"+page_id)
+        .then(function(data) {
+            console.log('page deleted');
+            this.loadPages();
+        }.bind(this));
+    },
+
     resetPage: function() {
         this.loadElements(this.state.page_id);
     },
