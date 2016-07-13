@@ -12,6 +12,10 @@ var ColorsDisplay = React.createClass({
         this.currentPalette();
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        this.currentPalette();
+    },
+
     setPalette: function(e){
         // console.log(e.target.getAttribute('data-palette'));
         // console.log(e.target.dataset.palette);
@@ -81,7 +85,7 @@ var ColorsDisplay = React.createClass({
             var paletteName = palette.name
             return (
                 <div key={palette._id} className="colorpalette">
-                    <h5>{paletteName}</h5>
+                    <h3>{paletteName}</h3>
                     <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
                     <div className={chosen}>
                         <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>

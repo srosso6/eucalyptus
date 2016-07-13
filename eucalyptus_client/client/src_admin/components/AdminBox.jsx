@@ -64,17 +64,6 @@ var AdminBox = React.createClass({
         }
     },
 
-    // setPage: function(page) {
-    //     console.log('click', page);
-    //     if (page === "logout") {
-    //         console.log('logout');
-    //         Koala.deleteCookie('EucalyptusUser');
-    //         this.setState({page: "home", currentUser: null});
-    //     } else {
-    //         this.setState({page: page});
-    //     }
-    // },
-
     setMenuItem: function(item) {
         if (item === "logout") {
             console.log("LOGOUT");
@@ -97,21 +86,12 @@ var AdminBox = React.createClass({
         }
 
         if (this.state.currentUser) {
-            if (this.state.menuItem === 'colors') {
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                            <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
-                        </div>
-                    )
-                } else {
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                            <PageEditPanel site={this.props.site} menuItem={this.state.menuItem} />
-                        </div>
-                    )
-                }
+            display = (
+                <div className="page-container">
+                    <MenuBox setMenuItem={this.setMenuItem} />
+                    <PageEditPanel site={this.props.site} menuItem={this.state.menuItem} />
+                </div>
+            );
         } else {
             display = (
                 <div>
