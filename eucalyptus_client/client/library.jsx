@@ -84,11 +84,15 @@ module.exports = {
         document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     },
     loadCSS: function(sitename) {
-      var styleTag = document.createElement("style");
+        var styleTag = document.getElementsByTagName('style')[0]
+        if(!styleTag) {
+            styleTag = document.createElement("style");
+        }
 
       this.request("get", sitename+'/currenttheme', null, false)
       .then(function(data) {
         styleTag.innerHTML = data;
+        console.log('this is data',data);
         var parent = document.getElementsByTagName('head')[0];
         parent.insertBefore(styleTag, parent.firstChild);
       });

@@ -63,47 +63,21 @@ var AdminBox = React.createClass({
         var display = null;
 
         if (this.state.currentUser) {
-            switch (this.state.menuItem) {
-                case "pages":
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                            <PageEditPanel site={this.props.site} />
-                        </div>
-                    );
-                    break;
-                case "colors":
+            if (this.state.menuItem === 'colors') {
                     display = (
                         <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
                             <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
                         </div>
-                    );
-                    break;
-                case "fonts":
+                    )
+                } else {
                     display = (
                         <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
-                            <FontBox site={this.props.site}/>
+                            <PageEditPanel site={this.props.site} menuItem={this.state.menuItem} />
                         </div>
-                    );
-                    break;
-                case "themes":
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setPage={this.setPage} setMenuItem={this.setMenuItem}/>
-                            <ThemeBox site={this.props.site}/>
-                        </div>
-                    );
-                    break;
-                default:
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                        </div>
-                    );
-                    break;
-            }
+                    )
+                }
         } else {
             display = (
                 <div>
