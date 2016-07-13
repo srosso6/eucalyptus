@@ -15,6 +15,8 @@ var AdminBox = React.createClass({
             admin_id: null,
             currentUser: null,
             error: null,
+            popUp: null,
+            message: null,
             menuItem: "pages"
         };
     },
@@ -25,6 +27,30 @@ var AdminBox = React.createClass({
         .then(function(data) {
             this.setState({admin_id: data[0].admin_id})
         }.bind(this));
+        // this.fetchComments();
+        // setInterval(this.fetchComments, 1000);
+
+        // console.log('HERE',num);
+        setInterval(function() {
+            var num = (Math.round(Math.random()*3) + 1);
+            if (num > 3) {
+                num = 3;
+            }
+            this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
+                setTimeout(function() {
+                    this.setState({popUp: null})
+                    this.setState({message: null})
+                }.bind(this), 5000)
+            }.bind(this))
+        }.bind(this),30000)
+        // setTimeout(function() {
+        //     this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
+        //         setTimeout(function() {
+        //             this.setState({popUp: null})
+        //             this.setState({message: null})
+        //         }.bind(this), 5000)
+        //     }.bind(this))
+        // }.bind(this), 3000)
     },
 
     login: function(confirmed) {
@@ -38,20 +64,12 @@ var AdminBox = React.createClass({
         }
     },
 
-    setPage: function(page) {
-        console.log('click', page);
-        if (page === "logout") {
-            console.log('logout');
-            Koala.deleteCookie('EucalyptusUser');
-            this.setState({page: "home", currentUser: null});
-        } else {
-            this.setState({page: page});
-        }
-    },
-
     setMenuItem: function(item) {
         if (item === "logout") {
+            console.log("LOGOUT");
             Koala.deleteCookie('EucalyptusUser');
+            console.log("cookie:",Koala.getCookie('EucalyptusUser'));
+
             this.setState({menuItem: "pages", currentUser: null});
         } else {
             this.setState({menuItem: item});
@@ -59,25 +77,21 @@ var AdminBox = React.createClass({
     },
 
     render: function() {
-
+        var popUp = null;
+        var message = null;
         var display = null;
+        if(this.state.popUp && this.state.currentUser) {
+            popUp = (<img className='koalaHelper' src={this.state.popUp}></img>)
+            message = (<img className='message' src={this.state.message}></img>)
+        }
 
         if (this.state.currentUser) {
-            if (this.state.menuItem === 'colors') {
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                            <ColorPickerBox site={this.props.site} user={this.state.currentUser}/>
-                        </div>
-                    )
-                } else {
-                    display = (
-                        <div className="page-container">
-                            <MenuBox setMenuItem={this.setMenuItem} />
-                            <PageEditPanel site={this.props.site} menuItem={this.state.menuItem} />
-                        </div>
-                    )
-                }
+            display = (
+                <div className="page-container">
+                    <MenuBox setMenuItem={this.setMenuItem} />
+                    <PageEditPanel site={this.props.site} menuItem={this.state.menuItem} />
+                </div>
+            );
         } else {
             display = (
                 <div>
@@ -89,6 +103,8 @@ var AdminBox = React.createClass({
 
         return (
             <div className="overall-container">
+                {popUp}
+                {message}
                 {display}
             </div>
         );

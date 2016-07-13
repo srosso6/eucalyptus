@@ -77,15 +77,23 @@ var UserBox = React.createClass({
         var pages = this.state.pages.map(function(page, index){
             var slug = this.props.sitename + "#" + page.slug
             return (
-                <a href={slug} key={index} onClick={this.changePage}>{page.slug}</a>
+                <button><a href={slug} key={index} onClick={this.changePage}>{page.name}</a></button>
             )
         }.bind(this))
 
+        var adminLink = null;
+
+        if (Koala.getCookie("EucalyptusUser")) {
+            adminLink = (<a href={"/"+this.props.sitename+"/admin"}
+            className="edit-page"
+            onClick={this.changePage}>EDIT YOUR SITE</a>);
+        }
+
 
         return (
-            <div >
-                <a href={"/"+this.props.sitename+"/admin"} onClick={this.changePage}>Edit your page</a>
+            <div>
                 <div className="navbar">
+                    {adminLink}
                     {pages}
                 </div>
                 <div key="elements">{this.state.elements}</div>
