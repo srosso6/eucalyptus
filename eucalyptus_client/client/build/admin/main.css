@@ -386,9 +386,9 @@ input {
 .page-btn,
 #view-btn {
   display: inline-block;
-  color: #000;
+  /*color: #000;*/
   cursor: pointer;
-  padding: 5px 5px;
+  /*padding: 5px 5px;*/
   text-align: center;
   line-height: 1;
   /*border: 1px solid #000;*/
