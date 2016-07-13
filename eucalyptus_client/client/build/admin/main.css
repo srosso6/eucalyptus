@@ -33,7 +33,19 @@ body {
 .loginDiv {
     text-align: center;
 }
-
+.koalaHelper {
+    position: fixed;
+    z-index: 1;
+    right: 10%;
+    bottom: -1%;
+}
+.message {
+    position: fixed;
+    z-index: 1;
+    width: 170px;
+    right: 25%;
+    bottom: 25%
+}
 
 
 .h1Login {
