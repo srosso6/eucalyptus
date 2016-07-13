@@ -222,7 +222,7 @@ app.post('/:database/register', function (req, res) {
                         }
                     }
                     var colorschemesall = db.collection('colorschemes');
-                    colorschemesall.insert({name: "Default", _background: "#365d9f", _headerBackground: "#682f3f", _headerText: "#3f36a4", _text: "#7e3347", _feature: "#7336a9"}, function(err, docs){
+                    colorschemesall.insert({name: "Default", _background: "#fcb421", _headerBackground: "#1094ab", _headerText: "#64c4d2", _text: "#000000", _feature: "#ffffff"}, function(err, docs){
                         if (err) {
                             res.json("");
                         } else {
