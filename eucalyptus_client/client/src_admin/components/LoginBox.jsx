@@ -73,16 +73,19 @@ var LoginBox = React.createClass({
             errorText = (<div className="error">{this.state.error}</div>)
         }
         return (
-            <div>
-                <form>
-                    <h1>Login:</h1>
-                    <label>Username:</label>
-                    <input type='text' value={this.state.userlogin} onChange={this.userInput}></input>
-                    <label>Password:</label>
-                    <input type='password' value={this.state.userpassword} onChange={this.passwordInput}></input>
-                    <button onClick={this.login}>Login</button>
-                </form>
-                {errorText}
+            <div className='loginDiv'>
+                <h1 className='h1Login'></h1>
+                <div className='loginForm'>
+                    <form>
+                        <h1>Login:</h1>
+                        <label className='loginLabel'>Username:</label>
+                        <input className='loginInput' type='text' value={this.state.userlogin} onChange={this.userInput}></input>
+                        <label className='loginLabel'>Password:</label>
+                        <input className='loginInput' type='password' value={this.state.userpassword} onChange={this.passwordInput}></input>
+                        <button className='loginButton' onClick={this.login}>Login</button>
+                    </form>
+                    {errorText}
+                </div>
             </div>
         );
     }

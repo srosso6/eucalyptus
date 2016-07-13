@@ -246,7 +246,8 @@ app.post('/:database/register', function (req, res) {
                         }
                     });
                     var fontsall = db.collection('fonts');
-                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'CBangers'}], function(err, docs) {
+
+                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'Bangers'}, {_font: 'Farsan'}, {_font: 'Inconsolata'}, {_font: 'Indie+Flower'}, {_font: 'Katibeh'}, {_font: 'Poiret+One'}, {_font: 'Suez+One'}, {_font: 'Tillana'}, {_font: 'Work+Sans'}], function(err, docs) {
                         if (err) {
                             res.json("");
                         } else {

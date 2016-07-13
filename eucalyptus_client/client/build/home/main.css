@@ -19,6 +19,7 @@ h1 {
     border-style: solid;
 }
 
+
 .homeSpiel {
     /*background-color: green;*/
     background-color: rgba(138, 114, 46, 0.4);
@@ -37,6 +38,8 @@ h1 {
 .boxes {
     height: 400px;
     margin-top: 80px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .regForm {

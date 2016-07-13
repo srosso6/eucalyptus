@@ -6,6 +6,7 @@ var ElementsPanel = require("./page/ElementsPanel.jsx");
 var ErrorBox = require("./ErrorBox.jsx");
 var ColorPickerBox = require("./colors/ColorPickerBox.jsx");
 var ThemeBox = require("./themes/ThemeBox.jsx");
+var FontBox = require("./fonts/FontBox.jsx");
 var Koala = require('../../library.jsx');
 
 var AdminBox = React.createClass({
@@ -83,6 +84,7 @@ var AdminBox = React.createClass({
                     display = (
                         <div className="page-container">
                             <MenuBox setMenuItem={this.setMenuItem} />
+                            <FontBox site={this.props.site}/>
                         </div>
                     );
                     break;
