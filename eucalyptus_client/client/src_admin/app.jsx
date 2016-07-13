@@ -13,18 +13,11 @@ window.onload = function(){
                 <AdminBox site={sitename}/>,
                 document.getElementById('app')
             );
-
             Koala.loadCSS(sitename);
+            document.title = "Eucalyptus - " + sitename + " - Admin";
         } else {
-            console.log('fail');
             window.location.href = "/";
         }
     }.bind(this));
 
-    // ReactDOM.render(
-    //     <AdminBox site={sitename}/>,
-    //     document.getElementById('app')
-    // );
-    //
-    // Koala.loadCSS(sitename);
 }

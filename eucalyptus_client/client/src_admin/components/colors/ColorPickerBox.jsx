@@ -23,15 +23,6 @@ var ColorPickerBox = React.createClass({
         this.props.getAllPalettes();
     },
 
-    // getAllPalettes: function(){
-    //     Koala.request("GET", this.props.site+"/colorschemes")
-    //     .then(function(data) {
-    //         // console.log(data);
-    //         this.setState({allPalettes: data});
-    //     }.bind(this));
-    //     Koala.loadCSS(this.props.site);
-    // },
-
     handleColorChange: function(e){
         this.setState({currentcolor: e.target.value});
     },
@@ -55,7 +46,6 @@ var ColorPickerBox = React.createClass({
 
     handleSave: function(){
         if(this.state.changes){
-
             var name = this.state.palettename;
             var background = this.state.background;
             var headerBackground = this.state.headerBackground;
@@ -67,14 +57,12 @@ var ColorPickerBox = React.createClass({
                 var data = ({name:name, _background: background, _headerBackground: headerBackground, _headerText: headerText, _text: text, _feature: feature})
                 Koala.request("POST", this.props.site+"/colorschemes", data)
                     .then(function() {
-                        console.log(data);
                         this.props.getAllPalettes();
                         Koala.loadCSS(this.props.site);
                     }.bind(this));
                 this.handleReset();
             }
-
-    }
+        }
     },
 
     render: function() {

@@ -37,7 +37,6 @@ const RegistrationForm = React.createClass({
   addSiteName: function(event) {
     let sitename = event.target.value.trim().toLowerCase().replace(/ /g, "");
     this.setState({sitename: sitename}, function() {
-        console.log("sitename", sitename);
         this.confirmUnique();
     }.bind(this));
   },
@@ -45,8 +44,6 @@ const RegistrationForm = React.createClass({
   handleReg: function (event) {
     event.preventDefault();
     var sitename = this.state.sitename;
-
-    console.log('sitename', sitename);
     if(this.state.password === this.state.confirmedPassword) {
         if (this.state.validSitename) {
             let newUser = {
@@ -56,7 +53,6 @@ const RegistrationForm = React.createClass({
               email: this.state.email
             }
 
-          // check if not completed ... then don't contact server
             this.props.onRegistration(sitename, newUser);
 
             this.setState({

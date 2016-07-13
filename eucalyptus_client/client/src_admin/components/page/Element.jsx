@@ -62,7 +62,6 @@ var Element = React.createClass({
 
   deleteElement: function(e) {
       var index = e.target.dataset.elIndex;
-      console.log('id', index);
       this.props.deleteElement(index)
   },
 

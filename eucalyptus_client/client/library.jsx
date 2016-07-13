@@ -45,53 +45,46 @@ module.exports = {
     },
 
     getSiteName: function (url) {
-        let urlparts = url.split("/");
-        let sitename = urlparts[3];
-        let test = sitename.split("#");
-        return test[0];
+        // let urlparts = url.split("/");
+        // let sitename = urlparts[3];
+        // let test = sitename.split("#");
+        // return test[0];
+        return url.split("/")[3].split("#")[0];
     },
 
     getPageName: function(url) {
-        let urlparts = url.split("#");
-        console.log("url", urlparts);
-        let pagename = urlparts[1];
-        return pagename;
+        // let urlparts = url.split("#");
+        // let pagename = urlparts[1];
+        // return pagename;
+        return url.split("#")[1];
     },
 
     generateElements: function(elementsCore) {
         elementsCore = elementsCore.sort(function(a, b) {
             return a.order - b.order;
         });
-
-        var elements = elementsCore.map(function(element) {
+        return elementsCore.map(function(element) {
             return this.generateHTML(element);
         }.bind(this));
-
-        return elements;
     },
 
     setCookie: function(name, value, path, expDays) {
-        var expiryDate = new Date();
+        // var expiryDate = new Date();
         // expiryDate.setTime(expiryDate.getTime() + (expDays*24*60*60*1000));
         // document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString() + "; path=/"+path;
-
         localStorage.setItem(name, value);
-
     },
     getCookie: function(name) {
         // var re = new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`);
         // var cookieValue = document.cookie.replace(re, "$1");
-        var cookieValue = localStorage.getItem(name);
-        return cookieValue;
+        // return cookieValue;
+        return localStorage.getItem(name);
     },
     deleteCookie: function(name) {
         // var cookieVal = this.getCookie(name);
-        // console.log('cv', cookieVal);
         // document.cookie = name+"="+cookieVal+"; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
         // document.cookie = name+"="+cookieVal+"; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-
         localStorage.removeItem(name);
-
     },
     loadCSS: function(sitename) {
         var styleTag = document.getElementsByTagName('style')[0]
@@ -99,33 +92,20 @@ module.exports = {
             styleTag = document.createElement("style");
         }
 
-      this.request("get", sitename+'/currenttheme', null, false)
-      .then(function(data) {
-        styleTag.innerHTML = data;
-        console.log('this is data',data);
-        var parent = document.getElementsByTagName('head')[0];
-        parent.insertBefore(styleTag, parent.firstChild);
-      });
-  },
-  checkValidSiteName: function(sitename) {
-
-      return new Promise(function(resolve, reject) {
-          this.request('get', sitename+'/general')
-          .then(function(data) {
-              console.log('datttta', data);
-              resolve(data.length > 0);
-          })
-      }.bind(this));
-
-
-    //   var url = this.state.siteName + '/general'
-    //   this.request('GET', url).then(function(data) {
-    //       if(data.length > 0) {
-    //           this.setState({validSitename: data}, function() {
-    //               console.log('this',this.state.validSitename);
-    //           });
-    //       }
-    //   }.bind(this))
-  }
+        this.request("get", sitename+'/currenttheme', null, false)
+        .then(function(data) {
+            styleTag.innerHTML = data;
+            var parent = document.getElementsByTagName('head')[0];
+            parent.insertBefore(styleTag, parent.firstChild);
+        });
+    },
+    checkValidSiteName: function(sitename) {
+        return new Promise(function(resolve, reject) {
+        this.request('get', sitename+'/general')
+        .then(function(data) {
+            resolve(data.length > 0);
+        });
+        }.bind(this));
+    }
 
 }

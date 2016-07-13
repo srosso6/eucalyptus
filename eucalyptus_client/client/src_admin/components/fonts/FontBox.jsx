@@ -16,10 +16,7 @@ var FontBox = React.createClass({
         var url = this.props.site + '/'
         Koala.request('GET', url +'general').then(function(genData) {
             Koala.request('GET', url + 'fonts').then(function(data) {
-                this.setState({fonts: data, selectedFont: genData.font_id}, function() {
-                    console.log(this.state.fonts);
-
-                })
+                this.setState({fonts: data, selectedFont: genData.font_id});
             }.bind(this));
         }.bind(this));
 
@@ -29,9 +26,7 @@ var FontBox = React.createClass({
     saveFont: function(e) {
         var url = this.props.site + '/'
         e.preventDefault()
-        console.log(e.target.className);
-        Koala.request('POST', url + 'general', {font_id: e.target.value}).then(function() { //put in thing
-            console.log('font change saved');
+        Koala.request('POST', url + 'general', {font_id: e.target.value}).then(function() {
             Koala.loadCSS(this.props.site)
         }.bind(this))
     },

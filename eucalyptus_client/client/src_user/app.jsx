@@ -14,10 +14,9 @@ window.onload = function(){
                 <UserBox sitename={sitename} pagename={pagename}/>,
                 document.getElementById('app')
             );
-
+            document.title = "Eucalyptus - " + sitename;
             Koala.loadCSS(sitename);
         } else {
-            console.log('fail');
             window.location.href = "/";
         }
     }.bind(this));

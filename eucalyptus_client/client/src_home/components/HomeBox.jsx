@@ -13,32 +13,25 @@ const HomeBox = React.createClass({
     handleChange: function(e) {
         e.preventDefault()
         this.setState({siteName: e.target.value}, function() {
-            console.log("site", this.state.siteName);
             this.checkForSite()
         })
     },
 
     registerUser: function (sitename, newUser) {
-        var url = sitename + "/register";
-
-        Koala.request("POST", url, newUser).then(function (data) {
+        Koala.request("POST", sitename + "/register", newUser).then(function (data) {
             Koala.setCookie('EucalyptusUser', data._id, sitename, 30);
             window.location.href = "http://localhost:3000/" + sitename + "/admin";
-        }).catch(function(error) {
-            console.error("Cannot redirect", error);
         });
     },
     checkForSite: function () {
         Koala.checkValidSiteName(this.state.siteName)
         .then(function(valid) {
-            console.log('hit here');
             this.setState({validSitename: valid});
         }.bind(this));
     },
     toLogin: function(e) {
         e.preventDefault()
         if(this.state.validSitename) {
-            console.log('I am here', this.state.siteName);
             window.location.href = this.state.siteName + '/admin'
         } else {
             this.setState({error: true})
@@ -48,8 +41,6 @@ const HomeBox = React.createClass({
     render: function() {
         var error = null
         if(this.state.error) {
-            // error = <b className="errorSiteSearch">{this.state.error}</b>
-            console.log('here', this.state.error);
             error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
         }
 
@@ -86,8 +77,6 @@ const HomeBox = React.createClass({
         );
     }
 
-    });
+});
 
-    module.exports = HomeBox;
-
-    // need to call a login method from Koala to log-in user once re-directed
+module.exports = HomeBox;

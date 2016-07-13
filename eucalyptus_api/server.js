@@ -18,7 +18,6 @@ app.use(function(req, res, next) {
 });
 
 app.get('/:database/currenttheme', function(req, res) {
-    console.log("currenttheme");
     var themeUrl = null;
     var colorScheme = null;
     var font = null;
@@ -28,32 +27,27 @@ app.get('/:database/currenttheme', function(req, res) {
 
         fs.readFile(`./themes/${themeUrl}.css`, 'utf8', function(err, data) {
             if(err) {
-                console.log('error', err);
-                console.log('6');
                 res.send("");
 
             } else {
-                console.log(data);
                 responseText = data
-                console.log('font:', font);
                 for(var key of Object.keys(colorScheme)) {
                     if(key !== '_id' && key !== 'name') {
                         var rg = new RegExp(key, 'g');
                         responseText = responseText.replace(rg, colorScheme[key]);
                     }
                 }
-                console.log('fonty', font._font);
 
                 responseText = responseText.replace("_font", font._font);
                 responseText = responseText.replace(new RegExp("_font", 'g'), font._font.replace("+", " "));
-                console.log('joe', responseText);
+
                 res.send(responseText);
             }
         })
     }
 
     var finishedRequest = function() {
-        console.log('taggy', themeUrl, colorScheme);
+
         if(themeUrl && colorScheme && font) {
 
             readFile();
@@ -67,21 +61,16 @@ app.get('/:database/currenttheme', function(req, res) {
         collection.find({}).toArray(function(err, docs) {
 
             if (err) {
-                console.log('5');
                 res.send("");
                 db.close();
             } else {
-                console.log('general', docs);
                 if (docs.length > 0) {
                     var collection2 = db.collection('themes');
                     collection2.find({_id: docs[0].theme_id}).toArray(function(err, docs) {
                         if (err) {
-                            console.log('4');
                             res.send("");
-
                             db.close();
                         } else {
-                            console.log('theme docs', docs);
                             themeUrl = docs[0].url;
                             if(finishedRequest()) {
                                 db.close();
@@ -91,12 +80,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection3 = db.collection('colorschemes');
                     collection3.find({_id: docs[0].colorscheme_id}).toArray(function(err, docs) {
                         if (err) {
-                            console.log('3');
                             res.send("");
-
                             db.close();
                         } else {
-                            console.log('color docs', docs);
                             colorScheme = docs[0];
                             if(finishedRequest()) {
                                 db.close();
@@ -106,12 +92,9 @@ app.get('/:database/currenttheme', function(req, res) {
                     var collection4 = db.collection('fonts');
                     collection4.find({_id: docs[0].font_id}).toArray(function(err, docs) {
                         if (err) {
-                            console.log('2');
                             res.send("");
-
                             db.close();
                         } else {
-                            console.log('font docs', docs);
                             font = docs[0];
                             if(finishedRequest()) {
                                 db.close();
@@ -119,9 +102,7 @@ app.get('/:database/currenttheme', function(req, res) {
                         }
                     });
                 } else {
-                    console.log('1');
                     res.send("");
-
                     db.close();
                 }
 
@@ -132,7 +113,6 @@ app.get('/:database/currenttheme', function(req, res) {
 });
 
 app.get('/:database/:collection', function(req, res) {
-    // console.log('one');
     MongoClient.connect(url + req.params.database, function(err, db) {
         if (err) {
             res.json()
@@ -147,9 +127,6 @@ app.get('/:database/:collection', function(req, res) {
 });
 
 app.get('/:database/:collection/:id', function(req, res) {
-    console.log("database:", req.params.database);
-    console.log("collection:", req.params.collection);
-    console.log("id:", req.params.id);
     MongoClient.connect(url + req.params.database, function(err, db) {
         if (err) {
             res.json();
@@ -262,8 +239,6 @@ app.post('/:database/register', function (req, res) {
 
 app.post('/:database/:collection', function(req, res) {
     var data = req.body;
-    console.log("req", req.params.collection);
-    console.log("req", req.params.database);
     MongoClient.connect(url + req.params.database, function(err, db) {
         if (err) {
             res.status(404).end()
@@ -287,7 +262,6 @@ app.post('/:database/:collection', function(req, res) {
                     } else {
                         collection.insert(element, {w:1}, checkIfCompleted);
                     }
-                    // collection.update({_id: element._id}, element, {upsert: true});
                 }
             } else if (req.params.collection === "users") {
 
@@ -309,7 +283,6 @@ app.post('/:database/:collection', function(req, res) {
                   db.close();
               });
             } else if(req.params.collection === "colorschemes") {
-                console.log("Saving colors");
                 collection.insert(data, function(err, doc) {
                     if (err) {
                         res.status(404).end();
@@ -361,15 +334,11 @@ app.post('/:database/:collection', function(req, res) {
 app.post('/:database/:collection/:id', function(req, res) {
     var deleteID = req.params.id;
     MongoClient.connect(url + req.params.database, function(err, db) {
-        console.log("url", url + req.params.database);
         if (err) {
             db.close();
             res.status(404).end()
         } else {
             var collection = db.collection(req.params.collection);
-
-            console.log("Collection", collection);
-            console.log("element to delete", deleteID);
             collection.remove({_id: ObjectId(deleteID)}, function(err, docs) {
                 if (err) {
                     res.status(500).end();

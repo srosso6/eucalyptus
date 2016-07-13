@@ -22,28 +22,12 @@ var LoginBox = React.createClass({
             this.setState({error: "Incorrect Email or Password"})
         } else {
             this.setState({founduser: data}, function() {
-                console.log("founduser:", this.state.founduser)
                 this.checkIfAdmin(this.state.founduser._id, this.props.admin_id);
-            })
+            });
         }
 
     },
     findUser: function(user) {
-        // var request = new XMLHttpRequest()
-        // request.onload = function() {
-        //     if (request.status === 200) {
-        //         if (request.responseText === "") {
-        //             this.setState({error: "Incorrect Email or Password"});
-        //         } else {
-        //             this.setFind(JSON.parse(request.responseText));
-        //         }
-        //     }
-        // }.bind(this)
-        //
-        // request.open("POST", "http://localhost:5000/"+this.props.site+"/users");
-        // request.setRequestHeader("Content-Type", "application/json");
-        // request.send(JSON.stringify(user));
-
         Koala.request("POST", this.props.site + "/users", user)
         .then(function(data) {
             if (data === '') {
@@ -52,19 +36,13 @@ var LoginBox = React.createClass({
                 this.setFind(data);
             }
         }.bind(this));
-
-        // SWITCH TO Koala.request!
     },
     login: function(e) {
         e.preventDefault();
         this.findUser({email: this.state.userlogin, password: this.state.userpassword})
-
-
-        // return {error: "WHAT THE ERROR WAS"} in this.props.login()
     },
     checkIfAdmin: function (user_id, admin_id) {
         if(user_id === admin_id) {
-            console.log('am admin');
             this.props.login({user: user_id});
         } else {
             this.setState({error: "You are not admin!"})

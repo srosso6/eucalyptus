@@ -17,8 +17,6 @@ var ColorsDisplay = React.createClass({
     },
 
     setPalette: function(e){
-        // console.log(e.target.getAttribute('data-palette'));
-        // console.log(e.target.dataset.palette);
         var paletteId = e.target.dataset.palette
         Koala.request("POST", this.props.site+"/general", {colorscheme_id: paletteId})
         .then(function(){
@@ -33,24 +31,15 @@ var ColorsDisplay = React.createClass({
             var colors_id = data[0].colorscheme_id
             Koala.request("GET", this.props.site+"/colorschemes/"+colors_id)
             .then(function(data) {
-                this.setState({currentPalette: data[0]}, function(){
-                    console.log("state id", this.state.currentPalette._id);
-                }.bind(this));
+                this.setState({currentPalette: data[0]});
             }.bind(this));
         }.bind(this));
     },
 
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette
-        // console.log("palette to delete", paletteId);
-        //
-        // var request = new XMLHttpRequest();
-        // request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
-        // request.send(null);
-
         Koala.request("post", this.props.site+"/colorschemes/"+paletteId)
         .then(function(data) {
-            console.log('deleted palette');
             this.props.getAll();
             this.currentPalette();
         }.bind(this));
@@ -62,7 +51,6 @@ var ColorsDisplay = React.createClass({
             var chosen = null;
             var buttonshow = null;
             if(palette._id === this.state.currentPalette._id) {
-                // chosen = " This is your current Color Palette"
                 chosen = "chosen"
                 buttonshow = "disabled"
             }

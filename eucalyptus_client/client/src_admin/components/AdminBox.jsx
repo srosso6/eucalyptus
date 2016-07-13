@@ -27,10 +27,6 @@ var AdminBox = React.createClass({
         .then(function(data) {
             this.setState({admin_id: data[0].admin_id})
         }.bind(this));
-        // this.fetchComments();
-        // setInterval(this.fetchComments, 1000);
-
-        // console.log('HERE',num);
         setInterval(function() {
             var num = (Math.round(Math.random()*3) + 1);
             if (num > 3) {
@@ -42,22 +38,12 @@ var AdminBox = React.createClass({
                     this.setState({message: null})
                 }.bind(this), 5000)
             }.bind(this))
-        }.bind(this),30000)
-        // setTimeout(function() {
-        //     this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
-        //         setTimeout(function() {
-        //             this.setState({popUp: null})
-        //             this.setState({message: null})
-        //         }.bind(this), 5000)
-        //     }.bind(this))
-        // }.bind(this), 3000)
+        }.bind(this),30000);
     },
 
     login: function(confirmed) {
         if (confirmed.user) {
-
             Koala.setCookie('EucalyptusUser', confirmed.user, 30);
-
             this.setState({currentUser: confirmed.user});
         } else {
             this.setState({error: confirmed.error});
@@ -66,10 +52,7 @@ var AdminBox = React.createClass({
 
     setMenuItem: function(item) {
         if (item === "logout") {
-            console.log("LOGOUT");
             Koala.deleteCookie('EucalyptusUser');
-            console.log("cookie:",Koala.getCookie('EucalyptusUser'));
-
             this.setState({menuItem: "pages", currentUser: null});
         } else {
             this.setState({menuItem: item});

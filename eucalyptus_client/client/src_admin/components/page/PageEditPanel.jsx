@@ -30,11 +30,8 @@ var PageEditPanel = React.createClass({
     },
 
     loadPages: function(page_slug) {
-        console.log("LOADING PAGES");
-        var url = this.props.site + "/";
-        Koala.request("get", url + "pages")
+        Koala.request("get", this.props.site + "/" + "pages")
         .then(function(page_data) {
-            console.log('data', page_data);
             var curPageId = page_data[0]._id;
             var onIndex = true;
             if (page_slug) {
@@ -44,7 +41,6 @@ var PageEditPanel = React.createClass({
                         if (page_slug !== "home") {
                             onIndex = false;
                         }
-                        console.log('setting curPageId');
                     }
                 }
             }
@@ -55,18 +51,15 @@ var PageEditPanel = React.createClass({
     },
 
     setPage: function(page_id) {
-
         this.loadElements(page_id);
     },
 
     loadElements: function(page_id) {
-        var url = this.props.site + "/";
-        Koala.request("get", url + "elements/" + page_id)
+        Koala.request("get", this.props.site + "/" + "elements/" + page_id)
         .then(function(element_data) {
             this.setState({elements: element_data, changes:false, page_id: page_id});
         }.bind(this))
     },
-
 
     editElement: function () {
       this.setState({changes:true});
@@ -90,9 +83,7 @@ var PageEditPanel = React.createClass({
     deleteElement: function(index) {
         var elements = this.state.elements;
         var removedElement = elements.splice(index, 1)[0];
-        console.log('rem', removedElement);
         if (removedElement._id) {
-            console.log('el got id');
             Koala.request("post", this.props.site+"/elements/"+removedElement._id)
             .then(function(data) {
                 this.setState({elements: elements});
@@ -107,21 +98,15 @@ var PageEditPanel = React.createClass({
             this.setState({ changes: false }, function() {
                 Koala.request("POST", this.props.site+"/elements", this.state.elements)
                 .then(function (){
-                    console.log("Saved");
-
                     this.loadElements();
                 }.bind(this));
             });
-        } else {
-            console.log("No changes to save");
         }
     },
 
     deletePage: function() {
-
         Koala.request("POST", this.props.site+"/pages/"+this.state.page_id)
         .then(function(data) {
-            console.log('page deleted');
             this.loadPages();
         }.bind(this));
     },
@@ -132,23 +117,18 @@ var PageEditPanel = React.createClass({
     setHomePage: function() {
         Koala.request("GET", this.props.site+"/pages/"+this.state.page_id)
         .then(function(data) {
-            Koala.request("POST", this.props.site+"/general", {index: data[0].slug})
-            .then(function(data) {
-                console.log("saved index");
-            });
+            Koala.request("POST", this.props.site+"/general", {index: data[0].slug});
         }.bind(this));
 
     },
     getAllPalettes: function(){
         Koala.request("GET", this.props.site+"/colorschemes")
         .then(function(data) {
-            // console.log(data);
             this.setState({allPalettes: data});
         }.bind(this));
     },
     render: function() {
         var sideBar = null
-        console.log("Tagaroo",this.props.menuItem);
         var topBar = (
             <div className="pages">
                 <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>

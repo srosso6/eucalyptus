@@ -4,7 +4,6 @@ var MenuItem = require("./MenuItem.jsx");
 var MenuBox = React.createClass({
 
     clickFunction: function (item) {
-        console.log("what am i", item);
         this.props.setMenuItem(item);
     },
 
