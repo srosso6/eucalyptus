@@ -50,15 +50,19 @@ const HomeBox = React.createClass({
     return (
         <div>
             <h1></h1>
+            <img className='leafs' src='/static/home/images/leafs.png'></img>
             <div className ='boxes'>
                 <div className='homeSpiel'>
-                <p >Welcome to Eucalyptus, a CMS built with React!</p>
+                    <p >Welcome to Eucalyptus, a CMS built with React!</p>
+                    <p>Bunch of cool guys, making cool shit.</p>
+                    <p>I sell sea shells on the sea shore.</p>
 
-                <b>--</b>
-                <p>Already have a site?</p>
-                <label>Sitename:</label>
-                <input type='text' onChange={this.handleChange}></input>
-                <button onClick={this.toLogin}>To My Site</button>
+                    <b className='bForSiteSearchReg'>--</b>
+                    <p className='pForSiteSearchReg'>Already have a site?</p>
+                    <label className='labelForSiteSearchReg'>Sitename:</label>
+                    <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
+                    <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
+                    <img className='koala' src='/static/home/images/koala.png'></img>
                 </div>
             </div>
             <div className ='boxes'>
