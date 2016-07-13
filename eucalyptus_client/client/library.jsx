@@ -70,10 +70,10 @@ module.exports = {
         return elements;
     },
 
-    setCookie: function(name, value, expDays) {
+    setCookie: function(name, value, path, expDays) {
         var expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + (expDays*24*60*60*1000));
-        document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString();
+        document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString() + "; path=/"+path;
     },
     getCookie: function(name) {
         var re = new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`);
