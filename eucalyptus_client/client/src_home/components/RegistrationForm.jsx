@@ -11,7 +11,7 @@ const RegistrationForm = React.createClass({
       email: "",
       sitename: "",
       error: null,
-      validSitename: true
+      validSitename: false
     }
   },
 
@@ -44,37 +44,41 @@ const RegistrationForm = React.createClass({
   handleReg: function (event) {
     event.preventDefault();
     var sitename = this.state.sitename;
-    if(this.state.password === this.state.confirmedPassword) {
-        if (this.state.validSitename) {
-            let newUser = {
-              name: this.state.name,
-              access: 1,
-              password: this.state.password,
-              email: this.state.email
+    if (this.state.name && this.state.password && this.state.email) {
+        if(this.state.password === this.state.confirmedPassword) {
+            if (this.state.validSitename) {
+                let newUser = {
+                  name: this.state.name,
+                  access: 1,
+                  password: this.state.password,
+                  email: this.state.email
+                }
+
+                this.props.onRegistration(sitename, newUser);
+
+                this.setState({
+                  name: "",
+                  password: "",
+                  email: "",
+                  sitename: ""
+                });
+            } else {
+                this.setState({error: "That site name is already taken"})
             }
 
-            this.props.onRegistration(sitename, newUser);
-
-            this.setState({
-              name: "",
-              password: "",
-              email: "",
-              sitename: ""
-            });
         } else {
-            this.setState({error: "The site name is already taken"})
+            this.setState({error: "Passwords do not match!"})
         }
-
     } else {
-        this.setState({error: "Passwords do not match!"})
+        this.setState({error: "All data is requireds."})
     }
+
   },
   confirmUnique: function () {
-      var url = this.state.sitename + '/general'
-      Koala.request('GET', url).then(function(data) {
-          var isValid = !(data.length > 0)
-          this.setState({validSitename: isValid});
-      }.bind(this))
+      Koala.checkValidSiteName(this.state.sitename)
+      .then(function(valid) {
+          this.setState({validSitename: !valid});
+      }.bind(this));
   },
 
 
