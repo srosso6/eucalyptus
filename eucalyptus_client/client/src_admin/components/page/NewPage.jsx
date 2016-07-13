@@ -22,13 +22,19 @@ var NewPage = React.createClass({
 
     createPage: function(e) {
         e.preventDefault();
+        if (this.state.name && this.state.slug) {
 
-        Koala.request("post", this.props.sitename+"/pages", this.state)
-        .then(function(data) {
-            // this.props.redoPagesList - setPage page_id
-            this.props.reloadPages(this.state.slug);
-        }.bind(this));
-        this.setState({name: null, slug:null})
+            var siteDetails = this.state;
+
+            siteDetails.slug = siteDetails.slug.replace(/ /g, "").toLowerCase();
+
+            Koala.request("post", this.props.sitename+"/pages", siteDetails)
+            .then(function(data) {
+                // this.props.redoPagesList - setPage page_id
+                this.props.reloadPages(this.state.slug);
+            }.bind(this));
+            this.setState({name: null, slug:null})
+        }
     },
 
     render: function() {
