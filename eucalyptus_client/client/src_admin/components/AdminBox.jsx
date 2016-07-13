@@ -29,14 +29,28 @@ var AdminBox = React.createClass({
         }.bind(this));
         // this.fetchComments();
         // setInterval(this.fetchComments, 1000);
-        setTimeout(function() {
-            this.setState({popUp: '/static/home/images/koala.png', message: '/static/admin/images/savemessage.png'}, function() {
+
+        // console.log('HERE',num);
+        setInterval(function() {
+            var num = (Math.round(Math.random()*3) + 1);
+            if (num > 3) {
+                num = 3;
+            }
+            this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
                 setTimeout(function() {
                     this.setState({popUp: null})
                     this.setState({message: null})
                 }.bind(this), 5000)
             }.bind(this))
-        }.bind(this), 1000)
+        }.bind(this),30000)
+        // setTimeout(function() {
+        //     this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
+        //         setTimeout(function() {
+        //             this.setState({popUp: null})
+        //             this.setState({message: null})
+        //         }.bind(this), 5000)
+        //     }.bind(this))
+        // }.bind(this), 3000)
     },
 
     login: function(confirmed) {
@@ -77,7 +91,7 @@ var AdminBox = React.createClass({
         var popUp = null;
         var message = null;
         var display = null;
-        if(this.state.popUp) {
+        if(this.state.popUp && this.state.currentUser) {
             popUp = (<img className='koalaHelper' src={this.state.popUp}></img>)
             message = (<img className='message' src={this.state.message}></img>)
         }

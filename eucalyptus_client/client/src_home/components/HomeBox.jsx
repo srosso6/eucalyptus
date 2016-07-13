@@ -7,7 +7,7 @@ const HomeBox = React.createClass({
         return {
             siteName: null,
             validSitename: null,
-            error: null
+            error: false
         };
     },
     handleChange: function(e) {
@@ -43,6 +43,8 @@ const HomeBox = React.createClass({
         if(this.state.validSitename) {
             console.log('I am here', this.state.siteName);
             window.location.href = this.state.siteName + '/admin'
+        } else {
+            this.setState({error: true})
         }
 
     },
@@ -50,6 +52,7 @@ const HomeBox = React.createClass({
         var error = null
         if(this.state.error) {
             // error = <b className="errorSiteSearch">{this.state.error}</b>
+            console.log('here', this.state.error);
             error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
         }
 
@@ -57,6 +60,7 @@ const HomeBox = React.createClass({
             <div>
                 <div className='headerDivLogin'>
                     <h1></h1>
+
                     <img className='leafs' src='/static/home/images/leafs.png'></img>
                 </div>
                 <div className ='boxes'>
@@ -70,6 +74,7 @@ const HomeBox = React.createClass({
                         <label className='labelForSiteSearchReg'>Sitename:</label>
                         <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
                         <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
+                        {error}
                         <img className='koala' src='/static/home/images/koala.png'></img>
                     </div>
                 </div>

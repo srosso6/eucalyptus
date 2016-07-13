@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Prompt';
+
 body {
   background-color: lightgreen;
   text-align: center;
@@ -40,6 +42,7 @@ h1 {
     vertical-align: top;
     box-shadow: 2px 2px 10px black;
     position: relative;
+    font-family: Prompt;
 }
 .koala {
     position: absolute;
@@ -81,6 +84,7 @@ h1 {
     margin-top: 80px;
     display: inline-block;
     vertical-align: top;
+    font-family: Prompt;
 }
 
 .regForm {
@@ -121,6 +125,7 @@ input {
     width: 70%;
     border-radius: 5px;
     margin-bottom: 15px;
+    background-color: rgb(190, 239, 190);
 
 }
 
