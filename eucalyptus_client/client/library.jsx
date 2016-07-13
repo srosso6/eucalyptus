@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = {
 
-    request: function(reqtype, url, data=null, isJSON=true) {
+    request: function(reqtype, url, data={}, isJSON=true) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.onload = function() {
@@ -29,16 +29,18 @@ module.exports = {
         });
     },
 
-    generateHTML: function(data, onDoubleClickFunction) {
+    generateHTML: function(data, onDoubleClickFunction, notEditing=true) {
         var extrasObj = {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`};
         var hrefObj = {};
+        var content = data.content;
         if (data.etype === "img") {
-            hrefObj = {src: data.url};
-        } else if (data.etype === "a") {
+            hrefObj = {src: data.url, height: "100px", width: "100px"};
+            content = null;
+        } else if (data.etype === "a" && notEditing) {
             hrefObj = {href: data.url};
         }
         Object.assign(extrasObj, hrefObj);
-        return React.createElement(data.etype, extrasObj, data.content);
+        return React.createElement(data.etype, extrasObj, content);
 
     },
 

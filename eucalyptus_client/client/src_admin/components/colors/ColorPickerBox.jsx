@@ -14,7 +14,7 @@ var ColorPickerBox = React.createClass({
             text: "#000000",
             feature: "#ffffff",
             palettename:"",
-            allPalettes:[],
+            allPalettes:[{_id: 1}],
             changes: false
         };
     },

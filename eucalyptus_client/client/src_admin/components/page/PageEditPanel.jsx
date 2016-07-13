@@ -75,14 +75,16 @@ var PageEditPanel = React.createClass({
 
     deleteElement: function(index) {
         var elements = this.state.elements;
-        var removedElement = elements.splice(index, 1);
+        var removedElement = elements.splice(index, 1)[0];
         console.log('rem', removedElement);
         if (removedElement._id) {
             console.log('el got id');
-            Koala.request("post", this.props.site+removedElement._id)
+            Koala.request("post", this.props.site+"/elements/"+removedElement._id)
             .then(function(data) {
                 this.setState({elements: elements});
-            });
+            }.bind(this));
+        } else {
+            this.setState({elements: elements});
         }
     },
 
@@ -95,7 +97,7 @@ var PageEditPanel = React.createClass({
                     changes:false
                 });
                 this.loadElements();
-            }).bind(this);
+            }.bind(this));
 
         } else {
             console.log("No changes to save");
