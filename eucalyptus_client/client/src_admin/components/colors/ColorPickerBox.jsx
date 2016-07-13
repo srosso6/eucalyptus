@@ -15,7 +15,8 @@ var ColorPickerBox = React.createClass({
             feature: "#ffffff",
             palettename:"",
             allPalettes:[{_id: 1}],
-            changes: false
+            changes: false,
+            colorresponse: null
         };
     },
 
@@ -54,19 +55,27 @@ var ColorPickerBox = React.createClass({
 
     handleSave: function(){
         if(this.state.changes){
-        var name = this.state.palettename;
-        var background = this.state.background;
-        var headerBackground = this.state.headerBackground;
-        var headerText = this.state.headerText;
-        var text = this.state.text;
-        var feature = this.state.feature;
-        var data = ({name:name, _background: background, _headerBackground: headerBackground, _headerText: headerText, _text: text, _feature: feature})
-        Koala.request("POST", this.props.site+"/colorschemes", data)
-        .then(function() {
-            console.log(data);
-            this.getAllPalettes();
-        }.bind(this));
-        this.handleReset();
+
+            var name = this.state.palettename;
+            var background = this.state.background;
+            var headerBackground = this.state.headerBackground;
+            var headerText = this.state.headerText;
+            var text = this.state.text;
+            var feature = this.state.feature;
+
+            if(name && background && headerBackground && headerText && text && feature) {
+                var data = ({name:name, _background: background, _headerBackground: headerBackground, _headerText: headerText, _text: text, _feature: feature})
+                Koala.request("POST", this.props.site+"/colorschemes", data)
+                    .then(function() {
+                        console.log(data);
+                        this.getAllPalettes();
+                    }.bind(this));
+                this.handleReset();
+                this.setState({colorresponse: (<h1>New Color Palette Added</h1>)});
+            } else {
+                this.setState({colorresponse: (<h1>Make sure you have selected 5 colors!</h1>)});
+            }
+
     }
     },
 
@@ -127,6 +136,7 @@ var ColorPickerBox = React.createClass({
                     <input type="button" className="colorinput" onClick={this.handleReset} value="Reset Color Palette"/>
                     <input type="button" className="colorinput" onClick={this.handleSave} value="Add Color Palette"/>
                 </div>
+                {this.state.colorresponse}
                 <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} getAll={this.getAllPalettes}/>
             </div>
         );
