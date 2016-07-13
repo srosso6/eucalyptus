@@ -36,7 +36,6 @@ var ColorsDisplay = React.createClass({
         }.bind(this));
     },
 
-
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette
         console.log("palette to delete", paletteId);
@@ -88,7 +87,7 @@ var ColorsDisplay = React.createClass({
 
         return (
             <div className="colorpalettes">
-                <h3>Lots of pretty colors below!</h3>
+                <h2>Your Color Palettes</h2>
                 {boxesofcolor}
             </div>
         );

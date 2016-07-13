@@ -1,8 +1,17 @@
-@import 'https://fonts.googleapis.com/css?family=Arima+Madurai|Bangers|Farsan|Inconsolata|Indie+Flower|Katibeh|Poiret+One|Suez+One|Tillana|Work+Sans';
+@import 'https://fonts.googleapis.com/css?family=Prompt|Arima+Madurai|Bangers|Farsan|Inconsolata|Indie+Flower|Katibeh|Poiret+One|Suez+One|Tillana|Work+Sans';
 
 * {
   box-sizing: border-box;
 }
+
+div {
+    transition:all 0.5s ease;
+}
+
+/*rgba(138, 114, 46, 0.4)
+green
+lightgreen
+darkgreen*/
 
 /*#app {
   height: 500px;
@@ -17,6 +26,7 @@
 body {
   background-color: lightgreen;
   font-weight: 700;
+  font-family: 'Prompt', sans-serif;
   /*text-align: center;*/
 }
 
@@ -42,7 +52,7 @@ body {
 
 .Inconsolata {
     font-family: Inconsolata;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -53,12 +63,12 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 
 .ArimaMadurai {
     font-family: Arima Madurai;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -69,11 +79,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .Bangers {
     font-family: Bangers;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -84,11 +94,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .Farsan {
     font-family: Farsan;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -99,11 +109,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .IndieFlower {
     font-family: Indie Flower;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -114,11 +124,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .Katibeh {
     font-family: Katibeh;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -129,11 +139,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .PoiretOne {
     font-family: Poiret One;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -144,11 +154,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .SuezOne {
     font-family: Suez One;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -159,11 +169,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .Tillana {
     font-family: Tillana;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -174,11 +184,11 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .WorkSans {
     font-family: Work Sans;
-    display: block;
+    /*display: block;
     color: #000;
     cursor: pointer;
     padding: 6% 7%;
@@ -189,7 +199,7 @@ body {
     border: 1px solid #000;
     font-size: 16px;
     font-weight: 700;
-    background-color: #eee;
+    background-color: #eee;*/
 }
 .Square {
     display: block;
@@ -221,6 +231,9 @@ body {
     font-size: 16px;
     font-weight: 700;
     background-color: #eee;
+  background-color: rgb(190, 239, 190);
+  font-weight: 700;
+  /*color: green;*/
 }
 
 .color-div {
@@ -228,9 +241,28 @@ body {
   height: 50px;
 }
 
+.colorinputbox {
+    margin-top: 10px;
+}
+
+.colorinput {
+    margin-right: 5px;
+}
+
 input {
   height: 25px;
+  border: 0;
+  border-radius: 10px;
+  color: darkgreen;
+  background-color: rgb(190, 239, 190);
+  margin-top: 1px;
+  box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
+  padding-left: 3px;
 }
+
+/*.slug {
+    margin-left: px;
+}*/
 
 .page-container {
   /*height: 700px;
@@ -277,7 +309,7 @@ input {
   display: inline-block;
   height: 100%;
   width: 100%;
-  border: 1px solid #555;
+  border: 5px solid lightgreen;
 }
 
 .elements {
@@ -312,8 +344,11 @@ input {
   vertical-align: top;
   width: 80%;
   height: 15%;
-  border: 1px solid #555;
+  /*border: 1px solid *rgba(138, 114, 46, 0.4);*/
   position: relative;
+  /*background-color: rgb(190, 239, 190);*/
+  background-color: rgba(138, 114, 46, 0.4);
+  /*opacity: 0.5;*/
 }
 
 
@@ -341,6 +376,8 @@ input {
   position: relative;
   padding: 5% 5%;
   vertical-align: top;
+  /*background-color: rgb(190, 239, 190);*/
+  background-color: rgba(138, 114, 46, 0.4);
 }
 
 .colorpalettes {
@@ -350,6 +387,7 @@ input {
   position: absolute;
   top: 0;
   right: 0;
+  overflow: scroll;
 }
 
 .themes-container {
@@ -376,46 +414,59 @@ input {
 
 .menu-btn {
   display: block;
-  color: #000;
+  /*color: #000;*/
   cursor: pointer;
   padding: 5% 15%;
   width: 100%;
   height: 20%;
   text-align: center;
   line-height: 3;
-  border: 1px solid #000;
+  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
+  border: 0;
   font-size: 16px;
   font-weight: 700;
-  background-color: #eee;
+  font-family: 'Prompt', sans-serif;
+  /*background-color: #eee;*/
 }
 
 .elements-btn {
   display: block;
-  color: #000;
+  /*color: #000;*/
   cursor: pointer;
   padding: 6% 7%;
   height: 12.5%;
   width: 100%;
   text-align: center;
   line-height: 3;
-  border: 1px solid #000;
+  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
+  border: 0;
   font-size: 16px;
   font-weight: 700;
-  background-color: #eee;
+  font-family: 'Prompt', sans-serif;
+  /*background-color: #eee;*/
 }
 
-.menu-btn:hover,
-.elements-btn:hover,
-.btn:hover,
+/*.btn:hover,
 .status-btn:hover,
-.page-btn:hover {
-  background-color: #222;
+.page-btn:hover,*/
+.menu-btn:hover,
+.elements-btn:hover {
+  /*background-color: green;*/
+  border: 10px solid darkgreen;
+  color: darkgreen;
+  opacity:1;
+  transition:all 0.3s ease;
 }
+
+
 
 .btn {
   margin: 5px 0;
   margin-left: 5px;
   margin-right: 10px;
+  border: 0;
+  box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
+
 }
 
 .page-btn {
@@ -433,10 +484,10 @@ input {
   padding: 5px 5px;
   text-align: center;
   line-height: 1;
-  border: 1px solid #000;
+  /*border: 1px solid #000;*/
   font-size: 14px;
   font-weight: 700;
-  border-radius: 5%;
+  border-radius: 10px;
 
 }
 
@@ -444,10 +495,13 @@ input {
     position: absolute;
     top: 15%;
     right:35%;
-    width: 30%;
+    width: 25%;
     height: 30%;
-    background-color: #E5DEBE;
-    border-radius: 0;
+    background-color: lightgreen;
+    color: darkgreen;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }
 
 .loginForm {
@@ -490,19 +544,47 @@ input {
 .page-btn {
   display: inline-block;
   margin: 0 0.5%;
-  background-color: #E5DEBE;
+  background-color: lightgreen;
+  color: darkgreen;
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }
 
 .status-btn {
   width: 40%;
   margin: 0 5%;
+  border: 0;
+  box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
 }
 
-#reset-btn {
-  background-color: #E54A43;
-}
-
-#save-btn,
+#reset-btn,
 .btn {
-  background-color: #4EE55F;
+  background-color: lightgreen;
+    color: darkgreen;
+}
+
+#save-btn {
+  background-color: darkgreen;
+    color: lightgreen;
+}
+.btn:hover,
+.page-btn:hover,
+#view-btn:hover,
+#reset-btn:hover,
+#save-btn:hover {
+    background-color: rgba(138, 114, 46, 0.4);
+    color: darkgreen;
+    transition:all 0.5s ease;
+    border: 3px solid *rgba(138, 114, 46, 0.4);
+}
+
+/*.btn,
+.status-btn,
+.page-btn,*/
+.menu-btn,
+.elements-btn {
+    color: *rgba(138, 114, 46, 0.4);
+    background-color: lightgreen;
+    opacity:0.5;
 }
