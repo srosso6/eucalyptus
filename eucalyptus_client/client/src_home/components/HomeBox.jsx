@@ -68,6 +68,7 @@ const HomeBox = React.createClass({
                         <p>Welcome to Eucalyptus, a CMS built with React!</p>
                         <p>Bunch of cool guys, making cool shit.</p>
                         <p>I sell sea shells on the sea shore.</p>
+                        
 
                         <b className='bForSiteSearchReg'>--</b>
                         <p className='pForSiteSearchReg'>Already have a site?</p>
