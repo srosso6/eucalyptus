@@ -2,7 +2,7 @@ var React = require('react');
 
 module.exports = {
 
-    request: function(reqtype, url, data=null, isJSON=true) {
+    request: function(reqtype, url, data={}, isJSON=true) {
         return new Promise(function(resolve, reject) {
             var request = new XMLHttpRequest();
             request.onload = function() {
@@ -29,8 +29,18 @@ module.exports = {
         });
     },
 
-    generateHTML: function(data, onDoubleClickFunction) {
-        return React.createElement(data.etype, {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`}, data.content);
+    generateHTML: function(data, onDoubleClickFunction, onDragStartFunction, onDragEndFunction, notEditing=true) {
+        var extrasObj = {key: data._id, onDoubleClick: onDoubleClickFunction, className: `user_${data.etype}`, draggable: true, onDragStart: onDragStartFunction, onDragEnd: onDragEndFunction };
+        var hrefObj = {};
+        var content = data.content;
+        if (data.etype === "img") {
+            hrefObj = {src: data.url, height: "100px", width: "100px"};
+            content = null;
+        } else if (data.etype === "a" && notEditing) {
+            hrefObj = {href: data.url};
+        }
+        Object.assign(extrasObj, hrefObj);
+        return React.createElement(data.etype, extrasObj, content);
 
     },
 
@@ -74,11 +84,15 @@ module.exports = {
         document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     },
     loadCSS: function(sitename) {
-      var styleTag = document.createElement("style");
+        var styleTag = document.getElementsByTagName('style')[0]
+        if(!styleTag) {
+            styleTag = document.createElement("style");
+        }
 
       this.request("get", sitename+'/currenttheme', null, false)
       .then(function(data) {
         styleTag.innerHTML = data;
+        console.log('this is data',data);
         var parent = document.getElementsByTagName('head')[0];
         parent.insertBefore(styleTag, parent.firstChild);
       });

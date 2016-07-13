@@ -8,17 +8,12 @@ var bodyParser = require('body-parser');
 var url = "mongodb://localhost:27017/";
 var fs = require('fs');
 
-// var cors = require('cors')
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 
-// app.use(cors());
 app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  // res.setHeader("Access-Control-Allow-Origin", "GET, POST, OPTIONS, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 app.get('/:database/currenttheme', function(req, res) {
@@ -216,8 +211,8 @@ app.post('/:database/register', function (req, res) {
                                             res.json("");
                                         } else {
                                             var elements = db.collection('elements');
-                                            elements.insert({etype: "h1", content: "Welcome to your site!", medialibrary_id: null, page_id: docs.insertedIds[0], order: 1})
-                                            res.json(userdocs)
+                                            elements.insert({etype: "h1", content: "Welcome to your site!", url: null, page_id: docs.insertedIds[0], order: 1})
+                                            res.json({_id: userdocs.insertedIds[0]})
                                             db.close();
                                         }
                                     });
@@ -246,7 +241,8 @@ app.post('/:database/register', function (req, res) {
                         }
                     });
                     var fontsall = db.collection('fonts');
-                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'CBangers'}], function(err, docs) {
+
+                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'Bangers'}, {_font: 'Farsan'}, {_font: 'Inconsolata'}, {_font: 'Indie+Flower'}, {_font: 'Katibeh'}, {_font: 'Poiret+One'}, {_font: 'Suez+One'}, {_font: 'Tillana'}, {_font: 'Work+Sans'}], function(err, docs) {
                         if (err) {
                             res.json("");
                         } else {
@@ -363,7 +359,7 @@ app.post('/:database/:collection', function(req, res) {
 
 
 app.post('/:database/:collection/:id', function(req, res) {
-    var paletteId = req.params.id;
+    var deleteID = req.params.id;
     MongoClient.connect(url + req.params.database, function(err, db) {
         console.log("url", url + req.params.database);
         if (err) {
@@ -371,11 +367,27 @@ app.post('/:database/:collection/:id', function(req, res) {
             res.status(404).end()
         } else {
             var collection = db.collection(req.params.collection);
+
             console.log("Collection", collection);
-            console.log("palette to delete", paletteId);
-            collection.remove({_id: ObjectId(paletteId)});
-            db.close;
-            res.status(200).end();
+            console.log("element to delete", deleteID);
+            collection.remove({_id: ObjectId(deleteID)}, function(err, docs) {
+                if (err) {
+                    res.status(500).end();
+                    db.close();
+                } else {
+                    if (req.params.collection === "pages") {
+                        collection = db.collection('elements')
+                        collection.remove({page_id: ObjectId(deleteID)}, function(err, docs) {
+                            db.close();
+                            res.status(200).end();
+                        });
+                    } else {
+                        db.close();
+                        res.status(200).end();
+                    }
+                }
+
+            });
         }
     });
 

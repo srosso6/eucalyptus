@@ -29,20 +29,29 @@ var LoginBox = React.createClass({
 
     },
     findUser: function(user) {
-        var request = new XMLHttpRequest()
-        request.onload = function() {
-            if (request.status === 200) {
-                if (request.responseText === "") {
-                    this.setState({error: "Incorrect Email or Password"});
-                } else {
-                    this.setFind(JSON.parse(request.responseText));
-                }
-            }
-        }.bind(this)
+        // var request = new XMLHttpRequest()
+        // request.onload = function() {
+        //     if (request.status === 200) {
+        //         if (request.responseText === "") {
+        //             this.setState({error: "Incorrect Email or Password"});
+        //         } else {
+        //             this.setFind(JSON.parse(request.responseText));
+        //         }
+        //     }
+        // }.bind(this)
+        //
+        // request.open("POST", "http://localhost:5000/"+this.props.site+"/users");
+        // request.setRequestHeader("Content-Type", "application/json");
+        // request.send(JSON.stringify(user));
 
-        request.open("POST", "http://localhost:5000/"+this.props.site+"/users");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(user));
+        Koala.request("POST", this.props.site + "/users", user)
+        .then(function(data) {
+            if (data === '') {
+                this.setState({error: "Incorrect Email or Password"});
+            } else {
+                this.setFind(data);
+            }
+        }.bind(this));
 
         // SWITCH TO Koala.request!
     },
@@ -73,16 +82,22 @@ var LoginBox = React.createClass({
             errorText = (<div className="error">{this.state.error}</div>)
         }
         return (
-            <div>
-                <form>
-                    <h1>Login:</h1>
-                    <label>Username:</label>
-                    <input type='text' value={this.state.userlogin} onChange={this.userInput}></input>
-                    <label>Password:</label>
-                    <input type='password' value={this.state.userpassword} onChange={this.passwordInput}></input>
-                    <button onClick={this.login}>Login</button>
-                </form>
-                {errorText}
+            <div className='loginDiv'>
+                <div className='headerDivLogin'>
+                    <h1 className='h1Login'></h1>
+                    <img className='leafs' src='/static/home/images/leafs.png'></img>
+                </div>
+                <div className='loginForm'>
+                    <form>
+                        <h1>Login:</h1>
+                        <label className='loginLabel'>Username:</label>
+                        <input className='loginInput' type='text' value={this.state.userlogin} onChange={this.userInput}></input>
+                        <label className='loginLabel'>Password:</label>
+                        <input className='loginInput' type='password' value={this.state.userpassword} onChange={this.passwordInput}></input>
+                        <button className='loginButton' onClick={this.login}>Login</button>
+                    </form>
+                    {errorText}
+                </div>
             </div>
         );
     }
