@@ -73,7 +73,7 @@ module.exports = {
     setCookie: function(name, value, expDays) {
         var expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + (expDays*24*60*60*1000));
-        document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString();
+        document.cookie = name+"="+value+"; "+"expires=" + expiryDate.toGMTString() + "; path=/";
     },
     getCookie: function(name) {
         var re = new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`);
@@ -81,7 +81,10 @@ module.exports = {
         return cookieValue;
     },
     deleteCookie: function(name) {
-        document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        var cookieVal = this.getCookie(name);
+        console.log('cv', cookieVal);
+        document.cookie = name+"="+cookieVal+"; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        // document.cookie = name+"="+cookieVal+"; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
     },
     loadCSS: function(sitename) {
         var styleTag = document.getElementsByTagName('style')[0]

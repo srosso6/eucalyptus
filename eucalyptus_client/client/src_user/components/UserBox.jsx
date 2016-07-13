@@ -81,10 +81,16 @@ var UserBox = React.createClass({
             )
         }.bind(this))
 
+        var adminLink = null;
+
+        if (Koala.getCookie("EucalyptusUser")) {
+            adminLink = (<a href={"/"+this.props.sitename+"/admin"} onClick={this.changePage}>Edit your page</a>);
+        }
+
 
         return (
             <div >
-                <a href={"/"+this.props.sitename+"/admin"} onClick={this.changePage}>Edit your page</a>
+                {adminLink}
                 <div className="navbar">
                     {pages}
                 </div>
