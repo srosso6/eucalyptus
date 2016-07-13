@@ -4,7 +4,7 @@ var Koala = require('../../../library.jsx');
 var ColorsDisplay = React.createClass({
     getInitialState: function() {
         return {
-            currentPalette: null
+            currentPalette: {_id: null}
         };
     },
 
@@ -38,13 +38,19 @@ var ColorsDisplay = React.createClass({
 
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette
-        console.log("palette to delete", paletteId);
-        var request = new XMLHttpRequest();
-        request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
-        // request.setRequestHeader("Content-Type", "application/json");
-        request.send(null);
-        this.props.getAll();
-        this.currentPalette();
+        // console.log("palette to delete", paletteId);
+        //
+        // var request = new XMLHttpRequest();
+        // request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
+        // request.send(null);
+
+        Koala.request("post", this.props.site+"/colorschemes/"+paletteId)
+        .then(function(data) {
+            console.log('deleted palette');
+            this.props.getAll();
+            this.currentPalette();
+        }.bind(this));
+
     },
 
     render: function() {
@@ -73,7 +79,7 @@ var ColorsDisplay = React.createClass({
             }
             var paletteName = palette.name
             return (
-                <div key={paletteName} className={paletteName}>
+                <div key={palette._id} className={paletteName}>
                     <h5>{paletteName}{chosen}</h5>
                     <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
                     <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
