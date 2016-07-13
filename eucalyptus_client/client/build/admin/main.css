@@ -102,154 +102,34 @@ body {
 
 .Inconsolata {
     font-family: Inconsolata;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 
 .ArimaMadurai {
     font-family: Arima Madurai;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .Bangers {
     font-family: Bangers;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .Farsan {
     font-family: Farsan;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .IndieFlower {
     font-family: Indie Flower;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .Katibeh {
     font-family: Katibeh;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .PoiretOne {
     font-family: Poiret One;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .SuezOne {
     font-family: Suez One;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .Tillana {
     font-family: Tillana;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .WorkSans {
     font-family: Work Sans;
-    /*display: block;
-    color: #000;
-    cursor: pointer;
-    padding: 6% 7%;
-    height: 12.5%;
-    width: 100%;
-    text-align: center;
-    line-height: 3;
-    border: 1px solid #000;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #eee;*/
 }
 .Square {
     display: block;
@@ -339,11 +219,6 @@ input {
   /*border: 1px solid blue;*/
 }
 
-/*.preview-container {
-  border: 2px solid aqua;
-  height: 100%;
-}*/
-
 .preview {
   display: inline-block;
   vertical-align: top;
@@ -359,7 +234,9 @@ input {
   display: inline-block;
   height: 100%;
   width: 100%;
-  border: 5px solid lightgreen;
+  border-right: 1px solid rgba(0, 100, 0, 0.8);
+  border-left: 1px solid rgba(0, 100, 0, 0.8);
+  border-top: 1px solid rgba(0, 100, 0, 0.8);
 }
 
 .elements {
@@ -399,6 +276,8 @@ input {
   /*background-color: rgb(190, 239, 190);*/
   background-color: rgba(138, 114, 46, 0.4);
   /*opacity: 0.5;*/
+  border-right: 1px solid rgba(0, 100, 0, 0.8);
+  border-left: 1px solid rgba(0, 100, 0, 0.8);
 }
 
 
@@ -592,5 +471,5 @@ input {
     background-color: rgba(138, 114, 46, 0.4);
     color: darkgreen;
     transition:all 0.5s ease;
-    border: 3px solid *rgba(138, 114, 46, 0.4);
+    border: 3px solid rgba(138, 114, 46, 0.4);
 }
