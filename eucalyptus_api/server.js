@@ -1,12 +1,13 @@
-var express = require('express');
-var app = express();
-var path = require('path');
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectId;
-var bcrypt = require('bcrypt');
-var bodyParser = require('body-parser');
-var url = "mongodb://localhost:27017/";
-var fs = require('fs');
+const express = require('express');
+const app = express();
+const path = require('path');
+const Configs = require('./defaults_config.js');
+const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
+const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
+const url = "mongodb://localhost:27017/";
+const fs = require('fs');
 
 app.use(bodyParser.json());
 
@@ -68,7 +69,6 @@ app.get('/:database/currenttheme', function(req, res) {
             if (err) {
                 console.log('5');
                 res.send("");
-
                 db.close();
             } else {
                 console.log('general', docs);
@@ -201,17 +201,17 @@ app.post('/:database/register', function (req, res) {
                     var checkIfCompleted = function(){
                         if(colorscheme_id && theme_id && font_id){
                             var collection2 = db.collection('general');
-                            collection2.insert({sitename: req.params.database, base_url: "localhost:3000", admin_id: userdocs.insertedIds[0], index: 'home', colorscheme_id: colorscheme_id, theme_id: theme_id, font_id: font_id}, function(err, docs){
+                            collection2.insert(Configs.siteInfo(req.params.database, userdocs.insertedIds[0], colorscheme_id, theme_id, font_id), function(err, docs){
                                 if (err) {
                                     res.json("");
                                 } else {
                                     var collection3 = db.collection('pages');
-                                    collection3.insert({name: "Home Page", slug: 'home'}, function(err, docs) {
+                                    collection3.insert(Configs.pageDefaults, function(err, docs) {
                                         if (err) {
                                             res.json("");
                                         } else {
                                             var elements = db.collection('elements');
-                                            elements.insert({etype: "h1", content: "Welcome to your site!", url: null, page_id: docs.insertedIds[0], order: 1})
+                                            elements.insert(Configs.elementsDefaults(docs.insertedIds[0]));
                                             res.json({_id: userdocs.insertedIds[0]})
                                             db.close();
                                         }
@@ -222,7 +222,7 @@ app.post('/:database/register', function (req, res) {
                         }
                     }
                     var colorschemesall = db.collection('colorschemes');
-                    colorschemesall.insert({name: "Default", _background: "#fcb421", _headerBackground: "#1094ab", _headerText: "#64c4d2", _text: "#000000", _feature: "#ffffff"}, function(err, docs){
+                    colorschemesall.insert(Configs.colorDefaults, function(err, docs){
                         if (err) {
                             res.json("");
                         } else {
@@ -232,7 +232,7 @@ app.post('/:database/register', function (req, res) {
 
                     });
                     var themesall = db.collection('themes');
-                    themesall.insert([{name: "Round", url: "round"},{name: "Square", url: "square"}], function(err, docs){
+                    themesall.insert(Configs.themeDefaults, function(err, docs){
                         if (err) {
                             res.json("");
                         } else {
@@ -242,7 +242,7 @@ app.post('/:database/register', function (req, res) {
                     });
                     var fontsall = db.collection('fonts');
 
-                    fontsall.insert([{_font: 'Arima+Madurai'}, {_font: 'Bangers'}, {_font: 'Farsan'}, {_font: 'Inconsolata'}, {_font: 'Indie+Flower'}, {_font: 'Katibeh'}, {_font: 'Poiret+One'}, {_font: 'Suez+One'}, {_font: 'Tillana'}, {_font: 'Work+Sans'}], function(err, docs) {
+                    fontsall.insert(Configs.fontDefaults, function(err, docs) {
                         if (err) {
                             res.json("");
                         } else {
