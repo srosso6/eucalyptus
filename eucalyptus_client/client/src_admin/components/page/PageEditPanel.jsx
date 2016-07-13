@@ -4,6 +4,8 @@ var EditPageSelector = require('./EditPageSelector.jsx');
 var ElementsPanel = require('./ElementsPanel.jsx');
 var FontBox = require('../fonts/FontBox.jsx');
 var ThemeBox = require('../themes/ThemeBox.jsx');
+var ColorsDisplay = require('../colors/ColorsDisplay.jsx');
+var ColorPickerBox = require('../colors/ColorPickerBox.jsx');
 var PageStatus = require('./PageStatus.jsx');
 var NewPage = require('./NewPage.jsx');
 var Koala = require('../../../library.jsx');
@@ -17,12 +19,14 @@ var PageEditPanel = React.createClass({
             onIndex: true,
             changes: false,
             pages: null,
+            allPalettes:[{_id: 1}],
             itemBar: 'pages'
         }
     },
 
     componentDidMount: function() {
         this.loadPages();
+        this.getAllPalettes();
     },
 
     loadPages: function(page_slug) {
@@ -135,12 +139,38 @@ var PageEditPanel = React.createClass({
         }.bind(this));
 
     },
+    getAllPalettes: function(){
+        Koala.request("GET", this.props.site+"/colorschemes")
+        .then(function(data) {
+            // console.log(data);
+            this.setState({allPalettes: data});
+        }.bind(this));
+    },
     render: function() {
         var sideBar = null
         console.log("Tagaroo",this.props.menuItem);
+        var topBar = (
+            <div className="pages">
+                <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
+                <a href={"/"+this.props.site}><button id="view-btn">View your page</button></a>
+                <PageStatus
+                    changes={this.state.changes}
+                    onIndex={this.state.onIndex}
+                    resetPage={this.resetPage}
+                    savePage={this.savePage}
+                    setHomePage={this.setHomePage}
+                    deletePage={this.deletePage}
+                />
+                <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
+            </div>
+        );
         switch(this.props.menuItem) {
             case 'pages':
                 sideBar = <ElementsPanel addElement={this.addElement}/>
+                break;
+            case 'colors':
+                sideBar = <ColorsDisplay site={this.props.site} palettes={this.state.allPalettes} getAll={this.getAllPalettes}/>
+                topBar = (<div className="pages"><ColorPickerBox site={this.props.site} getAllPalettes={this.getAllPalettes}/></div>);
                 break;
             case 'fonts':
                 sideBar = <FontBox site={this.props.site}/>
@@ -149,23 +179,12 @@ var PageEditPanel = React.createClass({
                 sideBar = <ThemeBox site={this.props.site}/>
                 break;
         }
+
         return (
           <div className="container">
-              <div className="pages">
-                  <NewPage sitename={this.props.site} reloadPages={this.loadPages}/>
-                  <a href={"/"+this.props.site}><button id="view-btn">View your page</button></a>
-                  <PageStatus
-                      changes={this.state.changes}
-                      onIndex={this.state.onIndex}
-                      resetPage={this.resetPage}
-                      savePage={this.savePage}
-                      setHomePage={this.setHomePage}
-                      deletePage={this.deletePage}
-                  />
-                  <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
-              </div>
-                <PreviewPanel elements={this.state.elements} edited={this.editElement} deleteElement={this.deleteElement}></PreviewPanel>
-                {sideBar}
+              {topBar}
+              <PreviewPanel elements={this.state.elements} edited={this.editElement} deleteElement={this.deleteElement}></PreviewPanel>
+              {sideBar}
           </div>
         );
     }
