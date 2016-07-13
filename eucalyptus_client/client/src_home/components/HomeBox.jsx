@@ -52,7 +52,8 @@ const HomeBox = React.createClass({
     render: function() {
         var error = null
         if(this.state.error) {
-            error = <b className="errorSiteSearch">{this.state.error}</b>
+            // error = <b className="errorSiteSearch">{this.state.error}</b>
+            error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
         }
     return (
         <div>
