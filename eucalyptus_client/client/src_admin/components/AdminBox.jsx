@@ -38,20 +38,23 @@ var AdminBox = React.createClass({
         }
     },
 
-    setPage: function(page) {
-        console.log('click', page);
-        if (page === "logout") {
-            console.log('logout');
-            Koala.deleteCookie('EucalyptusUser');
-            this.setState({page: "home", currentUser: null});
-        } else {
-            this.setState({page: page});
-        }
-    },
+    // setPage: function(page) {
+    //     console.log('click', page);
+    //     if (page === "logout") {
+    //         console.log('logout');
+    //         Koala.deleteCookie('EucalyptusUser');
+    //         this.setState({page: "home", currentUser: null});
+    //     } else {
+    //         this.setState({page: page});
+    //     }
+    // },
 
     setMenuItem: function(item) {
         if (item === "logout") {
+            console.log("LOGOUT");
             Koala.deleteCookie('EucalyptusUser');
+            console.log("cookie:",Koala.getCookie('EucalyptusUser'));
+
             this.setState({menuItem: "pages", currentUser: null});
         } else {
             this.setState({menuItem: item});
