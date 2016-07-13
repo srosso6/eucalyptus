@@ -74,8 +74,10 @@ var LoginBox = React.createClass({
         }
         return (
             <div className='loginDiv'>
-                <h1 className='h1Login'></h1>
-                <img className='leafs' src='/static/home/images/leafs.png'></img>
+                <div className='headerDivLogin'>
+                    <h1 className='h1Login'></h1>
+                    <img className='leafs' src='/static/home/images/leafs.png'></img>
+                </div>
                 <div className='loginForm'>
                     <form>
                         <h1>Login:</h1>
