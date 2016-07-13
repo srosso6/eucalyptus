@@ -70,7 +70,7 @@ var Element = React.createClass({
       if(this.state.editing) {
         if (this.props.element.etype === "img" || this.props.element.etype === "a") {
             element = (
-                <span onBlur={this.closeEdit}>
+                <span>
                     <input defaultValue={this.state.content} type="text" ref="content" onKeyUp={this.editContent}  />
                     <input defaultValue={this.state.url} type="text" ref="url" onKeyUp={this.editUrl}  />
                     <button onClick={this.closeEdit} id="save-btn" className="">Save</button>
@@ -79,7 +79,7 @@ var Element = React.createClass({
             );
         } else {
             element = (
-                <span onBlur={this.closeEdit}>
+                <span>
                     <input defaultValue={this.state.content} type="text" ref="content" onKeyUp={this.editContent}  />
                         <button onClick={this.closeEdit} id="save-btn" className="">Save</button>
                     <button onClick={this.deleteElement} data-el-index={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
