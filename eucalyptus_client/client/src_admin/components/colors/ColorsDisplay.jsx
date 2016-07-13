@@ -86,7 +86,7 @@ var ColorsDisplay = React.createClass({
             return (
                 <div key={palette._id} className="colorpalette">
                     <h3>{paletteName}</h3>
-                    <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
+                    <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id} className="deletecolorp">Delete Me</button>
                     <div className={chosen}>
                         <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
                         <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
