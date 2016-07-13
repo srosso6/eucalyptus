@@ -376,7 +376,7 @@ app.post('/:database/:collection/:id', function(req, res) {
                 } else {
                     if (req.params.collection === "pages") {
                         collection = db.collection('elements')
-                        collection.remove({page_id: Objectid(deleteID)}, function(err, docs) {
+                        collection.remove({page_id: ObjectId(deleteID)}, function(err, docs) {
                             db.close();
                             res.status(200).end();
                         });

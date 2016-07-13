@@ -51,7 +51,7 @@ var LoginBox = React.createClass({
             } else {
                 this.setFind(data);
             }
-        });
+        }.bind(this));
 
         // SWITCH TO Koala.request!
     },

@@ -26,7 +26,6 @@ var Element = React.createClass({
       var stateObj = {content: event.target.value, currentTxtBox: 'content'};
 
       if(event.keyCode === 13) {
-        this.closeEdit();
         Object.assign(stateObj, {editing: false})
       }
 
@@ -42,7 +41,6 @@ var Element = React.createClass({
       var stateObj = {url: event.target.value, currentTxtBox: 'url'};
 
       if(event.keyCode === 13) {
-        this.closeEdit();
         Object.assign(stateObj, {editing: false})
       }
 
@@ -54,7 +52,7 @@ var Element = React.createClass({
   },
 
   closeEdit: function(e) {
-    //   this.setState({editing: false})
+      this.setState({editing: false})
   },
 
   deleteElement: function(e) {
@@ -75,13 +73,15 @@ var Element = React.createClass({
                 <span onBlur={this.closeEdit}>
                     <input defaultValue={this.state.content} type="text" ref="content" onKeyUp={this.editContent}  />
                     <input defaultValue={this.state.url} type="text" ref="url" onKeyUp={this.editUrl}  />
+                    <button onClick={this.closeEdit} id="save-btn" className="">Save</button>
                     <button onClick={this.deleteElement} data-el-index={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
                 </span>
             );
         } else {
             element = (
                 <span onBlur={this.closeEdit}>
-                    <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent}  />
+                    <input defaultValue={this.state.content} type="text" ref="content" onKeyUp={this.editContent}  />
+                        <button onClick={this.closeEdit} id="save-btn" className="">Save</button>
                     <button onClick={this.deleteElement} data-el-index={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
                 </span>
             );

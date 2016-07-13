@@ -12,6 +12,7 @@ var PageEditPanel = React.createClass({
         return {
             elements: [],
             page_id: null,
+            onIndex: true,
             changes: false,
             pages: null
         }
@@ -28,21 +29,26 @@ var PageEditPanel = React.createClass({
         .then(function(page_data) {
             console.log('data', page_data);
             var curPageId = page_data[0]._id;
+            var onIndex = true;
             if (page_slug) {
                 for (var pg_dta of page_data) {
                     if (pg_dta.slug === page_slug) {
                         curPageId = pg_dta._id
+                        if (page_slug !== "home") {
+                            onIndex = false;
+                        }
                         console.log('setting curPageId');
                     }
                 }
             }
-            this.setState({pages: page_data, page_id: curPageId}, function() {
+            this.setState({pages: page_data, page_id: curPageId, onIndex: onIndex}, function() {
             this.loadElements(page_data[0]._id);
             }.bind(this))
         }.bind(this))
     },
 
     setPage: function(page_id) {
+
         this.loadElements(page_id);
     },
 
@@ -104,8 +110,9 @@ var PageEditPanel = React.createClass({
         }
     },
 
-    deletePage: function(page_id) {
-        Koala.request("POST", this.props.site+"/pages/"+page_id)
+    deletePage: function() {
+
+        Koala.request("POST", this.props.site+"/pages/"+this.state.page_id)
         .then(function(data) {
             console.log('page deleted');
             this.loadPages();
@@ -115,7 +122,16 @@ var PageEditPanel = React.createClass({
     resetPage: function() {
         this.loadElements(this.state.page_id);
     },
+    setHomePage: function() {
+        Koala.request("GET", this.props.site+"/pages/"+this.state.page_id)
+        .then(function(data) {
+            Koala.request("POST", this.props.site+"/general", {index: data[0].slug})
+            .then(function(data) {
+                console.log("saved index");
+            });
+        }.bind(this));
 
+    },
     render: function() {
         return (
           <div className="container">
@@ -124,8 +140,11 @@ var PageEditPanel = React.createClass({
                   <a href={"/"+this.props.site}><button id="view-btn">View your page</button></a>
                   <PageStatus
                       changes={this.state.changes}
+                      onIndex={this.state.onIndex}
                       resetPage={this.resetPage}
                       savePage={this.savePage}
+                      setHomePage={this.setHomePage}
+                      deletePage={this.deletePage}
                   />
                   <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
               </div>
