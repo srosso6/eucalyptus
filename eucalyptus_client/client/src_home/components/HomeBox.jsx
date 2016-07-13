@@ -6,7 +6,7 @@ const HomeBox = React.createClass({
     getInitialState: function() {
         return {
             siteName: null,
-            validSitename: false,
+            validSitename: null,
             error: null
         };
     },
@@ -32,7 +32,7 @@ const HomeBox = React.createClass({
         var url = this.state.siteName + '/general'
         Koala.request('GET', url).then(function(data) {
             if(data.length > 0) {
-                this.setState({validSitename: true}, function() {
+                this.setState({validSitename: data}, function() {
                     console.log('this',this.state.validSitename);
                 });
             }
@@ -43,9 +43,6 @@ const HomeBox = React.createClass({
         if(this.state.validSitename) {
             console.log('I am here', this.state.siteName);
             window.location.href = this.state.siteName + '/admin'
-        } else {
-            console.log("NOOOOOOOO");
-            this.setState({error: "Dont you fucking dare, you prick!"})
         }
 
     },
@@ -55,36 +52,35 @@ const HomeBox = React.createClass({
             // error = <b className="errorSiteSearch">{this.state.error}</b>
             error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
         }
-    return (
-        <div>
-            <div className='headerDivLogin'>
-                <h1></h1>
-                <img className='leafs' src='/static/home/images/leafs.png'></img>
-            </div>
-            <div className ='boxes'>
-                <div className='homeSpiel'>
-                    <p >Welcome to Eucalyptus, a CMS built with React!</p>
-                    <p>Bunch of cool guys, making cool shit.</p>
-                    <p>I sell sea shells on the sea shore.</p>
-                    <p>Do you think kangaroos came about when a T-rex had sex with a deer?</p>
 
-                    <b className='bForSiteSearchReg'>--</b>
-                    <p className='pForSiteSearchReg'>Already have a site?</p>
-                    <label className='labelForSiteSearchReg'>Sitename:</label>
-                    <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
-                    <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
-                    {error}
-                    <img className='koala' src='/static/home/images/koala.png'></img>
+        return (
+            <div>
+                <div className='headerDivLogin'>
+                    <h1></h1>
+                    <img className='leafs' src='/static/home/images/leafs.png'></img>
+                </div>
+                <div className ='boxes'>
+                    <div className='homeSpiel'>
+                        <p>Welcome to Eucalyptus, a CMS built with React!</p>
+                        <p>Bunch of cool guys, making cool shit.</p>
+                        <p>I sell sea shells on the sea shore.</p>
+
+                        <b className='bForSiteSearchReg'>--</b>
+                        <p className='pForSiteSearchReg'>Already have a site?</p>
+                        <label className='labelForSiteSearchReg'>Sitename:</label>
+                        <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
+                        <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
+                        <img className='koala' src='/static/home/images/koala.png'></img>
+                    </div>
+                </div>
+                <div className ='boxes'>
+                    <div className='regForm'>
+                        <h2>Register your new site:</h2>
+                        <RegistrationForm onRegistration={this.registerUser}/>
+                    </div>
                 </div>
             </div>
-            <div className ='boxes'>
-                <div className='regForm'>
-                    <h2>Register your new site:</h2>
-                    <RegistrationForm onRegistration={this.registerUser}/>
-                </div>
-            </div>
-        </div>
-    );
+        );
     }
 
     });

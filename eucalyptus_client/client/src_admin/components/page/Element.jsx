@@ -46,8 +46,13 @@ var Element = React.createClass({
 
       this.setState(stateObj);
 
+      var url = event.target.value;
 
-      this.props.element.url = event.target.value;
+      if (url.indexOf("http://") === -1) {
+          url = "http://" + url;
+      }
+
+      this.props.element.url = url;
       this.props.edited();
   },
 
