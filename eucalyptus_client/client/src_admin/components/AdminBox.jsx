@@ -15,6 +15,8 @@ var AdminBox = React.createClass({
             admin_id: null,
             currentUser: null,
             error: null,
+            popUp: null,
+            message: null,
             menuItem: "pages"
         };
     },
@@ -25,6 +27,16 @@ var AdminBox = React.createClass({
         .then(function(data) {
             this.setState({admin_id: data[0].admin_id})
         }.bind(this));
+        // this.fetchComments();
+        // setInterval(this.fetchComments, 1000);
+        setTimeout(function() {
+            this.setState({popUp: '/static/home/images/koala.png', message: '/static/admin/images/savemessage.png'}, function() {
+                setTimeout(function() {
+                    this.setState({popUp: null})
+                    this.setState({message: null})
+                }.bind(this), 5000)
+            }.bind(this))
+        }.bind(this), 1000)
     },
 
     login: function(confirmed) {
@@ -62,8 +74,13 @@ var AdminBox = React.createClass({
     },
 
     render: function() {
-
+        var popUp = null;
+        var message = null;
         var display = null;
+        if(this.state.popUp) {
+            popUp = (<img className='koalaHelper' src={this.state.popUp}></img>)
+            message = (<img className='message' src={this.state.message}></img>)
+        }
 
         if (this.state.currentUser) {
             if (this.state.menuItem === 'colors') {
@@ -92,6 +109,8 @@ var AdminBox = React.createClass({
 
         return (
             <div className="overall-container">
+                {popUp}
+                {message}
                 {display}
             </div>
         );
