@@ -49,8 +49,10 @@ const HomeBox = React.createClass({
     render: function() {
     return (
         <div>
-            <h1></h1>
-            <img className='leafs' src='/static/home/images/leafs.png'></img>
+            <div className='headerDivLogin'>
+                <h1></h1>
+                <img className='leafs' src='/static/home/images/leafs.png'></img>
+            </div>
             <div className ='boxes'>
                 <div className='homeSpiel'>
                     <p >Welcome to Eucalyptus, a CMS built with React!</p>
