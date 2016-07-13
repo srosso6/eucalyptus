@@ -335,16 +335,21 @@ input {
   display: inline-block;
   vertical-align: top;
 }
+.pageButtonsContainer {
+    width: 500px;
+}
 
 .page-btns {
   /*border: 1px solid orange;*/
   display: inline-block;
   width: 500px;
+  /*width: auto;*/
   height: 40%;
   position: absolute;
   bottom: 3%;
   right: 1%;
-  overflow-x: scroll;
+  overflow-y: scroll;
+  /*overflow-x: hidden;*/
 }
 
 #slug {

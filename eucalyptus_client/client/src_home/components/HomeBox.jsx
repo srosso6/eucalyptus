@@ -6,7 +6,7 @@ const HomeBox = React.createClass({
     getInitialState: function() {
         return {
             siteName: null,
-            validSitename: null,
+            validSitename: false,
             error: null
         };
     },
@@ -32,7 +32,7 @@ const HomeBox = React.createClass({
         var url = this.state.siteName + '/general'
         Koala.request('GET', url).then(function(data) {
             if(data.length > 0) {
-                this.setState({validSitename: data}, function() {
+                this.setState({validSitename: true}, function() {
                     console.log('this',this.state.validSitename);
                 });
             }
@@ -43,10 +43,17 @@ const HomeBox = React.createClass({
         if(this.state.validSitename) {
             console.log('I am here', this.state.siteName);
             window.location.href = this.state.siteName + '/admin'
+        } else {
+            console.log("NOOOOOOOO");
+            this.setState({error: "Dont you fucking dare, you prick!"})
         }
 
     },
     render: function() {
+        var error = null
+        if(this.state.error) {
+            error = <b className="errorSiteSearch">{this.state.error}</b>
+        }
     return (
         <div>
             <div className='headerDivLogin'>
@@ -58,12 +65,14 @@ const HomeBox = React.createClass({
                     <p >Welcome to Eucalyptus, a CMS built with React!</p>
                     <p>Bunch of cool guys, making cool shit.</p>
                     <p>I sell sea shells on the sea shore.</p>
+                    <p>Do you think kangaroos came about when a T-rex had sex with a deer?</p>
 
                     <b className='bForSiteSearchReg'>--</b>
                     <p className='pForSiteSearchReg'>Already have a site?</p>
                     <label className='labelForSiteSearchReg'>Sitename:</label>
                     <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
                     <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
+                    {error}
                     <img className='koala' src='/static/home/images/koala.png'></img>
                 </div>
             </div>
