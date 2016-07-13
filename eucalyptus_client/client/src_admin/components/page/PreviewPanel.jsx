@@ -6,7 +6,7 @@ var PreviewPanel = React.createClass({
 
     render: function() {
         const elements = this.props.elements.map(function (element, index) {
-          return <Element key={element._id} elIndex={index} element={element} edited={this.props.edited}/>
+          return <Element key={element._id} elIndex={index} element={element} deleteElement={this.props.deleteElement} edited={this.props.edited}/>
         }.bind(this));
 
         return (

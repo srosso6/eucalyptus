@@ -37,7 +37,7 @@ module.exports = {
         } else if (data.etype === "a") {
             hrefObj = {href: data.url};
         }
-        extrasObj = Object.assign({}, extrasObj, hrefObj);
+        Object.assign(extrasObj, hrefObj);
         return React.createElement(data.etype, extrasObj, data.content);
 
     },

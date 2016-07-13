@@ -26,7 +26,7 @@ var Element = React.createClass({
 
       if(event.keyCode === 13) {
         this.closeEdit();
-        stateObj = Object.assign({}, stateObj, {editing: false})
+        Object.assign(stateObj, {editing: false})
       }
 
       this.setState(stateObj);
@@ -42,7 +42,7 @@ var Element = React.createClass({
 
       if(event.keyCode === 13) {
         this.closeEdit();
-        stateObj = Object.assign({}, stateObj, {editing: false})
+        Object.assign(stateObj, {editing: false})
       }
 
       this.setState(stateObj);
@@ -50,14 +50,16 @@ var Element = React.createClass({
 
       this.props.element.url = event.target.value;
       this.props.edited();
-  }
+  },
 
   closeEdit: function(e) {
     //   this.setState({editing: false})
   },
 
   deleteElement: function(e) {
-      console.log('id', e.target.dataset.cheese);
+      var index = e.target.dataset.elIndex;
+      console.log('id', index);
+    //   this.props.deleteElement(index)
   },
 
   render: function() {
@@ -72,7 +74,7 @@ var Element = React.createClass({
                 <span onBlur={this.closeEdit}>
                     <input defaultValue={this.state.content} type="text" ref="input" onKeyUp={this.editContent}  />
                     <input defaultValue={this.state.url} type="text" onKeyUp={this.editUrl}  />
-                    <button onClick={this.deleteElement} data-cheese={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
+                    <button onClick={this.deleteElement} data-elIndex={this.props.elIndex} id="reset-btn" className="delete-btn">Delete</button>
                 </span>
             );
         } else {

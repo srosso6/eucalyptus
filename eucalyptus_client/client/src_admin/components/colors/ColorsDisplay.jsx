@@ -40,10 +40,16 @@ var ColorsDisplay = React.createClass({
     deleteMe: function(e){
         var paletteId = e.target.dataset.palette
         console.log("palette to delete", paletteId);
+
         var request = new XMLHttpRequest();
         request.open("post", "http://localhost:5000/"+this.props.site+"/colorschemes/"+paletteId);
-        // request.setRequestHeader("Content-Type", "application/json");
         request.send(null);
+
+        // Koala.request("post", this.props.sitename+"/colorschemes/"+paletteId)
+        // .then(function(data) {
+        //     console.log('deleted palette');
+        // });
+
         this.props.getAll();
         this.currentPalette();
     },

@@ -44,6 +44,15 @@ var LoginBox = React.createClass({
         request.setRequestHeader("Content-Type", "application/json");
         request.send(JSON.stringify(user));
 
+        // Koala.request("POST", this.props.site + "/users", user)
+        // .then(function(data) {
+        //     if (data === '') {
+        //         this.setState({error: "Incorrect Email or Password"});
+        //     } else {
+        //         this.setFind(data);
+        //     }
+        // });
+
         // SWITCH TO Koala.request!
     },
     login: function(e) {
