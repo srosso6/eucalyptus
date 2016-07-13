@@ -5,10 +5,26 @@ var Koala = require('../library.jsx');
 
 window.onload = function(){
     var sitename = Koala.getSiteName(window.location.href);
-    ReactDOM.render(
-        <AdminBox site={sitename}/>,
-        document.getElementById('app')
-    );
 
-    Koala.loadCSS(sitename);
+    Koala.checkValidSiteName(sitename)
+    .then(function(valid) {
+        if (valid) {
+            ReactDOM.render(
+                <AdminBox site={sitename}/>,
+                document.getElementById('app')
+            );
+
+            Koala.loadCSS(sitename);
+        } else {
+            console.log('fail');
+            window.location.href = "/";
+        }
+    }.bind(this));
+
+    // ReactDOM.render(
+    //     <AdminBox site={sitename}/>,
+    //     document.getElementById('app')
+    // );
+    //
+    // Koala.loadCSS(sitename);
 }

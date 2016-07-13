@@ -106,6 +106,26 @@ module.exports = {
         var parent = document.getElementsByTagName('head')[0];
         parent.insertBefore(styleTag, parent.firstChild);
       });
-    }
+  },
+  checkValidSiteName: function(sitename) {
+
+      return new Promise(function(resolve, reject) {
+          this.request('get', sitename+'/general')
+          .then(function(data) {
+              console.log('datttta', data);
+              resolve(data.length > 0);
+          })
+      }.bind(this));
+
+
+    //   var url = this.state.siteName + '/general'
+    //   this.request('GET', url).then(function(data) {
+    //       if(data.length > 0) {
+    //           this.setState({validSitename: data}, function() {
+    //               console.log('this',this.state.validSitename);
+    //           });
+    //       }
+    //   }.bind(this))
+  }
 
 }

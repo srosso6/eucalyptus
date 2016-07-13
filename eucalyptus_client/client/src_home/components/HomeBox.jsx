@@ -19,24 +19,21 @@ const HomeBox = React.createClass({
     },
 
     registerUser: function (sitename, newUser) {
-    var url = sitename + "/register";
+        var url = sitename + "/register";
 
-    Koala.request("POST", url, newUser).then(function (data) {
-        Koala.setCookie('EucalyptusUser', data._id, sitename, 30);
-        window.location.href = "http://localhost:3000/" + sitename + "/admin";
-    }).catch(function(error) {
-        console.error("Cannot redirect", error);
-    });
+        Koala.request("POST", url, newUser).then(function (data) {
+            Koala.setCookie('EucalyptusUser', data._id, sitename, 30);
+            window.location.href = "http://localhost:3000/" + sitename + "/admin";
+        }).catch(function(error) {
+            console.error("Cannot redirect", error);
+        });
     },
     checkForSite: function () {
-        var url = this.state.siteName + '/general'
-        Koala.request('GET', url).then(function(data) {
-            if(data.length > 0) {
-                this.setState({validSitename: data}, function() {
-                    console.log('this',this.state.validSitename);
-                });
-            }
-        }.bind(this))
+        Koala.checkValidSiteName(this.state.siteName)
+        .then(function(valid) {
+            console.log('hit here');
+            this.setState({validSitename: valid});
+        }.bind(this));
     },
     toLogin: function(e) {
         e.preventDefault()
@@ -68,7 +65,7 @@ const HomeBox = React.createClass({
                         <p>Welcome to Eucalyptus, a CMS built with React!</p>
                         <p>Bunch of cool guys, making cool shit.</p>
                         <p>I sell sea shells on the sea shore.</p>
-                        
+
 
                         <b className='bForSiteSearchReg'>--</b>
                         <p className='pForSiteSearchReg'>Already have a site?</p>
