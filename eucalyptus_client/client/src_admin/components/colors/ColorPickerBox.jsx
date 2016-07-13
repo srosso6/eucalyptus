@@ -87,43 +87,46 @@ var ColorPickerBox = React.createClass({
         var divStyle5 = {
             background: this.state.feature
         }
+        var picker = "click here -> "
 
         return (
             <div className="colours-container">
-                <p>Color Selector</p>
+                <h2>Color Selector</h2>
                 <form onSubmit={this.handleColorAdd} className="background">
-                    Choose your Page Background Color:
+                    Background Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle1} />
                 <form onSubmit={this.handleColorAdd} className="headerBackground">
-                    Choose your Header Background Color:
+                    Header Background Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle2} />
                 <form onSubmit={this.handleColorAdd} className="headerText">
-                    Choose your Header Text Color:
+                    Header Text Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle3} />
                 <form onSubmit={this.handleColorAdd} className="text">
-                    Choose your Text Color:
+                    Text Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle4} />
                 <form onSubmit={this.handleColorAdd} className="feature">
-                    Choose your Feature Color:
+                    Feature Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
                     <input type="submit" value="Add this colour"/>
                 </form>
                 <div className="color-div" style={divStyle5} />
-                <input type="text" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
-                <input type="button" onClick={this.handleReset} value="Reset Color Palette"/>
-                <input type="button" onClick={this.handleSave} value="Add Color Palette"/>
+                <div className="colorinputbox">
+                    <input type="text" className="colorinput" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
+                    <input type="button" className="colorinput" onClick={this.handleReset} value="Reset Color Palette"/>
+                    <input type="button" className="colorinput" onClick={this.handleSave} value="Add Color Palette"/>
+                </div>
                 <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} getAll={this.getAllPalettes}/>
             </div>
         );

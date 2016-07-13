@@ -46,7 +46,7 @@ var FontBox = React.createClass({
 
     render: function() {
         var buttons = this.state.fonts.map(function(font) {
-            return (<button type='button' value={font._id} id={font._font} className={font._font.replace("+", "")} onClick={this.saveFont} >{font._font.replace("+", " ")}</button>)
+            return (<button type='button' value={font._id} id={font._font} className={"elements-btn font-btn-stuff " + font._font.replace("+", "")} onClick={this.saveFont} >{font._font.replace("+", " ")}</button>)
         }.bind(this))
         return (
             <div className="fonts">
