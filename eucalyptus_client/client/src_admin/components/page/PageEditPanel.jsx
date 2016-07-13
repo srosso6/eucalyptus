@@ -2,6 +2,8 @@ var React = require('react');
 var PreviewPanel = require('./PreviewPanel.jsx');
 var EditPageSelector = require('./EditPageSelector.jsx');
 var ElementsPanel = require('./ElementsPanel.jsx');
+var FontBox = require('../fonts/FontBox.jsx');
+var ThemeBox = require('../themes/ThemeBox.jsx');
 var PageStatus = require('./PageStatus.jsx');
 var NewPage = require('./NewPage.jsx');
 var Koala = require('../../../library.jsx');
@@ -14,7 +16,8 @@ var PageEditPanel = React.createClass({
             page_id: null,
             onIndex: true,
             changes: false,
-            pages: null
+            pages: null,
+            itemBar: 'pages'
         }
     },
 
@@ -133,6 +136,19 @@ var PageEditPanel = React.createClass({
 
     },
     render: function() {
+        var sideBar = null
+        console.log("Tagaroo",this.props.menuItem);
+        switch(this.props.menuItem) {
+            case 'pages':
+                sideBar = <ElementsPanel addElement={this.addElement}/>
+                break;
+            case 'fonts':
+                sideBar = <FontBox site={this.props.site}/>
+                break;
+            case 'themes':
+                sideBar = <ThemeBox site={this.props.site}/>
+                break;
+        }
         return (
           <div className="container">
               <div className="pages">
@@ -149,7 +165,7 @@ var PageEditPanel = React.createClass({
                   <EditPageSelector pages={this.state.pages} setPage={this.setPage} />
               </div>
                 <PreviewPanel elements={this.state.elements} edited={this.editElement} deleteElement={this.deleteElement}></PreviewPanel>
-                <ElementsPanel addElement={this.addElement}/>
+                {sideBar}
           </div>
         );
     }

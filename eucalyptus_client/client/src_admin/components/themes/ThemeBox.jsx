@@ -1,5 +1,5 @@
 var React = require('react');
-var koala = require('../../../library.jsx')
+var Koala = require('../../../library.jsx')
 
 
 
@@ -14,8 +14,8 @@ var ThemeBox = React.createClass({
 
     componentDidMount: function() {
         var url = this.props.site + '/'
-        koala.request('GET', url +'general').then(function(genData) {
-            koala.request('GET', url + 'themes').then(function(data) {
+        Koala.request('GET', url +'general').then(function(genData) {
+            Koala.request('GET', url + 'themes').then(function(data) {
                 this.setState({themes: data, selectedTheme: genData.theme_id}, function() {
                     console.log(this.state.themes);
 
@@ -34,10 +34,11 @@ var ThemeBox = React.createClass({
     saveTheme: function(e) {
         var url = this.props.site + '/'
         e.preventDefault()
-        // koala.request('POST', url + 'general', {theme_id: this.state.selectedTheme}).then(function() {
-        koala.request('POST', url + 'general', {theme_id: e.target.value}).then(function() {
+        // Koala.request('POST', url + 'general', {theme_id: this.state.selectedTheme}).then(function() {
+        Koala.request('POST', url + 'general', {theme_id: e.target.value}).then(function() {
+            Koala.loadCSS(this.props.site)
             console.log('theme change saved');
-        })
+        }.bind(this))
     },
 
     // render: function() {
