@@ -8,6 +8,18 @@ div {
     transition:all 0.5s ease;
 }
 
+.chosen {
+    margin-left: 20px;
+    border: 10px solid black;
+    border-radius: 12px;
+    width: 120px;
+}
+
+.color-div {
+  width: 100px;
+  height: 50px;
+}
+
 /*rgba(138, 114, 46, 0.4)
 green
 lightgreen
@@ -178,10 +190,7 @@ body {
   /*color: green;*/
 }
 
-.color-div {
-  width: 100px;
-  height: 50px;
-}
+
 
 .colorinputbox {
     margin-top: 10px;

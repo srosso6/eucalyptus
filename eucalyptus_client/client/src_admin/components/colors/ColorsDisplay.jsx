@@ -58,7 +58,8 @@ var ColorsDisplay = React.createClass({
             var chosen = null;
             var buttonshow = null;
             if(palette._id === this.state.currentPalette._id) {
-                chosen = " This is your current Color Palette"
+                // chosen = " This is your current Color Palette"
+                chosen = "chosen"
                 buttonshow = "disabled"
             }
             var divStyle1 = {
@@ -79,21 +80,24 @@ var ColorsDisplay = React.createClass({
             }
             var paletteName = palette.name
             return (
-                <div key={palette._id} className={paletteName}>
-                    <h5>{paletteName}{chosen}</h5>
+                <div key={palette._id} className="colorpalette">
+                    <h5>{paletteName}</h5>
                     <button onClick={this.deleteMe} disabled={buttonshow} data-palette={palette._id}>Delete Me</button>
-                    <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
-                    <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
-                    <div className="color-div" data-palette={palette._id} style={divStyle3} onClick={this.setPalette}></div>
-                    <div className="color-div" data-palette={palette._id} style={divStyle4} onClick={this.setPalette}></div>
-                    <div className="color-div" data-palette={palette._id} style={divStyle5} onClick={this.setPalette}></div>
+                    <div className={chosen}>
+                        <div className="color-div" data-palette={palette._id} style={divStyle1} onClick={this.setPalette}></div>
+                        <div className="color-div" data-palette={palette._id} style={divStyle2} onClick={this.setPalette}></div>
+                        <div className="color-div" data-palette={palette._id} style={divStyle3} onClick={this.setPalette}></div>
+                        <div className="color-div" data-palette={palette._id} style={divStyle4} onClick={this.setPalette}></div>
+                        <div className="color-div" data-palette={palette._id} style={divStyle5} onClick={this.setPalette}></div>
+                    </div>
                 </div>
              )
         }.bind(this));
 
         return (
             <div className="colorpalettes">
-                <h2>Your Color Palettes</h2>
+                <h2>Color Palettes - </h2>
+                <h3>Click on any palette below to use it!</h3>
                 {boxesofcolor}
             </div>
         );

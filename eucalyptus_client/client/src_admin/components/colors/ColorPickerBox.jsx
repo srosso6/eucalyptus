@@ -91,7 +91,7 @@ var ColorPickerBox = React.createClass({
 
         return (
             <div className="colours-container">
-                <h2>Color Selector</h2>
+                <h2>Color Selector - pick your colors below!</h2>
                 <form onSubmit={this.handleColorAdd} className="background">
                     Background Color: {picker}
                     <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
