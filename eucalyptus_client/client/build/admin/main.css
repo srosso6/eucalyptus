@@ -51,14 +51,17 @@ body {
     border-top: 0px;
     border-style: solid;
 }
+.headerDivLogin {
+    /*border: 5px solid red;*/
+    position:relative;
+}
 .leafs {
     position: absolute;
     right: 40%;
-    bottom: 75%;
+    bottom: -40px;
     width: 300px;
     /*height: 50%;*/
 }
-
 /*.btn,
 .status-btn,
 .page-btn,*/
@@ -412,7 +415,8 @@ input {
     background-color: rgba(138, 114, 46, 0.4);
     width: 500px;
     height: 100%;
-    margin:auto 50px;
+    /*margin:auto 50px;*/
+    margin-top: 50px;
     padding-left: 20px;
     border-radius: 40px;
     padding-top:20px;
