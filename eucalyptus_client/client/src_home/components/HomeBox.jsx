@@ -7,8 +7,17 @@ const HomeBox = React.createClass({
         return {
             siteName: null,
             validSitename: null,
-            error: false
+            message: null
         };
+    },
+    componentDidMount: function() {
+        setTimeout(function() {
+            this.setState({message: 'greeting'}, function() {
+                setTimeout(function() {
+                    this.setState({message: null})
+                }.bind(this),3000)
+            }.bind(this))
+        }.bind(this),2000)
     },
     handleChange: function(e) {
         e.preventDefault()
@@ -34,14 +43,22 @@ const HomeBox = React.createClass({
         if(this.state.validSitename) {
             window.location.href = this.state.siteName + '/admin'
         } else {
-            this.setState({error: true})
+            this.setState({message: 'error'}, function() {
+                setTimeout(function() {
+                    this.setState({message: null})
+                }.bind(this), 3000)
+            }.bind(this))
         }
 
     },
     render: function() {
-        var error = null
-        if(this.state.error) {
-            error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
+
+        var message = null
+        if(this.state.message === 'error') {
+            console.log('here', this.state.message);
+            message = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
+        } else if(this.state.message === 'greeting') {
+            message = <img className='errorBubble' src='/static/home/images/greeting.png'></img>
         }
 
         return (
@@ -63,7 +80,7 @@ const HomeBox = React.createClass({
                         <label className='labelForSiteSearchReg'>Sitename:</label>
                         <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
                         <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
-                        {error}
+                        {message}
                         <img className='koala' src='/static/home/images/koala.png'></img>
                     </div>
                 </div>
