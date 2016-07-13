@@ -212,7 +212,7 @@ app.post('/:database/register', function (req, res) {
                                         } else {
                                             var elements = db.collection('elements');
                                             elements.insert({etype: "h1", content: "Welcome to your site!", url: null, page_id: docs.insertedIds[0], order: 1})
-                                            res.json(userdocs)
+                                            res.json({_id: userdocs.insertedIds[0]})
                                             db.close();
                                         }
                                     });
