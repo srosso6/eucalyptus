@@ -7,8 +7,17 @@ const HomeBox = React.createClass({
         return {
             siteName: null,
             validSitename: null,
-            error: false
+            message: null
         };
+    },
+    componentDidMount: function() {
+        setTimeout(function() {
+            this.setState({message: 'greeting'}, function() {
+                setTimeout(function() {
+                    this.setState({message: null})
+                }.bind(this),3000)
+            }.bind(this))
+        }.bind(this),2000)
     },
     handleChange: function(e) {
         e.preventDefault()
@@ -44,16 +53,22 @@ const HomeBox = React.createClass({
             console.log('I am here', this.state.siteName);
             window.location.href = this.state.siteName + '/admin'
         } else {
-            this.setState({error: true})
+            this.setState({message: 'error'}, function() {
+                setTimeout(function() {
+                    this.setState({message: null})
+                }.bind(this), 3000)
+            }.bind(this))
         }
 
     },
     render: function() {
-        var error = null
-        if(this.state.error) {
+        var message = null
+        if(this.state.message === 'error') {
             // error = <b className="errorSiteSearch">{this.state.error}</b>
-            console.log('here', this.state.error);
-            error = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
+            console.log('here', this.state.message);
+            message = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
+        } else if(this.state.message === 'greeting') {
+            message = <img className='errorBubble' src='/static/home/images/greeting.png'></img>
         }
 
         return (
@@ -68,14 +83,14 @@ const HomeBox = React.createClass({
                         <p>Welcome to Eucalyptus, a CMS built with React!</p>
                         <p>Bunch of cool guys, making cool shit.</p>
                         <p>I sell sea shells on the sea shore.</p>
-                        
+
 
                         <b className='bForSiteSearchReg'>--</b>
                         <p className='pForSiteSearchReg'>Already have a site?</p>
                         <label className='labelForSiteSearchReg'>Sitename:</label>
                         <input  className='inputForSiteSearchReg' type='text' onChange={this.handleChange}></input>
                         <button className='buttonForSiteSearchReg' onClick={this.toLogin}>To My Site</button>
-                        {error}
+                        {message}
                         <img className='koala' src='/static/home/images/koala.png'></img>
                     </div>
                 </div>

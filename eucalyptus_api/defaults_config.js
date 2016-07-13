@@ -15,7 +15,7 @@ var configs = {
         return {etype: "h1", content: "Welcome to your site!", url: null, page_id: page_id, order: 1}
     },
     colorDefaults: {name: "Default", _background: "#fcb421", _headerBackground: "#1094ab", _headerText: "#64c4d2", _text: "#000000", _feature: "#ffffff"},
-    themeDefaults: [{name: "Round", url: "round"},{name: "Square", url: "square"}],
+    themeDefaults: [{name: "Round", url: "round"},{name: "Square", url: "square"}, {name: 'Beach', url:'beach'}],
     fontDefaults: [{_font: 'Arima+Madurai'}, {_font: 'Bangers'}, {_font: 'Farsan'}, {_font: 'Inconsolata'}, {_font: 'Indie+Flower'}, {_font: 'Katibeh'}, {_font: 'Poiret+One'}, {_font: 'Suez+One'}, {_font: 'Tillana'}, {_font: 'Work+Sans'}]
 };
 
