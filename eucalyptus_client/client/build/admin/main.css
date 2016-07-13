@@ -39,16 +39,6 @@ green
 lightgreen
 darkgreen*/
 
-/*#app {
-  height: 500px;
-}*/
-
-/*.overall-container {
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
-}*/
-
 body {
   background-color: lightgreen;
   font-weight: 700;
@@ -72,7 +62,6 @@ body {
     right: 25%;
     bottom: 25%
 }
-
 
 .h1Login {
     background-image: url('./images/text2.png');
@@ -251,10 +240,6 @@ input {
     display: inline-block;
     margin-left: 5px;
 }
-
-
-
-
 
 /*.slug {
     margin-left: px;
