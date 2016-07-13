@@ -50,6 +50,46 @@ body {
         border-style: solid;
 }
 
+.menu-btn {
+  display: block;
+  /*color: #000;*/
+  cursor: pointer;
+  padding: 5% 15%;
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  line-height: 3;
+  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Prompt', sans-serif;
+  /*background-color: #eee;*/
+}
+
+.elements-btn {
+  display: block;
+  /*color: #000;*/
+  cursor: pointer;
+  padding: 6% 7%;
+  height: 12.5%;
+  width: 100%;
+  text-align: center;
+  line-height: 3;
+  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Prompt', sans-serif;
+  /*background-color: #eee;*/
+}
+
+.font-btn-stuff {
+    font-size: 25px;
+    font-weight: 700;
+    padding-top: 0;
+}
+
 .Inconsolata {
     font-family: Inconsolata;
     /*display: block;
@@ -411,40 +451,6 @@ input {
 }
 
 /* BUTTONS */
-
-.menu-btn {
-  display: block;
-  /*color: #000;*/
-  cursor: pointer;
-  padding: 5% 15%;
-  width: 100%;
-  height: 20%;
-  text-align: center;
-  line-height: 3;
-  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
-  border: 0;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Prompt', sans-serif;
-  /*background-color: #eee;*/
-}
-
-.elements-btn {
-  display: block;
-  /*color: #000;*/
-  cursor: pointer;
-  padding: 6% 7%;
-  height: 12.5%;
-  width: 100%;
-  text-align: center;
-  line-height: 3;
-  /*border: 1px solid rgba(138, 114, 46, 0.4);*/
-  border: 0;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Prompt', sans-serif;
-  /*background-color: #eee;*/
-}
 
 /*.btn:hover,
 .status-btn:hover,
