@@ -15,9 +15,23 @@ div {
     width: 120px;
 }
 
+.colortext {
+    text-shadow: 1px 1px 2px white;
+    pointer-events: none;
+}
+
 .color-div {
   width: 100px;
-  height: 50px;
+  height: 80px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 1%;
+}
+
+.color-div p {
+    /*vertical-align: bottom;*/
 }
 
 /*rgba(138, 114, 46, 0.4)
@@ -190,14 +204,10 @@ body {
   /*color: green;*/
 }
 
-
-
-.colorinputbox {
-    margin-top: 10px;
-}
-
-.colorinput {
-    margin-right: 5px;
+.colorpickertext {
+    margin-left: 1%;
+    display:inline-block;
+    width: 80px;
 }
 
 input {
@@ -210,6 +220,29 @@ input {
   box-shadow: 2px 2px 5px rgba(138, 114, 46, 0.4);
   padding-left: 3px;
 }
+
+.colorinput {
+    margin-right: 5px;
+    display: block;
+}
+
+.picker{
+    display: inline-block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.colorinputbox {
+    /*margin-top: 10px;*/
+    display: inline-block;
+    margin-left: 5px;
+}
+
+
+
+
 
 /*.slug {
     margin-left: px;
@@ -318,12 +351,12 @@ input {
   width: 30%;
 }
 
-.colours-container {
+.colours-picker {
   display: inline-block;
-  width: 80%;
+  width: 100%;
   height: 100%;
-  position: relative;
-  padding: 5% 5%;
+  /*position: relative;*/
+  /*padding: 5% 5%;*/
   vertical-align: top;
   /*background-color: rgb(190, 239, 190);*/
   background-color: rgba(138, 114, 46, 0.4);
@@ -331,7 +364,7 @@ input {
 
 .colorpalettes {
   display: inline-block;
-  width: 30%;
+  width: 20%;
   height: 100%;
   position: absolute;
   top: 0;

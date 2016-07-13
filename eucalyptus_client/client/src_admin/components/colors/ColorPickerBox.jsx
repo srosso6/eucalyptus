@@ -15,22 +15,22 @@ var ColorPickerBox = React.createClass({
             feature: "#ffffff",
             palettename:"",
             allPalettes:[{_id: 1}],
-            changes: false,
-            colorresponse: null
+            changes: false
         };
     },
 
     componentDidMount: function() {
-        this.getAllPalettes();
+        this.props.getAllPalettes();
     },
 
-    getAllPalettes: function(){
-        Koala.request("GET", this.props.site+"/colorschemes")
-        .then(function(data) {
-            // console.log(data);
-            this.setState({allPalettes: data});
-        }.bind(this));
-    },
+    // getAllPalettes: function(){
+    //     Koala.request("GET", this.props.site+"/colorschemes")
+    //     .then(function(data) {
+    //         // console.log(data);
+    //         this.setState({allPalettes: data});
+    //     }.bind(this));
+    //     Koala.loadCSS(this.props.site);
+    // },
 
     handleColorChange: function(e){
         this.setState({currentcolor: e.target.value});
@@ -40,7 +40,7 @@ var ColorPickerBox = React.createClass({
         e.preventDefault();
         var newcolor = this.state.currentcolor;
         var stateObject = {};
-        var state = e.target.className;
+        var state = e.target.className.split(" ")[0];
         stateObject[state] = newcolor;
         this.setState( stateObject );
     },
@@ -50,7 +50,7 @@ var ColorPickerBox = React.createClass({
     },
 
     handleReset: function(){
-        this.setState({palettename:"", changes: false, currentcolor:"#ff0000", background: "", headerBackground: "", headerText: "", text: "", feature: ""});
+        this.setState({palettename:"", changes: false, currentcolor:"#ffffff", background: "#ffffff", headerBackground: "#ffffff", headerText: "#ffffff", text: "#ffffff", feature: "#ffffff"});
     },
 
     handleSave: function(){
@@ -68,12 +68,10 @@ var ColorPickerBox = React.createClass({
                 Koala.request("POST", this.props.site+"/colorschemes", data)
                     .then(function() {
                         console.log(data);
-                        this.getAllPalettes();
+                        this.props.getAllPalettes();
+                        Koala.loadCSS(this.props.site);
                     }.bind(this));
                 this.handleReset();
-                this.setState({colorresponse: (<h1>New Color Palette Added</h1>)});
-            } else {
-                this.setState({colorresponse: (<h1>Make sure you have selected 5 colors!</h1>)});
             }
 
     }
@@ -99,46 +97,35 @@ var ColorPickerBox = React.createClass({
         var picker = "click here -> "
 
         return (
-            <div className="colours-container">
-                <h2>Color Selector - pick your colors below!</h2>
-                <form onSubmit={this.handleColorAdd} className="background">
-                    Background Color: {picker}
-                    <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
-                    <input type="submit" value="Add this colour"/>
-                </form>
-                <div className="color-div" style={divStyle1} />
-                <form onSubmit={this.handleColorAdd} className="headerBackground">
-                    Header Background Color: {picker}
-                    <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
-                    <input type="submit" value="Add this colour"/>
-                </form>
-                <div className="color-div" style={divStyle2} />
-                <form onSubmit={this.handleColorAdd} className="headerText">
-                    Header Text Color: {picker}
-                    <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
-                    <input type="submit" value="Add this colour"/>
-                </form>
-                <div className="color-div" style={divStyle3} />
-                <form onSubmit={this.handleColorAdd} className="text">
-                    Text Color: {picker}
-                    <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
-                    <input type="submit" value="Add this colour"/>
-                </form>
-                <div className="color-div" style={divStyle4} />
-                <form onSubmit={this.handleColorAdd} className="feature">
-                    Feature Color: {picker}
-                    <input type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
-                    <input type="submit" value="Add this colour"/>
-                </form>
-                <div className="color-div" style={divStyle5} />
-                <div className="colorinputbox">
-                    <input type="text" className="colorinput" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
-                    <input type="button" className="colorinput" onClick={this.handleReset} value="Reset Color Palette"/>
-                    <input type="button" className="colorinput" onClick={this.handleSave} value="Add Color Palette"/>
+                <div className="colours-picker">
+                    <p className="colorpickertext">Click here to pick colours -></p>
+                    <input className="picker" type="color" value={this.state.currentcolor} onChange={this.handleColorChange}/>
+
+                    <div onClick={this.handleColorAdd} className="background color-div" style={divStyle1}>
+                        <p className="colortext">Background Color</p>
+                    </div>
+
+                    <div onClick={this.handleColorAdd} className="headerBackground color-div" style={divStyle2}>
+                        <p className="colortext">Header Background Color</p>
+                    </div>
+
+                    <div onClick={this.handleColorAdd} className="headerText color-div" style={divStyle3}>
+                        <p className="colortext">Header Text Color</p>
+                    </div>
+
+                    <div onClick={this.handleColorAdd} className="text color-div" style={divStyle4}>
+                        <p className="colortext">Text Color</p>
+                    </div>
+
+                    <div onClick={this.handleColorAdd} className="feature color-div" style={divStyle5}>
+                        <p className="colortext">Feature Color</p>
+                    </div>
+                    <div className="colorinputbox">
+                        <input type="text" className="colorinput" onChange={this.handleAddName} value={this.state.palettename} placeholder="Color Palette Name"/>
+                        <input type="button" className="colorinput" onClick={this.handleSave} value="Add Color Palette"/>
+                        <input type="button" className="colorinput" onClick={this.handleReset} value="Reset Color Palette"/>
+                    </div>
                 </div>
-                {this.state.colorresponse}
-                <ColorsDisplay site={this.props.site} user={this.props.user} palettes={this.state.allPalettes} getAll={this.getAllPalettes}/>
-            </div>
         );
     }
 
