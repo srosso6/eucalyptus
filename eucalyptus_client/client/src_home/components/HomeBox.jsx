@@ -55,7 +55,6 @@ const HomeBox = React.createClass({
 
         var message = null
         if(this.state.message === 'error') {
-            console.log('here', this.state.message);
             message = <img className='errorBubble' src='/static/home/images/bubble.png'></img>
         } else if(this.state.message === 'greeting') {
             message = <img className='errorBubble' src='/static/home/images/greeting.png'></img>
