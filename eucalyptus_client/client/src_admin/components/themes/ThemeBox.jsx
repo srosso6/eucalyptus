@@ -36,7 +36,7 @@ var ThemeBox = React.createClass({
     },
     render: function() {
         var buttons = this.state.themes.map(function(theme) {
-            return (<button type='button' value={theme._id} id={theme._id} className={theme.name} onClick={this.saveTheme} >{theme.name}</button>)
+            return (<button type='button' value={theme._id} id={theme._id} className={theme.name} onClick={this.saveTheme} key={theme._id}>{theme.name}</button>)
         }.bind(this))
         return (
             <div className="themes">
