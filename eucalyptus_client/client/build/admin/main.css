@@ -184,6 +184,20 @@ body {
     font-weight: 700;
     background-color: rgb(190, 239, 190);
 }
+.Beach {
+    display: block;
+    color: #000;
+    cursor: pointer;
+    padding: 6% 7%;
+    height: 12.5%;
+    width: 100%;
+    text-align: center;
+    line-height: 3;
+    border: 1px solid #000;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: rgb(190, 239, 190);
+}
 .Round {
     display: block;
     color: #000;
