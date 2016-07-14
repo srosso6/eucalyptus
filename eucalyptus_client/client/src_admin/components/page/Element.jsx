@@ -48,8 +48,9 @@ var Element = React.createClass({
 
       var url = event.target.value;
 
-      if (url.indexOf("http://") === -1 || url.indexOf("https://") === -1 ) {
+      if (url.indexOf("http://") === -1 && url.indexOf("https://") === -1 ) {
           url = "http://" + url;
+          console.log(url);
       }
 
       this.props.element.url = url;

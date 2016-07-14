@@ -3,6 +3,7 @@
 
 .user_body {
     background-image: url('/static/home/images/beach.jpg');
+    /*background-image: url(_image);*/
     /*background-image: url('http://themepack.me/i/c/749x468/media/g/416/beach-theme-1.jpg');*/
     background-repeat: no-repeat;
     background-size: cover;
