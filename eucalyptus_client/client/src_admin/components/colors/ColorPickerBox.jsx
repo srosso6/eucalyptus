@@ -8,9 +8,9 @@ var ColorPickerBox = React.createClass({
     getInitialState: function() {
         return {
             currentcolor:"#ffffff",
-            background: "#fcb421",
-            headerBackground: "#1094ab",
-            headerText: "#64c4d2",
+            background: "#ffffff",
+            headerBackground: "#ffffff",
+            headerText: "#000000",
             text: "#000000",
             feature: "#ffffff",
             palettename:"",
