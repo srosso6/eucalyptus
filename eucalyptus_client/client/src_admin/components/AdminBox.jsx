@@ -28,9 +28,9 @@ var AdminBox = React.createClass({
             this.setState({admin_id: data[0].admin_id})
         }.bind(this));
         setInterval(function() {
-            var num = (Math.round(Math.random()*3) + 1);
-            if (num > 3) {
-                num = 3;
+            var num = (Math.round(Math.random()*5) + 1);
+            if (num > 5) {
+                num = 5;
             }
             this.setState({popUp: '/static/home/images/koala.png', message: `/static/admin/images/${num}.png`}, function() {
                 setTimeout(function() {
