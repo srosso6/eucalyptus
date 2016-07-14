@@ -63,14 +63,16 @@ const RegistrationForm = React.createClass({
                   sitename: ""
                 });
             } else {
-                this.setState({error: "That site name is already taken"})
+                // this.setState({error: "That site name is already taken"})
+                this.setState({error: "taken"})
             }
 
         } else {
-            this.setState({error: "Passwords do not match!"})
+            // this.setState({error: "Passwords do not match!"})
+            this.setState({error: "password"})
         }
     } else {
-        this.setState({error: "All data is requireds."})
+        this.setState({error: "alldata"})
     }
 
   },
@@ -85,11 +87,35 @@ const RegistrationForm = React.createClass({
   render: function() {
       var error = null
       if(this.state.error) {
-          error = <p>{this.state.error}</p>
+          if(this.state.error === 'taken') {
+              error = <img className='errorBubble2' src='/static/home/images/sitetaken.png'></img>
+              setTimeout(function() {
+                  this.setState({error: null}, function() {
+                      error = null
+                  }.bind(this))
+
+              }.bind(this), 4000)
+          }else if(this.state.error === 'password'){
+              error = <img className='errorBubble2' src='/static/home/images/passwordstaken.png'></img>
+              setTimeout(function() {
+                  this.setState({error: null}, function() {
+                      error = null
+                  }.bind(this))
+
+              }.bind(this), 4000)
+          }else {
+              error = <img className='errorBubble2' src='/static/home/images/alldata.png'></img>
+              setTimeout(function() {
+                  this.setState({error: null}, function() {
+                      error = null
+                  }.bind(this))
+
+              }.bind(this), 4000)
+          }
       }
     return (
 
-      <div>
+      <div className='regBoxDiv'>
         <form onSubmit={this.handleReg}>
 
           <label htmlFor="name">Full Name:</label>
