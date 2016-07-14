@@ -27,6 +27,17 @@ h1 {
     left: 42%;
 }
 
+.regBoxDiv {
+    position: relative;
+}
+
+.errorBubble2 {
+    width: 180px;
+    position: absolute;
+    left: -85%;
+    bottom: 40%;
+}
+
 
 .homeSpiel {
     /*background-color: green;*/
